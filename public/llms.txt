@@ -10,13 +10,16 @@
 https://example.com
 סדנאות לעסקים והרצאות מעוררות השראה שהופכות מנהלים למנהיגים אמיתיים. גלו את הכוח להוביל, לצמוח ולהניע אחרים להצלחה. הצטרפו עוד היום למסע המנצח!
 
-### להכיר את הצוות
+### הסיפור שמאחורי המנהיגות המנצחת — Be A Winner
 https://example.com/meet-the-team
 הכירו את החזון שמניע את Be A Winner – מותג שמחויב להצמיח דור חדש של מנהיגים. למידע על הגישה הייחודית שלנו לתהליכי התפתחות עסקית, כנסו עכשיו.
 
 ### אפשרויות הלימוד שלנו
 https://example.com/learning-options
 Be A Winner - אפשרויות הלימוד שלנו
+
+### Page
+https://example.com/what-makes-us-unique
 
 ### ההוכחה שהשינוי מתחיל בכם — Be A Winner
 https://example.com/reviews
@@ -33,9 +36,6 @@ https://example.com/book
 ### הצעד הראשון למנהיגות שלכם — Be A Winner
 https://example.com/contact
 מוכנים להזניק את הקריירה והעסק קדימה? צרו קשר עוד היום לתיאום סדנאות למנכ&quot;לים והרצאות מותאמות אישית. אנחנו כאן כדי להפוך אתכם למנצחים.
-
-### Page
-https://example.com/what-makes-us-unique
 
 ## Legal & Policy
 
@@ -63,11 +63,11 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text, required)
-  - `email` (email, required)
+  - `name` (text)
+  - `email` (email)
   - `phone` (tel)
-  - `message` (textarea, required)
-  - `privacy_consent` (checkbox, required)
+  - `message` (textarea)
+  - `privacy_consent` (checkbox)
 
 ---
 
