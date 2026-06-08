@@ -950,6 +950,382 @@
               });
             })();
           </script>
+        
+<style data-zappy-section-v2-css="true">
+/* V2 Regenerated Section CSS */
+/* ==========================================================================
+   Makes-Us-Unique Layout Section — "Be A Winner"
+   Two-column side-by-side hero: Text on solid bg (Right), Image (Left)
+   ========================================================================== */
+
+/* ----- SECTION ROOT (Light Background) ----- */
+.what-Makes-Us-Unique-layout-section {
+  background: #F5F0E8;  /* fallback */
+  background: var(--bg-light);
+  color: var(--text-dark);
+  padding: 100px 24px 80px;
+  position: relative;
+  overflow: hidden;
+  direction: rtl;
+}
+
+/* ----- CONTAINER ----- */
+.what-Makes-Us-Unique-layout-section__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   DECORATIVE WATERMARK (Large outlined triangle, gold, low opacity)
+   ========================================================================== */
+.what-Makes-Us-Unique-layout-section__watermark {
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+.what-Makes-Us-Unique-layout-section__watermark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   IMAGE COLUMN (Left side in RTL)
+   ========================================================================== */
+.what-Makes-Us-Unique-layout-section__image-col {
+  flex: 0 0 48%;
+  position: relative;
+  z-index: 2;
+}
+
+.what-Makes-Us-Unique-layout-section__image-frame {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(26, 21, 53, 0.12);
+  background: var(--bg-dark);
+}
+
+.what-Makes-Us-Unique-layout-section__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 3 / 2;
+  transition: transform 0.4s ease;
+}
+
+.what-Makes-Us-Unique-layout-section__image-frame:hover .what-Makes-Us-Unique-layout-section__image {
+  transform: scale(1.03);
+}
+
+/* Circular Text Badge */
+.what-Makes-Us-Unique-layout-section__badge {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 140px;
+  height: 140px;
+  pointer-events: none;
+  z-index: 5;
+  filter: drop-shadow(0 4px 12px rgba(26, 21, 53, 0.15));
+}
+
+.what-Makes-Us-Unique-layout-section__badge svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: spinBadge 20s linear infinite;
+}
+
+@keyframes spinBadge {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   TEXT COLUMN (Right side in RTL)
+   ========================================================================== */
+.what-Makes-Us-Unique-layout-section__text-col {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: right;
+  z-index: 3;
+}
+
+.what-Makes-Us-Unique-layout-section__heading {
+  font-family: 'Sora', 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.what-Makes-Us-Unique-layout-section__heading-accent {
+  display: block;
+  color: var(--primary);
+  position: relative;
+}
+
+/* Underline accent for the "unique" word */
+.what-Makes-Us-Unique-layout-section__heading-accent::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--accent);
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.what-Makes-Us-Unique-layout-section__subtitle {
+  font-family: 'Sora', 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--primary);
+  margin: 0;
+  max-width: 540px;
+}
+
+.what-Makes-Us-Unique-layout-section__description {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 560px;
+}
+
+/* ==========================================================================
+   FEATURE LIST (Icon + Text)
+   ========================================================================== */
+.what-Makes-Us-Unique-layout-section__features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 8px 0 0;
+}
+
+.what-Makes-Us-Unique-layout-section__feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.what-Makes-Us-Unique-layout-section__feature-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(76, 59, 143, 0.08);
+  border-radius: 10px;
+  color: var(--primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.what-Makes-Us-Unique-layout-section__feature-item:hover .what-Makes-Us-Unique-layout-section__feature-icon {
+  background: var(--primary);
+  color: var(--text-light);
+}
+
+.what-Makes-Us-Unique-layout-section__feature-text {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+/* ==========================================================================
+   CTAs
+   ========================================================================== */
+.what-Makes-Us-Unique-layout-section__ctas {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+/* Primary Button */
+.what-Makes-Us-Unique-layout-section__btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #E8A030;
+  background: var(--accent);
+  color: #FFFFFF;
+  padding: 14px 28px;
+  border-radius: 100px;
+  border: none;
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 8px 24px rgba(232, 160, 48, 0.25);
+}
+
+.what-Makes-Us-Unique-layout-section__btn-primary:hover {
+  background: #D4932A;
+  box-shadow: 0 12px 32px rgba(232, 160, 48, 0.4);
+  transform: translateY(-2px);
+}
+
+.what-Makes-Us-Unique-layout-section__btn-primary svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.what-Makes-Us-Unique-layout-section__btn-primary:hover svg {
+  transform: translateX(4px);
+}
+
+/* Ghost Button */
+.what-Makes-Us-Unique-layout-section__btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: var(--primary);
+  border: none;
+  padding: 14px 20px;
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: color 0.3s ease, text-decoration-color 0.3s ease;
+  text-decoration-color: transparent;
+}
+
+.what-Makes-Us-Unique-layout-section__btn-ghost:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* ==========================================================================
+   RESPONSIVE — MOBILE (≤ 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .what-Makes-Us-Unique-layout-section {
+    padding: 100px 16px 60px;
+  }
+
+  .what-Makes-Us-Unique-layout-section__container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .what-Makes-Us-Unique-layout-section__image-col {
+    flex: 0 0 auto;
+    width: 100%;
+    order: -1; /* Image on top for mobile */
+  }
+
+  .what-Makes-Us-Unique-layout-section__image-frame {
+    border-radius: 12px;
+  }
+
+  .what-Makes-Us-Unique-layout-section__badge {
+    width: 100px;
+    height: 100px;
+    bottom: -15px;
+    right: -15px;
+  }
+
+  .what-Makes-Us-Unique-layout-section__text-col {
+    gap: 16px;
+    text-align: right;
+  }
+
+  .what-Makes-Us-Unique-layout-section__heading {
+    font-size: 2.25rem;
+  }
+
+  .what-Makes-Us-Unique-layout-section__subtitle {
+    font-size: 1.25rem;
+  }
+
+  .what-Makes-Us-Unique-layout-section__description {
+    font-size: 1rem;
+  }
+
+  .what-Makes-Us-Unique-layout-section__features {
+    gap: 12px;
+  }
+
+  .what-Makes-Us-Unique-layout-section__feature-item {
+    gap: 10px;
+  }
+
+  .what-Makes-Us-Unique-layout-section__feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  .what-Makes-Us-Unique-layout-section__ctas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .what-Makes-Us-Unique-layout-section__btn-primary,
+  .what-Makes-Us-Unique-layout-section__btn-ghost {
+    width: auto;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .what-Makes-Us-Unique-layout-section__watermark {
+    width: 200px;
+    height: 200px;
+    bottom: -20px;
+    left: -20px;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE — DESKTOP (≥ 769px) — Fine-tuning
+   ========================================================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .what-Makes-Us-Unique-layout-section__container {
+    gap: 40px;
+  }
+
+  .what-Makes-Us-Unique-layout-section__heading {
+    font-size: 2.5rem;
+  }
+
+  .what-Makes-Us-Unique-layout-section__image-col {
+    flex: 0 0 45%;
+  }
+}
+</style>
     <link rel="stylesheet" href="/styles.css">
     <script>window.ZAPPY_WEBSITE_ID = "d0fd95d0-fa69-47c8-abd2-e5414ed056c9"; window.ZAPPY_API_BASE = "https://api.zappy5.com";</script>
 
@@ -1457,43 +1833,101 @@
 </script>
   
   <main id="main">
-      <section id="layout-1780924243863" class="py-16 md:py-24 bg-white layout-section" data-zappy-component="true" style="width: 100%; padding: 60px 0;">
-        <div class="container mx-auto px-4 md:px-8 text-center">
-          <h1 class="text-3xl md:text-4xl font-bold mb-4">מה הופך אותנו לייחודיים</h1>
-          <p class="text-gray-600 text-lg" style="">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;מה הופך
-את Be A Winner לתהליך יחודי בתחומו?<br><!--[if !supportLists]-->1.    
-<!--[endif]-->התוצאות - אנחנו מכווני תוצאות, ותוצאות הן לעולם דבר מדיד.
-שום תהליך, אישי או קבוצתי, לא יוצא לדרך לפני שהלקוח למד להגדיר לעצמו את התוצאות
-הרצויות עבורו, ולפני שווידאנו שאנחנו יודעים לקחת אותו לשם. ברוב המוחלט של
-המקרים הלקוח מפיק תוצאות שהן הרבה מעבר למה שמסוגל היה לדמיין. אנחנו מקיימים את
-מה שמבטיחים ומבטיחים רק את מה שמסוגים לקיים. <br><!--[if !supportLists]-->2.    
-<!--[endif]-->לא מתאים לכולם ואנחנו בודקים זאת מראש - אנחנו מצהירים מראש שאנחנו לא
-נכונים לכולם, ולא כולם נכונים לנו. מכיוון שיש לנו הרבה כבוד והערכה לזמן ולכסף
-של הלקוחות שלנו, אנחנו בודקים זאת מראש בתהליך הכרות קצר המורכב משני שלבים. הראשון,
-מילוי שאלון. השני פגישת הכרות. <br>
+      <section class="what-Makes-Us-Unique-layout-section" data-layout-spec="What-Makes-Us-Unique-layout" data-hero-type="side-by-side" id="layout-1780924243863">
+  <div class="what-Makes-Us-Unique-layout-section__container">
+    
+    <!-- Decorative Geometric Watermark -->
+    <div class="what-Makes-Us-Unique-layout-section__watermark" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 190,180 10,180" fill="none" stroke="#D8A641" stroke-width="2" opacity="0.06"></polygon>
+      </svg>
+    </div>
 
-
-
-לתהליך ההכרות יש כמה מטרות: 1. להכיר זה את זה טוב יותר. 2. לברר האם
-ואיזה ערך מוסף יש לנו עבורך? 3. לעזור ללקוח לחדד את הקשיים והאתגרים שלו. 4. ללמד
-את הלקוח להגדיר לעצמו תוצאות רצויות עבורו, והאם אנחנו אכן יודעים לקחת אותו לאן
-שברצונו להגיע? בסוף תהליך ההכרות יש לכל אחד מהצדדים אפשרויות לבחור האם לצאת
-לדרך? הרשום כאן נכון הם לתהליך הקבוצתי והן לאישי. <br><!--[if !supportLists]-->3.    
-<!--[endif]-->התהליך הוליסטי - כלומר התהליך עוסק בקשיים והאתגרים של הלקוח הן
-בתחום האישי והן בתחום העסקי-מקצועי, וזה מהסיבה שהכל קשור להכל, ואין דרך להפריד
-ולא נכון להפריד. הניסיון המאוד עשיר שלנו מלמד שיכולתו של אדם ליצור שינוי עמוק
-ויסודי במקום הכי מאתגר עבורו, מאפשר לו לעשות זאת גם בכל תחום מתחומי חייו. <br><!--[if !supportLists]-->4.    
-<!--[endif]-->נשאר איתך לנצח - התהליך לא עוסק בהקניית ידע, כי אין לנו מה לחדש
-ללקוח בתחומי המומחיות שלו, אלא בהקניית כלים ומיומנויות שאין אותם למרבית האנשים.
-הכלים האלה נשארים עם הלקוח לנצח. ממש כמו ללמוד לרכב על אופניים, או ללמוד נהיגה,
-אין דרך לשכוח אותם. הם מאפשרים לו ליצור כל שינוי שחלם עליו, וגם כאלה שלא דמיין
-כלל שאפשריים עבורו, והכל באופן קל, פשוט, מהנה ובעיקר מעשי, תכלס. <br><!--[if !supportLists]-->5.    
-<!--[endif]-->אכפת לנו מהלקוח, באמת - ולכן אנחנו זמינים עבורו גם בין
-המפגשים, בטלפון או במייל. ובדיוק מהסיבה הזו אנחנו גם משחררים באהבה לקוחות שלא
-מסוגלים להביא את מידת הפתיחות והמחויבות הרצויים, המאפשרים לו להפיק את התוצאות
-שביקש עבורו. פשוט מפני שאכפת לנו מהלקוח, באמת.&nbsp; &nbsp; &nbsp; &nbsp;</p>
+    <!-- Image Column (Left in RTL) -->
+    <div class="what-Makes-Us-Unique-layout-section__image-col">
+      <div class="what-Makes-Us-Unique-layout-section__image-frame">
+        <img data-context="Professional leadership workshop scene in Israel: A diverse group of corporate managers engaged in an interactive training session. They are standing in a bright modern office space with floor-to-ceiling windows, gesturing and smiling. The atmosphere is energetic, motivational, and collaborative. Warm lighting with soft plum and gold accents in the decor." width="600" height="400" src="/assets/be-a-winner-leadership-development-training-section-What-Makes-Us-Unique-layout-what-Makes-Us-Unique-layout-image-1.webp" alt="סדנת מנהיגות אינטראקטיבית של Be A Winner" class="what-Makes-Us-Unique-layout-section__image">
+        <!-- Circular Text Badge -->
+        <div class="what-Makes-Us-Unique-layout-section__badge" aria-hidden="true">
+          <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <path id="circle-text-path" d="M 70,20 A 50,50 0 1 1 69.9,20"></path>
+            </defs>
+            <circle cx="70" cy="70" r="50" fill="none" stroke="#D8A641" stroke-width="1.5" opacity="0.8"></circle>
+            <text font-size="11" font-weight="700" fill="#D8A641" opacity="0.9" letter-spacing="1.5">
+              <textPath href="#circle-text-path" startOffset="0%">
+                BE A WINNER • LEADERSHIP • GROWTH •
+              </textPath>
+            </text>
+            <polygon points="70,55 82,78 58,78" fill="#D8A641" opacity="0.9"></polygon>
+          </svg>
         </div>
-      </section>
+      </div>
+    </div>
+
+    <!-- Text Content Column (Right in RTL) -->
+    <div class="what-Makes-Us-Unique-layout-section__text-col">
+      <h1 class="what-Makes-Us-Unique-layout-section__heading">
+        מה שהופך אותנו
+        <span class="what-Makes-Us-Unique-layout-section__heading-accent">לייחודיים</span>
+      </h1>
+      <h3 class="what-Makes-Us-Unique-layout-section__subtitle">
+        אנחנו לא סתם עוד קורס מנהיגות — אנחנו שותפים למסע שלך להפוך למנהל.ת שמעורר.ת השראה
+      </h3>
+      <p class="what-Makes-Us-Unique-layout-section__description">
+        ב-Be A Winner, אנו מאמינים שמנהיגות אמיתית נולדת מתוך חיבור בין תיאוריה לפרקטיקה, בין הכלה לעוצמה. 
+        הסדנאות שלנו משלבות מתודולוגיות מתקדמות עם ניסיון שטח עשיר, ויוצרות חוויית למידה שמשנה תודעה, 
+        מחדדת מיומנויות ומניעה לפעולה. אנחנו לא מלמדים רק "איך לנהל" — אנחנו מלווים אותך לגלות 
+        איזה סוג של מנהיג.ה אתה.את רוצה להיות.
+      </p>
+      
+      <div class="what-Makes-Us-Unique-layout-section__features">
+        <div class="what-Makes-Us-Unique-layout-section__feature-item">
+          <div class="what-Makes-Us-Unique-layout-section__feature-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <span class="what-Makes-Us-Unique-layout-section__feature-text">מתודולוגיית STAR קניינית</span>
+        </div>
+        <div class="what-Makes-Us-Unique-layout-section__feature-item">
+          <div class="what-Makes-Us-Unique-layout-section__feature-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg">
+              <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <span class="what-Makes-Us-Unique-layout-section__feature-text">ליווי אישי צמוד לאחר הסדנה</span>
+        </div>
+        <div class="what-Makes-Us-Unique-layout-section__feature-item">
+          <div class="what-Makes-Us-Unique-layout-section__feature-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-element-type="icon" data-icon-type="svg">
+              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <span class="what-Makes-Us-Unique-layout-section__feature-text">מעל 15 שנות ניסיון בשטח</span>
+        </div>
+      </div>
+
+      <div class="what-Makes-Us-Unique-layout-section__ctas">
+        <a href="/contact" class="what-Makes-Us-Unique-layout-section__btn-primary">
+          קבעו פגישת ייעוץ
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M12 5L5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+        <a href="/about" class="what-Makes-Us-Unique-layout-section__btn-ghost">
+          הכירו את הסיפור שלנו
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
     </main>
   
   <footer class="site-footer" dir="rtl">
