@@ -1567,9 +1567,15 @@
           <label for="phone">טלפון</label>
           <input type="tel" id="phone" name="phone" placeholder="הטלפון שלך" required="">
         </div>
-        <div class="contact-contact-form-section__form-group">
-          <label for="inquiry-reason">סיבת הפנייה</label>
-        </div>
+        <div class="contact-contact-form-section__form-group"><label for="inquiry-reason">סיבת הפנייה</label>
+<select id="inquiry-reason" name="inquiry_reason" class="contact-contact-form-section__select" required="">
+  <option value="" disabled="" selected="">בחר/י נושא לפנייה</option>
+  <option value="הרצאה">הרצאת השראה לארגון</option>
+  <option value="סדנה">סדנה חווייתית</option>
+  <option value="תהליך ליווי">תהליך ליווי מנהלים</option>
+  <option value="אימון אישי">אימון אישי למנכ"ל</option>
+  <option value="אחר">אחר</option>
+</select></div>
         <div class="contact-contact-form-section__form-group">
           <label for="message">הודעה</label>
           <textarea id="message" name="message" rows="4" placeholder="איך נוכל לעזור?" required=""></textarea>
