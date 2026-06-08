@@ -2,13 +2,13 @@
 
 Be A Winner is a leadership development brand focused on transforming managers into true leaders through lectures and workshops. The brand carries an empowering, motivational identity with a professional yet approachable tone. Key offerings include live training sessions, a book for sale, and video content — all aimed at inspiring personal and professional growth in the corporate world.
 
-Source: https://be-a-winner-d0fd95d0.zappy5.app
+Source: https://example.com
 
 ---
 
 ## הפכו למנהיגים שמשנים מציאות — Be A Winner
 
-URL: https://be-a-winner-d0fd95d0.zappy5.app
+URL: https://example.com
 Description: סדנאות לעסקים והרצאות מעוררות השראה שהופכות מנהלים למנהיגים אמיתיים. גלו את הכוח להוביל, לצמוח ולהניע אחרים להצלחה. הצטרפו עוד היום למסע המנצח!
 
 הפכו למנהיגים שמשנים מציאות — Be A Winner
@@ -421,7 +421,7 @@ Description: סדנאות לעסקים והרצאות מעוררות השראה 
 
 ## הסיפור שמאחורי המנהיגות המנצחת — Be A Winner
 
-URL: https://be-a-winner-d0fd95d0.zappy5.app/about
+URL: https://example.com/about
 Description: הכירו את החזון שמניע את Be A Winner – מותג שמחויב להצמיח דור חדש של מנהיגים. למידע על הגישה הייחודית שלנו לתהליכי התפתחות עסקית, כנסו עכשיו.
 
 הסיפור שמאחורי המנהיגות המנצחת — Be A Winner
@@ -792,7 +792,7 @@ Be A Winner נולד מתוך ההבנה שהעולם הארגוני זקוק ל
 
 ## ההוכחה שהשינוי מתחיל בכם — Be A Winner
 
-URL: https://be-a-winner-d0fd95d0.zappy5.app/reviews
+URL: https://example.com/reviews
 Description: מנהלים ומנכ&quot;לים מספרים על המהפך האישי והעסקי בזכות סדנאות המנהיגות שלנו. כנסו לקרוא חוות דעת אמיתיות ולגלות איך גם אתם יכולים לנצח.
 
 ההוכחה שהשינוי מתחיל בכם — Be A Winner
@@ -1209,7 +1209,7 @@ Description: מנהלים ומנכ&quot;לים מספרים על המהפך הא
 
 ## הצצה מעשירה לעולם המנהיגות — Be A Winner
 
-URL: https://be-a-winner-d0fd95d0.zappy5.app/videos
+URL: https://example.com/videos
 Description: צפו בסרטוני תוכן מקצועי שידליקו בכם את ניצוץ המנהיגות. טיפים, תובנות וכלים פרקטיים מהסדנאות לעסקים שלנו. התחילו לצפות ולהתפתח עוד היום.
 
 הצצה מעשירה לעולם המנהיגות — Be A Winner
@@ -1683,7 +1683,7 @@ Description: צפו בסרטוני תוכן מקצועי שידליקו בכם �
 
 ## המדריך הכתוב לניצחון בניהול — Be A Winner
 
-URL: https://be-a-winner-d0fd95d0.zappy5.app/book
+URL: https://example.com/book
 Description: הספר שכל מנהל חייב לקרוא – כלים מעשיים, תובנות מעמיקות ותהליכי התפתחות שיהפכו אתכם למנהיגים מובילים. רכשו עכשיו והתחילו להוביל אחרת.
 
 המדריך הכתוב לניצחון בניהול — Be A Winner
@@ -2055,7 +2055,7 @@ Description: הספר שכל מנהל חייב לקרוא – כלים מעשי�
 
 ## הצעד הראשון למנהיגות שלכם — Be A Winner
 
-URL: https://be-a-winner-d0fd95d0.zappy5.app/contact
+URL: https://example.com/contact
 Description: מוכנים להזניק את הקריירה והעסק קדימה? צרו קשר עוד היום לתיאום סדנאות למנכ&quot;לים והרצאות מותאמות אישית. אנחנו כאן כדי להפוך אתכם למנצחים.
 
 הצעד הראשון למנהיגות שלכם — Be A Winner
@@ -2484,7 +2484,7 @@ Description: מוכנים להזניק את הקריירה והעסק קדימה
 
 ## מדיניות פרטיות
 
-URL: https://be-a-winner-d0fd95d0.zappy5.app/privacy
+URL: https://example.com/privacy
 Description: מדיניות הפרטיות שלנו - כיצד אנו אוספים, משתמשים ומגנים על המידע שלכם
 
 מדיניות פרטיות
@@ -2739,7 +2739,7 @@ Be A Winner ("החברה", "אנו", "שלנו") מחויבת להגן על פר
 
 ## הצהרת נגישות
 
-URL: https://be-a-winner-d0fd95d0.zappy5.app/accessibility
+URL: https://example.com/accessibility
 Description: הצהרת הנגישות שלנו - מחויבותנו לנגישות דיגיטלית
 
 הצהרת נגישות
@@ -3003,7 +3003,7 @@ Be A Winner מחויבת להנגיש את השירותים לכלל הציבו�
 
 ## תנאי שימוש
 
-URL: https://be-a-winner-d0fd95d0.zappy5.app/terms
+URL: https://example.com/terms
 Description: תנאי השימוש באתר - הזכויות והחובות של המשתמשים
 
 תנאי שימוש
