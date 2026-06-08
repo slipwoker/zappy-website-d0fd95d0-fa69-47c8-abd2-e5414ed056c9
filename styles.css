@@ -8688,6 +8688,54 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 ._access-icon {
   display: flex !important;
 }
+
+#zappy-section-2-dup-1780918493550 .los-lecture-card {
+  padding: 14px 16px !important;
+}
+
+#zappy-section-2-dup-1780918493550 .los-lecture-card h3 {
+  font-size: 0.95rem !important;
+}
+
+#zappy-section-2-dup-1780918493550 .los-lecture-card p {
+  font-size: 0.8rem !important;
+  line-height: 1.5 !important;
+}
+
+#zappy-section-2-dup-1780918493550 .los-lecture-card span[style*="width: 36px"] {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+#zappy-section-2-dup-1780918493550 .los-lecture-card svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+#zappy-section-2-dup-1780918493550 .los-lectures-grid {
+  gap: 12px !important;
+  margin-top: 4px !important;
+}
+
+#zappy-section-2-dup-1780918493550 #zappy-element-1780918760285-fc3nxi2i3 h2 {
+  font-size: 1.8rem !important;
+}
+
+#zappy-section-2-dup-1780918493550 #zappy-element-1780918760285-fc3nxi2i3 {
+  padding: 12px 20px !important;
+}
+
+#zappy-section-2-dup-1780918493550 .zappy-horizontal-grid {
+  gap: 16px !important;
+}
+
+#zappy-section-2-dup-1780918493550 .los-image-panel {
+  padding: 10px !important;
+}
+
+#zappy-section-2-dup-1780918493550 .los-image-panel img {
+  border-radius: 6px !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
