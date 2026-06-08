@@ -5513,10 +5513,11 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: rgba(249, 115, 22, 0.3) 0px 4px 15px;
-  min-width: 220px;
+  min-width: 260px;
   flex: 0 0 auto;
   justify-content: center;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .book-product-intro-section__cta--primary:hover {
@@ -5545,10 +5546,11 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   letter-spacing: 0.02em;
   text-decoration: none;
   transition: all 0.3s ease;
-  min-width: 220px;
+  min-width: 260px;
   flex: 0 0 auto;
   justify-content: center;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .book-product-intro-section__cta--secondary:hover {
