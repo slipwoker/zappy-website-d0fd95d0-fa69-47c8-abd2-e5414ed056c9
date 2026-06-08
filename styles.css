@@ -5498,12 +5498,11 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   justify-content: center;
 }
 
-/* Primary CTA Button */
 .book-product-intro-section__cta--primary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--secondary);
+  background: #F97316;
   color: #FFFFFF;
   padding: 14px 28px;
   border-radius: 6px;
@@ -5513,12 +5512,12 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   letter-spacing: 0.02em;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(233, 113, 90, 0.3);
+  box-shadow: rgba(249, 115, 22, 0.3) 0px 4px 15px;
 }
 
 .book-product-intro-section__cta--primary:hover {
-  background: var(--primary);
-  box-shadow: 0 8px 25px rgba(76, 59, 143, 0.4);
+  background: #EA580C;
+  box-shadow: rgba(249, 115, 22, 0.4) 0px 8px 25px;
   transform: translateY(-2px);
 }
 
@@ -5528,16 +5527,15 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   transform: scaleX(-1); /* Arrow points left for RTL */
 }
 
-/* Secondary CTA Button (Ghost Style) */
 .book-product-intro-section__cta--secondary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   background: transparent;
-  color: var(--primary);
+  color: #F97316;
   padding: 14px 28px;
   border-radius: 6px;
-  border: 2px solid var(--border-light);
+  border: 2px solid #F97316;
   font-weight: 700;
   font-size: 1rem;
   letter-spacing: 0.02em;
@@ -5546,8 +5544,8 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
 }
 
 .book-product-intro-section__cta--secondary:hover {
-  border-color: var(--primary);
-  background: rgba(76, 59, 143, 0.05);
+  border-color: #EA580C;
+  background: rgba(249, 115, 22, 0.08);
   transform: translateY(-2px);
 }
 
