@@ -63,7 +63,6 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `inquiry_reason` (select, required)
   - `name` (text, required)
   - `email` (email, required)
   - `phone` (tel, required)
