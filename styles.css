@@ -5316,9 +5316,12 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   position: relative;
   z-index: 2;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
 }
 
 .videos-cta-section__content {
