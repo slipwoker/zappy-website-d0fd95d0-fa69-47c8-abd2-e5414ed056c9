@@ -25,19 +25,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://example.com/reviews</loc>
+    <loc>https://example.com/customer-testimonials</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://example.com/videos</loc>
+    <loc>https://example.com/media-appearances-and-inspiration</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://example.com/book</loc>
+    <loc>https://example.com/manager-to-leader</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

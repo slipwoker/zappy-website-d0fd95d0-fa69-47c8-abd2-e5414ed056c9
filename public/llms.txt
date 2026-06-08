@@ -21,16 +21,16 @@ Be A Winner - אפשרויות הלימוד שלנו
 ### Page
 https://example.com/what-makes-us-unique
 
-### ההוכחה שהשינוי מתחיל בכם — Be A Winner
-https://example.com/reviews
+### מה אומרים הלקוחות
+https://example.com/customer-testimonials
 מנהלים ומנכ&quot;לים מספרים על המהפך האישי והעסקי בזכות סדנאות המנהיגות שלנו. כנסו לקרוא חוות דעת אמיתיות ולגלות איך גם אתם יכולים לנצח.
 
-### הצצה מעשירה לעולם המנהיגות — Be A Winner
-https://example.com/videos
+### הופעות בתקשורת והשראה
+https://example.com/media-appearances-and-inspiration
 צפו בסרטוני תוכן מקצועי שידליקו בכם את ניצוץ המנהיגות. טיפים, תובנות וכלים פרקטיים מהסדנאות לעסקים שלנו. התחילו לצפות ולהתפתח עוד היום.
 
-### המדריך הכתוב לניצחון בניהול — Be A Winner
-https://example.com/book
+### ממנהל למנהיג - הספר
+https://example.com/manager-to-leader
 הספר שכל מנהל חייב לקרוא – כלים מעשיים, תובנות מעמיקות ותהליכי התפתחות שיהפכו אתכם למנהיגים מובילים. רכשו עכשיו והתחילו להוביל אחרת.
 
 ### הצעד הראשון למנהיגות שלכם — Be A Winner
@@ -63,11 +63,11 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text)
-  - `email` (email)
+  - `name` (text, required)
+  - `email` (email, required)
   - `phone` (tel)
-  - `message` (textarea)
-  - `privacy_consent` (checkbox)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
 
 ---
 
