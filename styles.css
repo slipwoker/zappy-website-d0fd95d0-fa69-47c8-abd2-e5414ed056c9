@@ -759,13 +759,6 @@ html:not([dir]) .whatsapp-float {
   /* Show CTA inside menu on mobile? Not required, but we can place it in the menu list. The prompt says CTA button is separate, so on mobile we can hide the container. That's acceptable. */
 }
 
-
-
-/* ============================================
-   NAVBAR LAYOUT - POST-GENERATION FIXES
-   Structural layout only - colors from Claude
-   ============================================ */
-
 /* Base navbar styles - structural only, colors from AI */
 .navbar {
   position: sticky;
@@ -1441,7 +1434,6 @@ html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .dropdown-menu {
 
   /* Prevent hero image fade gradient from bleeding over headline text below */
   /* The .image-fade-gradient has bottom: -30px which extends below parent; */
-  /* on mobile stacked layout this overlaps the h1 text */
   .hero-image-column {
     overflow: hidden !important;
   }
@@ -1474,13 +1466,6 @@ html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .dropdown-menu {
     right: auto !important;
   }
 }
-
-/* ============================================
-   RTL POSITIONING (Hebrew, Arabic)
-   For RTL mobile: hamburger on RIGHT, phone on LEFT
-   (natural mirror of LTR layout)
-   Uses !important to override any inline styles
-   ============================================ */
 @media (max-width: 768px) {
   html[dir="rtl"] .mobile-toggle,
   html[lang="he"] .mobile-toggle,
@@ -1552,25 +1537,6 @@ nav.navbar {
   overflow-x: clip !important;
   overflow-y: visible !important;
 }
-
-/* iOS Safari fix: When the page has hidden horizontal overflow (which iOS
-   does not clip on the <html> element), width: 100% / 100vw on a fixed
-   element resolves to the visual viewport width, which can exceed the
-   actual layout viewport. This pushes children positioned with right:0
-   off-screen to the right.
-
-   Two-part fix:
-   1. Navbar — left:0 + right:0 + width:auto + overflow-x:clip anchors
-      the navbar to the real layout viewport on all mobile browsers.
-      overflow-x:clip (instead of hidden) prevents Safari from creating
-      a scroll container that intercepts touch events on child elements.
-   2. Mobile dropdown menu — position:fixed + right:0 on the menu still
-      anchors to the iOS visual viewport (regardless of its navbar parent).
-      We use a CSS variable --ios-viewport-gap, set by a runtime JS snippet
-      (see ensureIOSNavbarGapFix in githubService) to
-      (window.innerWidth - document.documentElement.clientWidth). Shifting
-      the menu's 'right' by that gap lands it on the real layout-viewport
-      right edge on iOS, and is a no-op on every other browser (gap=0).  */
 @media (max-width: 768px) {
   .navbar,
   nav.navbar {
@@ -1615,8 +1581,6 @@ nav.navbar {
   align-items: center !important;
   justify-content: space-between !important;
 }
-
-/* RTL layout for cloned sites (without nav-right-group) */
 /* Base RTL styles - apply to all screens */
 html[dir="rtl"] .nav-container,
 html[lang="he"] .nav-container,
@@ -1661,8 +1625,6 @@ html[lang="ar"] .nav-cta-btn {
   margin-right: auto !important;
   margin-left: 0 !important;
 }
-
-/* DESKTOP ONLY: Horizontal flex layout for RTL navbar - prevents breaking mobile vertical menu */
 @media (min-width: 769px) {
   html[dir="rtl"] .nav-container,
   html[lang="he"] .nav-container,
@@ -1693,7 +1655,6 @@ html[lang="ar"] .nav-cta-btn {
 
 /* Post-generation fix: Remove main element margin-top and padding-top */
 main:not(.courses-page-main) { margin-top: 0 !important; padding-top: 0 !important; }
-
 
 /* Footer Styles */
 .site-footer {
@@ -1961,8 +1922,6 @@ main:not(.courses-page-main) { margin-top: 0 !important; padding-top: 0 !importa
   }
 }
 
-
-
 /* V2 Decorative Helpers — quote marks */
 :root { --decorative-quote-color: var(--accent, #b48b59); --decorative-quote-font: var(--accent-font, var(--font-display, serif)); }
 blockquote::before, .quote::before, [data-quote]::before {
@@ -2026,7 +1985,6 @@ hr.section-flourish, .section-flourish, [data-section-divider] {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(4px); }
 }
-
 
 /* Footer Contrast Guard — overrides dark-on-dark text */
 .site-footer .contact-list a,
@@ -2310,7 +2268,6 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
 @media (max-width: 768px) {
   .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 28px !important; }
 }
-
 
 /* services */
 .index-services-section {
@@ -3521,7 +3478,6 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
     height: 60px;
   }
 }
-
 
 /* process */
 .about-process-section {
@@ -5113,7 +5069,6 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   }
 }
 
-
 /* topics */
 .videos-topics-section {
   position: relative;
@@ -6446,7 +6401,6 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   }
 }
 
-
 /* inquiry-cta */
 .book-inquiry-cta-section {
   position: relative;
@@ -6691,7 +6645,6 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
     inset-inline-end: -80px;
   }
 }
-
 
 /* intro */
 .contact-intro-section {
@@ -7535,13 +7488,10 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   }
 }
 
-
-
 /* Global font override - exclude icon fonts and special elements */
 *:not(.fas):not(.far):not(.fab):not(.fa):not([class*="fa-"]):not(.iconify):not([class*="icon"]):not(code):not(pre):not(i[class*="fa"]) {
   font-family: 'Rubik', sans-serif !important;
 }
-
 
 /* Logo size constraint - enforce max-height only */
 .logo, img.logo, .logo img, .logo-link img, .nav-brand img {
@@ -7551,7 +7501,6 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   object-fit: contain !important;
 }
 
-
 /* Footer contact alignment fix */
 .footer-contact li > a { display: flex; align-items: flex-start; gap: inherit; }
 
@@ -7560,7 +7509,6 @@ html[dir="rtl"] .footer-contact li, html[dir="rtl"] .site-footer .footer-contact
 html[dir="rtl"] .footer-contact .contact-icon { order: 0 !important; }
 html[dir="rtl"] .footer-contact .contact-text { order: 1 !important; }
 html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
-
 
 /* ============================================
    MOBILE RESPONSIVE FIXES (Auto-generated)
@@ -8191,13 +8139,6 @@ nav.navbar .sub-menu li a:hover { color: #D8A641 !important; background-color: r
   font-family: inherit !important;
   color: var(--cc-primary-color);
 }
-
-/* === Zappy-owned slim bottom bar ===
- * Single-row inline layout: [description text] ......... [Customize] [Accept]
- * The banner is our DOM (#zappy-cookie-banner), not the library's #cm
- * consent modal. That avoids vanilla-cookieconsent's internal
- * <button><span>Label</span></button> structure entirely.
- */
 #zappy-cookie-banner {
   position: fixed !important;
   inset: auto 0 0 0 !important;
@@ -8537,7 +8478,6 @@ nav.navbar .sub-menu li a:hover { color: #D8A641 !important; background-color: r
   border: 0 !important;
 }
 
-
 /* Custom Accessibility Toolbar Styling - Zappy Style */
 
 /* Main button icon - ONLY target the floating button, not menu elements */
@@ -8735,6 +8675,173 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 
 #zappy-section-2-dup-1780918493550 .los-image-panel img {
   border-radius: 6px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   V2 REGENERATED SECTION CSS (Learning-Options-layout)
+   Added: 2026-06-08T12:01:53.573Z
+   ═══════════════════════════════════════════════════════════ */
+.learning-Options-layout-section {
+  position: relative;
+  background-color: #F5F0E8;
+  background-image: 
+    radial-gradient(circle at 10% 80%, rgba(216, 166, 65, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 90% 20%, rgba(76, 59, 143, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #F5F0E8 0%, #EDE6D8 100%);
+  color: var(--text-dark);
+  padding: 80px 16px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.learning-Options-layout-section__container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.learning-Options-layout-section__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  direction: rtl;
+}
+
+.learning-Options-layout-section__card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(26, 21, 53, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 3px solid var(--accent);
+}
+
+.learning-Options-layout-section__card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(26, 21, 53, 0.12);
+}
+
+.learning-Options-layout-section__card-image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-dark);
+}
+
+.learning-Options-layout-section__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.learning-Options-layout-section__card:hover .learning-Options-layout-section__card-image img {
+  transform: scale(1.05);
+}
+
+.learning-Options-layout-section__card-content {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: start;
+}
+
+.learning-Options-layout-section__card-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin: 0 0 12px 0;
+  font-family: 'Sora', 'Montserrat', sans-serif;
+}
+
+.learning-Options-layout-section__card-text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0 0 20px 0;
+  flex: 1;
+}
+
+.learning-Options-layout-section__card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--accent);
+  text-decoration: none;
+  align-self: flex-start;
+  transition: color 0.2s ease, gap 0.2s ease;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.learning-Options-layout-section__card-link:hover {
+  color: var(--primary);
+  gap: 10px;
+  border-bottom-color: var(--primary);
+}
+
+.learning-Options-layout-section__card-link-arrow {
+  font-size: 1.1em;
+  transition: transform 0.2s ease;
+}
+
+.learning-Options-layout-section__card-link:hover .learning-Options-layout-section__card-link-arrow {
+  transform: translateX(-3px);
+}
+
+/* Decorative Watermark */
+.learning-Options-layout-section__watermark {
+  position: absolute;
+  bottom: -60px;
+  inset-inline-end: -60px;
+  width: 350px;
+  height: 350px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .learning-Options-layout-section {
+    padding: 60px 16px;
+  }
+
+  .learning-Options-layout-section__grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+
+  .learning-Options-layout-section__card-image {
+    height: 200px;
+  }
+
+  .learning-Options-layout-section__card-content {
+    padding: 20px 20px 24px;
+  }
+
+  .learning-Options-layout-section__watermark {
+    width: 200px;
+    height: 200px;
+    bottom: -40px;
+    inset-inline-end: -40px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .learning-Options-layout-section__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
