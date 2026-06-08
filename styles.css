@@ -8684,9 +8684,10 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   padding: 180px 24px 60px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 32px;
-  justify-content: flex-start;
+  justify-content: center;
+  text-align: center;
 }
 
 .index-hero-section__text-group {
@@ -8694,7 +8695,8 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  text-align: start;
+  text-align: center;
+  align-items: center;
 }
 
 .index-hero-section__headline {
@@ -8817,9 +8819,14 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   }
 
   .index-hero-section__content {
-    padding: 140px 16px 40px;
-    gap: 32px;
-  }
+  padding: 140px 16px 40px;
+  gap: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
   .index-hero-section__text-group {
     max-width: 100%;
