@@ -8953,6 +8953,10 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
   flex-direction: column !important;
 }
 }
+
+#book-excerpt-section .book-excerpt-section__quote {
+  display: none !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
