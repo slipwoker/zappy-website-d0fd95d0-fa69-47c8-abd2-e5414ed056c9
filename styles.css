@@ -5448,7 +5448,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
 }
 
 .book-product-intro-section__container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 0 32px;
   display: flex;
@@ -5458,13 +5458,13 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   z-index: 10;
 }
 
-/* Content Column (Right in RTL) */
 .book-product-intro-section__content {
   flex: 1;
-  text-align: right;
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  align-items: center;
 }
 
 .book-product-intro-section__title {
@@ -5475,6 +5475,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   line-height: 1.2;
   color: var(--text-dark);
   margin: 0;
+  max-width: none;
 }
 
 .book-product-intro-section__description {
@@ -5484,7 +5485,8 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   line-height: 1.7;
   color: var(--text-muted);
   margin: 0;
-  max-width: 540px;
+  max-width: 600px;
+  text-align: center;
 }
 
 .book-product-intro-section__ctas {
@@ -5493,6 +5495,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   gap: 20px;
   margin-top: 16px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Primary CTA Button */
@@ -8924,6 +8927,22 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 
 .index-hero-section__text-group {
   max-width: 100%;
+}
+}
+
+.book-product-intro-section__visual {
+  display: none !important;
+}
+
+.book-product-intro-section__container {
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: 0px 32px !important;
+}
+
+@media (max-width: 768px) {
+.book-product-intro-section__container {
+  flex-direction: column !important;
 }
 }
 /* mobile-submenu-overflow-fix */
