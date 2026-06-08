@@ -34,6 +34,9 @@ https://example.com/book
 https://example.com/contact
 מוכנים להזניק את הקריירה והעסק קדימה? צרו קשר עוד היום לתיאום סדנאות למנכ&quot;לים והרצאות מותאמות אישית. אנחנו כאן כדי להפוך אתכם למנצחים.
 
+### Page
+https://example.com/what-makes-us-unique
+
 ## Legal & Policy
 
 ### Privacy Policy
@@ -60,11 +63,11 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text, required)
-  - `email` (email, required)
+  - `name` (text)
+  - `email` (email)
   - `phone` (tel)
-  - `message` (textarea, required)
-  - `privacy_consent` (checkbox, required)
+  - `message` (textarea)
+  - `privacy_consent` (checkbox)
 
 ---
 
