@@ -2200,58 +2200,445 @@
   }
 }
 </style>
+
+          <style id="zappy-cta-mobile-style">
+            /* Hide CTA list item on desktop (tablets and up) */
+            @media (min-width: 769px) {
+              .nav-cta-item-mobile {
+                display: none !important;
+              }
+            }
+            /* Show CTA list item on mobile */
+            @media (max-width: 768px) {
+              .nav-cta-item-mobile {
+                display: list-item !important;
+              }
+            }
+          </style>
+        
+          <style id="zappy-nested-menu-style">
+            /* Desktop only: vertically center nav items */
+            @media (min-width: 769px) {
+              .nav-menu,
+              #navMenu {
+                align-items: center !important;
+              }
+            }
+            
+            /* Menu Group styling (non-clickable parent) - TOP LEVEL ONLY with ultra-specific selector */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+            }
+            
+            /* Desktop: show submenu on Menu Group hover */
+            li:has(.menu-group-title):hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when hovering */
+            }
+            
+            /* Hide menu items marked as hidden (overrides hover states) */
+            .zappy-hidden-menu-item,
+            li:has(.menu-group-title):hover > .sub-menu .zappy-hidden-menu-item {
+              display: none !important;
+              opacity: 0 !important;
+              visibility: hidden !important;
+              pointer-events: none !important;
+            }
+            
+            /* Keep submenu visible when hovering over the submenu itself */
+            .sub-menu:hover {
+              opacity: 1 !important;
+              visibility: visible !important;
+              pointer-events: auto !important;
+            }
+            
+            /* Nested dropdown menu styles - using more specific selectors */
+            .nav-menu .sub-menu,
+            nav .sub-menu,
+            .navbar .sub-menu {
+              display: block !important; /* Ensure submenu is in the DOM */
+              position: absolute !important;
+              top: 100%;
+              left: 0;
+              right: auto;
+              min-width: 200px;
+              background: white;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+              border-radius: 8px;
+              padding: 8px 0;
+              margin-top: 0px; /* Remove gap to prevent hover loss */
+              opacity: 0 !important;
+              visibility: hidden !important;
+              transform: translateY(-10px);
+              transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+              z-index: 1000;
+              list-style: none;
+              pointer-events: none; /* Prevent interaction when hidden */
+            }
+            
+            /* RTL (Hebrew/Arabic) submenu positioning - align to right instead of left */
+            [dir="rtl"] .nav-menu .sub-menu,
+            [dir="rtl"] nav .sub-menu,
+            [dir="rtl"] .navbar .sub-menu,
+            html[lang="he"] .nav-menu .sub-menu,
+            html[lang="he"] nav .sub-menu,
+            html[lang="he"] .navbar .sub-menu,
+            html[lang="ar"] .nav-menu .sub-menu,
+            html[lang="ar"] nav .sub-menu,
+            html[lang="ar"] .navbar .sub-menu {
+              left: auto;
+              right: 0;
+            }
+            
+            /* Show submenu on parent hover - more specific selectors */
+            .nav-menu li:hover > .sub-menu,
+            nav li:hover > .sub-menu,
+            .navbar li:hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when visible */
+            }
+            
+            /* Parent item must be relatively positioned */
+            .nav-menu li:has(.sub-menu),
+            nav li:has(.sub-menu),
+            .navbar li:has(.sub-menu) {
+              position: relative;
+            }
+            
+            /* Style for submenu items */
+            .sub-menu li {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+            }
+            
+            .sub-menu a,
+            .sub-menu .menu-group-title {
+              display: block !important;
+              padding: 10px 12px !important;
+              color: #333 !important;
+              font-weight: 600 !important;
+              text-decoration: none;
+              transition: background-color 0.2s;
+              white-space: nowrap;
+              cursor: default;
+            }
+            
+            .sub-menu a:hover {
+              background-color: #f5f5f5;
+            }
+            
+            /* CRITICAL: Override submenu styles for TOP-LEVEL Menu Groups only - must come AFTER submenu styles */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+              background-color: transparent !important;
+            }
+            
+            /* On mobile, show nested menus as expandable accordion */
+            @media (max-width: 768px) {
+              /* Mobile submenu styling */
+              .nav-menu .sub-menu,
+              nav .sub-menu,
+              .navbar .sub-menu {
+                position: static !important;
+                transform: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                margin-top: 0 !important;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                visibility: hidden;
+                transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease, padding 0.3s ease;
+                padding: 0 !important;
+                border-radius: 0 !important;
+              }
+              
+              /* Expanded state — no internal scroll; parent navMenu scrolls */
+              .sub-menu.mobile-expanded {
+                max-height: none !important;
+                overflow-y: visible !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                padding: 8px 0 8px 16px !important;
+              }
+              
+              /* RTL padding adjustment */
+              [dir="rtl"] .sub-menu.mobile-expanded,
+              html[lang="he"] .sub-menu.mobile-expanded,
+              html[lang="ar"] .sub-menu.mobile-expanded {
+                padding: 8px 16px 8px 0 !important;
+              }
+              
+              /* Disable hover behavior on mobile */
+              .nav-menu li:hover > .sub-menu,
+              nav li:hover > .sub-menu,
+              .navbar li:hover > .sub-menu {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+              }
+              
+              /* Enable visibility for expanded submenus */
+              .nav-menu li > .sub-menu.mobile-expanded,
+              nav li > .sub-menu.mobile-expanded,
+              .navbar li > .sub-menu.mobile-expanded {
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+              }
+              
+              .sub-menu a {
+                padding: 10px 0 !important;
+                display: block !important;
+                font-size: 14px !important;
+                white-space: normal !important;
+              }
+              
+              .sub-menu a:hover {
+                background-color: transparent !important;
+              }
+              
+              /* Parent item wrapper - flex layout with relative positioning for absolute toggle */
+              .nav-menu li:has(.sub-menu),
+              nav li:has(.sub-menu),
+              .navbar li:has(.sub-menu) {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                align-items: center !important;
+                position: relative !important;
+                min-height: 44px !important;
+              }
+              
+              /* Parent link - takes full width since toggle is absolute (not a flex child) */
+              .nav-menu li:has(.sub-menu) > a,
+              nav li:has(.sub-menu) > a,
+              .navbar li:has(.sub-menu) > a,
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                flex: 1 !important;
+                min-width: 0 !important;
+              }
+              
+              /* Normalize menu-group-title in mobile nav to match link alignment */
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                padding: 0 !important;
+                line-height: inherit !important;
+              }
+              
+              /* Submenu takes full width below parent */
+              .nav-menu li:has(.sub-menu) > .sub-menu,
+              nav li:has(.sub-menu) > .sub-menu,
+              .navbar li:has(.sub-menu) > .sub-menu {
+                flex-basis: 100% !important;
+                width: 100% !important;
+              }
+              
+              /* HIDE EXISTING CHEVRONS/ARROWS from cloned sites to prevent duplicates */
+              .nav-menu li:has(.sub-menu) > a .fa-chevron-down,
+              .nav-menu li:has(.sub-menu) > a .fa-angle-down,
+              .nav-menu li:has(.sub-menu) > a [class*="chevron"],
+              .nav-menu li:has(.sub-menu) > a [class*="arrow"],
+              nav li:has(.sub-menu) > a [class*="chevron"],
+              nav li:has(.sub-menu) > a [class*="arrow"],
+              #navMenu li:has(.sub-menu) > a [class*="chevron"],
+              #navMenu li:has(.sub-menu) > a [class*="arrow"] {
+                display: none !important;
+                visibility: hidden !important;
+              }
+              
+              /* Toggle arrow button - flex child that stretches to match nav-link height */
+              .mobile-submenu-toggle {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 44px !important;
+                height: auto !important;
+                background: transparent !important;
+                border: none !important;
+                cursor: pointer !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                position: static !important;
+                flex-shrink: 0 !important;
+                align-self: stretch !important;
+                z-index: 2 !important;
+                -webkit-tap-highlight-color: transparent;
+              }
+              
+              .mobile-submenu-toggle::after {
+                content: '' !important;
+                display: block !important;
+                width: 0 !important;
+                height: 0 !important;
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top: 7px solid currentColor !important;
+                transition: transform 0.3s ease !important;
+              }
+              
+              /* Rotate arrow when expanded */
+              .mobile-submenu-toggle.expanded::after {
+                transform: rotate(180deg) !important;
+              }
+            }
+            
+            /* Hide toggle button on desktop */
+            @media (min-width: 769px) {
+              .mobile-submenu-toggle {
+                display: none !important;
+              }
+            }
+          </style>
+          
+          <script id="zappy-mobile-menu-script">
+            // Mobile menu toggle for nested submenus (including Menu Groups)
+            // Uses separate toggle button - link navigates, arrow toggles submenu
+            (function() {
+              function initMobileMenuToggles() {
+                // Only run on mobile
+                if (window.innerWidth > 768) {
+                  // Remove any toggle buttons on desktop
+                  document.querySelectorAll('.mobile-submenu-toggle').forEach(btn => btn.remove());
+                  document.querySelectorAll('.sub-menu.mobile-expanded').forEach(menu => {
+                    menu.classList.remove('mobile-expanded');
+                  });
+                  console.log('[MOBILE MENU] Desktop mode - cleanup done');
+                  return;
+                }
+                
+                console.log('[MOBILE MENU] Initializing mobile menu toggles...');
+                
+                // Find all parent menu items (items with .sub-menu)
+                const menuItemsWithSubmenus = document.querySelectorAll(
+                  '.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)'
+                );
+                
+                console.log('[MOBILE MENU] Found', menuItemsWithSubmenus.length, 'items with submenus');
+                
+                menuItemsWithSubmenus.forEach(function(li) {
+                  // Skip if already has toggle button
+                  if (li.querySelector('.mobile-submenu-toggle')) {
+                    return;
+                  }
+                  
+                  const submenu = li.querySelector('.sub-menu');
+                  const parentLink = li.querySelector(':scope > a') || li.querySelector(':scope > .menu-group-title');
+                  
+                  if (!submenu || !parentLink) return;
+                  
+                  // Create toggle button
+                  const toggleBtn = document.createElement('button');
+                  toggleBtn.className = 'mobile-submenu-toggle';
+                  toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+                  toggleBtn.setAttribute('type', 'button');
+
+                  // Insert toggle button after the link
+                  parentLink.insertAdjacentElement('afterend', toggleBtn);
+                  
+                  console.log('[MOBILE MENU] Created toggle button for:', parentLink.textContent?.trim());
+                  
+                  // Handle toggle button click - only toggles submenu
+                  toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const isExpanded = submenu.classList.contains('mobile-expanded');
+                    
+                    // Close all other submenus first
+                    document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+                      if (menu !== submenu) {
+                        menu.classList.remove('mobile-expanded');
+                        const otherToggle = menu.parentElement.querySelector('.mobile-submenu-toggle');
+                        if (otherToggle) otherToggle.classList.remove('expanded');
+                      }
+                    });
+                    
+                    // Toggle this submenu
+                    submenu.classList.toggle('mobile-expanded');
+                    toggleBtn.classList.toggle('expanded');
+                    
+                    console.log('[MOBILE MENU] Toggled submenu:', !isExpanded ? 'expanded' : 'collapsed');
+                  });
+                  
+                  // Parent link navigates normally - no preventDefault
+                });
+              }
+              
+              // Initialize on DOM load
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileMenuToggles);
+              } else {
+                initMobileMenuToggles();
+              }
+              
+              // Re-initialize on window resize (but use debounce to avoid too many calls)
+              let resizeTimer;
+              window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(initMobileMenuToggles, 250);
+              });
+              
+              // Also initialize when mobile menu becomes visible
+              // This handles cases where the mobile menu is hidden initially
+              const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                  if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const target = mutation.target;
+                    if (target.classList.contains('active') || target.style.display !== 'none') {
+                      console.log('[MOBILE MENU] Mobile menu became visible, re-initializing...');
+                      setTimeout(initMobileMenuToggles, 100);
+                    }
+                  }
+                });
+              });
+              
+              // Observe mobile menu containers
+              const mobileMenus = document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu');
+              mobileMenus.forEach(function(menu) {
+                observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+              });
+            })();
+          </script>
     <link rel="stylesheet" href="/styles.css">
     <script>window.ZAPPY_WEBSITE_ID = "d0fd95d0-fa69-47c8-abd2-e5414ed056c9"; window.ZAPPY_API_BASE = "https://api.zappy5.com";</script>
-
-    <style id="zappy-dropdown-submenu-styles">
-      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
-      /* Base styles for dropdown submenus - parent must be positioned */
-      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
-      /* Submenu base - hidden by default */
-      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
-      /* CRITICAL: Desktop hover styles to show dropdown */
-      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
-      /* Submenu item styling */
-      .sub-menu li { list-style: none; margin: 0; padding: 0; }
-      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
-      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
-      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
-      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
-      .sub-menu a:hover { background-color: #f5f5f5; }
-      /* RTL (Hebrew/Arabic) dropdown positioning */
-      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
-      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
-      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-      /* Desktop: show submenu on Menu Group hover */
-      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
-      /* Menu Group title styling */
-      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
-      
-      /* ========== MOBILE SUBMENU STYLES ========== */
-      @media (max-width: 768px) {
-        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
-        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
-        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
-        /* Disable hover behavior on mobile */
-        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
-        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
-        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
-        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
-        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
-        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
-        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
-        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-light) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
-        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
-        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
-        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-light) !important; white-space: normal !important; }
-        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
-        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
-        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
-        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
-        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-light) !important; }
-      }
-      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
-    </style>
 
     <style id="zappy-widget-visibility">
       html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
@@ -2295,21 +2682,21 @@
   <nav class="navbar" dir="rtl">
   <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
     <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
     <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
-      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
   </button>
   <button class="phone-header-btn" data-phone="[business_phone]" aria-label="Call">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
     </svg>
   </button>
   <div class="nav-container">
     <div class="nav-right-group"><div class="nav-brand">
       <a href="/" class="logo-link"><img class="logo" src="/assets/site-----image-1.webp" alt="Be A Winner"></a>
-    </div><ul class="nav-menu" id="navMenu"><li><a href="/">בית</a></li><li><a href="/about">אודות</a></li><li><a href="/reviews">חוות דעת</a></li><li><a href="/videos">סרטונים</a></li><li><a href="/book">ספר</a></li><li><a href="/learning-options" class="nav-link">לימוד</a></li></ul></div>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/about">אודות</a></li><li><a href="/learning-options" class="nav-link">לימוד</a></li><li><a href="/reviews">חוות דעת</a></li><li><a href="/videos">סרטונים</a></li><li><a href="/book">ספר</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li></ul></div>
     
     <div class="nav-cta-container">
       <a href="/contact" class="nav-cta-btn">צור קשר</a>
@@ -2793,7 +3180,7 @@
   <!-- Decorative Triangle Watermark -->
   <div class="hero-decor-triangle" aria-hidden="true">
     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M150 20 L280 260 L20 260 Z" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="8 8" opacity="0.15"></path>
+      <path d="M150 20 L280 260 L20 260 Z" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="8 8" opacity="0.15"/>
     </svg>
   </div>
 
@@ -2841,7 +3228,7 @@
   <!-- Bottom Divider Transition -->
   <div class="hero-divider-wrapper" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,45 Q60,35 120,42 T240,38 Q300,42 360,35 T480,40 Q540,38 600,42 T720,35 Q780,40 840,38 T960,42 Q1020,35 1080,40 T1200,45 L1200,80 Z" fill="var(--bg-light)"></path>
+      <path d="M0,80 L0,45 Q60,35 120,42 T240,38 Q300,42 360,35 T480,40 Q540,38 600,42 T720,35 Q780,40 840,38 T960,42 Q1020,35 1080,40 T1200,45 L1200,80 Z" fill="var(--bg-light)"/>
     </svg>
   </div>
 </section>
@@ -2850,7 +3237,7 @@
   <div class="los-decorative-glow" aria-hidden="true"></div>
   <div class="los-decorative-line" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,100 Q100,80 200,100 T400,100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"></path>
+      <path d="M0,100 Q100,80 200,100 T400,100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"/>
     </svg>
   </div>
 
@@ -2873,7 +3260,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="0">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473080-mt72flpy5" data-icon-type="svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473080-mt72flpy5" data-icon-type="svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">לעשות טוב, לעשות הון</h3>
     </div>
@@ -2883,7 +3270,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="1">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473080-aqj7by9c9" data-icon-type="svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473080-aqj7by9c9" data-icon-type="svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מוטיבציה אש</h3>
     </div>
@@ -2893,7 +3280,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="2">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(76,59,143,0.15); border-radius: 8px; color: var(--primary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473080-la65qqjox" data-icon-type="svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473080-la65qqjox" data-icon-type="svg"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">אושר, כך עושים זאת תכלס</h3>
     </div>
@@ -2903,7 +3290,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="3">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473081-mz5xy3nj0" data-icon-type="svg"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473081-mz5xy3nj0" data-icon-type="svg"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">חדשנות ניהולית או להיות טויוטה</h3>
     </div>
@@ -2913,7 +3300,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="4">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473081-hgymvu2d9" data-icon-type="svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473081-hgymvu2d9" data-icon-type="svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מנהיגות? כל אחד יכול!</h3>
     </div>
@@ -2921,7 +3308,7 @@
   </div><div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease; grid-column: auto" data-grid-item-index="5">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(76,59,143,0.15); border-radius: 8px; color: var(--primary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473081-q8mbln9sc" data-icon-type="svg"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473081-q8mbln9sc" data-icon-type="svg"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">לממש פוטנציאל אישי ועסקי, כך עושים זאת תכלס!</h3>
     </div>
@@ -2940,7 +3327,7 @@
   <!-- Bottom Divider -->
   <div class="los-divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,35 Q60,25 120,38 T240,30 Q300,40 360,32 T480,38 Q540,25 600,35 T720,28 Q780,40 840,32 T960,38 Q1020,30 1080,40 T1200,32 L1200,80 Z" fill="var(--bg-light)"></path>
+      <path d="M0,80 L0,35 Q60,25 120,38 T240,30 Q300,40 360,32 T480,38 Q540,25 600,35 T720,28 Q780,40 840,32 T960,38 Q1020,30 1080,40 T1200,32 L1200,80 Z" fill="var(--bg-light)"/>
     </svg>
   </div>
 </section>
@@ -2949,7 +3336,7 @@
   <div class="los-decorative-glow" aria-hidden="true"></div>
   <div class="los-decorative-line" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,100 Q100,80 200,100 T400,100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"></path>
+      <path d="M0,100 Q100,80 200,100 T400,100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"/>
     </svg>
   </div>
 
@@ -2958,7 +3345,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-lzbo0ylla" data-icon-type="svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-lzbo0ylla" data-icon-type="svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">לאתר ולגייס את סופרמן</h3>
     </div>
@@ -2968,7 +3355,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-ozwlzl24s" data-icon-type="svg"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-ozwlzl24s" data-icon-type="svg"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">משקיע נכון או משקיע אסון</h3>
     </div>
@@ -2978,7 +3365,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-iz8de19ef" data-icon-type="svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-iz8de19ef" data-icon-type="svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מוטיבציה אש</h3>
     </div>
@@ -2988,7 +3375,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-50og8sea0" data-icon-type="svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-50og8sea0" data-icon-type="svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">אלוף במכירות</h3>
     </div>
@@ -2998,14 +3385,14 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease; grid-column: 1 / -1;">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(76,59,143,0.15); border-radius: 8px; color: var(--primary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-lqpc3nxst" data-icon-type="svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-lqpc3nxst" data-icon-type="svg"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">הנעה בהנאה — סדנת חצי יום</h3>
     </div>
     <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">לגלות את הכלים הפשוטים וסופר אפקטיביים להניע אחרים לפעולה באפס מאמץ. שתי מיומנויות קסומות: הקשבה ושאילת שאלות. סדנת חצי יום, עד 4 שעות. מתאים לכולם — לא מוגבל בכמות משתתפים.</p>
   </div>
 
-</div></div></div><div class="los-container zappy-grid-item-no-stretch" data-zappy-pre-grid- data-zappy-pre-grid-class="los-container" data-zappy-was-wrapped-into-grid="true" data-zappy-grid-anchor="true" data-grid-item-index="1" style="display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: stretch !important; align-self: stretch !important; height: 100% !important;"><div class="zappy-inserted-element" id="zappy-element-1780918653529-ar08eycq9" data-element-id="zappy-element-1780918653529-ar08eycq9" data-element-type="h2" data-zappy-newly-inserted="true" style="width: 100%;"></div>
+</div></div></div><div class="los-container zappy-grid-item-no-stretch" data-zappy-pre-grid-style data-zappy-pre-grid-class="los-container" data-zappy-was-wrapped-into-grid="true" data-zappy-grid-anchor="true" data-grid-item-index="1" style="display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: stretch !important; align-self: stretch !important; height: 100% !important;"><div class="zappy-inserted-element" id="zappy-element-1780918653529-ar08eycq9" data-element-id="zappy-element-1780918653529-ar08eycq9" data-element-type="h2" data-zappy-newly-inserted="true" style="width: 100%;"></div>
     <!-- Left Side: Image with decorative panel -->
     <div class="los-image-column">
       <div class="los-image-panel">
@@ -3027,7 +3414,7 @@
   <!-- Bottom Divider -->
   <div class="los-divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,35 Q60,25 120,38 T240,30 Q300,40 360,32 T480,38 Q540,25 600,35 T720,28 Q780,40 840,32 T960,38 Q1020,30 1080,40 T1200,32 L1200,80 Z" fill="var(--bg-light)"></path>
+      <path d="M0,80 L0,35 Q60,25 120,38 T240,30 Q300,40 360,32 T480,38 Q540,25 600,35 T720,28 Q780,40 840,32 T960,38 Q1020,30 1080,40 T1200,32 L1200,80 Z" fill="var(--bg-light)"/>
     </svg>
   </div>
 </section>
@@ -3036,7 +3423,7 @@
   <div class="los-decorative-glow" aria-hidden="true"></div>
   <div class="los-decorative-line" aria-hidden="true">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,100 Q100,80 200,100 T400,100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"></path>
+      <path d="M0,100 Q100,80 200,100 T400,100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"/>
     </svg>
   </div>
 
@@ -3058,7 +3445,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="0">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170992-fhusv662j" data-icon-type="svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170992-fhusv662j" data-icon-type="svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">ממנהל למנהיג: התהליך הקבוצתי</h3>
     </div>
@@ -3068,7 +3455,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="1">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170992-zijsrrmdi" data-icon-type="svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170992-zijsrrmdi" data-icon-type="svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">ממנהל למנהיג: התהליך האישי</h3>
     </div>
@@ -3078,7 +3465,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="2">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(76,59,143,0.15); border-radius: 8px; color: var(--primary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170993-zxyuqp0kd" data-icon-type="svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170993-zxyuqp0kd" data-icon-type="svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מה יוצא לחברה או לארגון?</h3>
     </div>
@@ -3088,7 +3475,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="3">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170993-j6ru7ygy2" data-icon-type="svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170993-j6ru7ygy2" data-icon-type="svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מה יוצא למשתתף?</h3>
     </div>
@@ -3098,7 +3485,7 @@
   <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease; grid-column: 1 / -1;" data-grid-item-index="4">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
       <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170993-s5yv3ila8" data-icon-type="svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170993-s5yv3ila8" data-icon-type="svg"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       </span>
       <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">תהליך הקבלה</h3>
     </div>
@@ -3113,7 +3500,7 @@
   <!-- Bottom Divider -->
   <div class="los-divider-wrapper">
     <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,35 Q60,25 120,38 T240,30 Q300,40 360,32 T480,38 Q540,25 600,35 T720,28 Q780,40 840,32 T960,38 Q1020,30 1080,40 T1200,32 L1200,80 Z" fill="var(--bg-light)"></path>
+      <path d="M0,80 L0,35 Q60,25 120,38 T240,30 Q300,40 360,32 T480,38 Q540,25 600,35 T720,28 Q780,40 840,32 T960,38 Q1020,30 1080,40 T1200,32 L1200,80 Z" fill="var(--bg-light)"/>
     </svg>
   </div>
 </section>
@@ -3122,7 +3509,7 @@
     <div class="learning-options-cta-section__content">
       <h2 class="learning-options-cta-section__title">מוכנים להפוך למנהיגים שאתם יכולים להיות?</h2>
       <p class="learning-options-cta-section__description">התוכניות שלנו מותאמות אישית לצרכי הארגון שלכם. בין אם אתם מחפשים סדנה חד-יומית, תהליך ליווי מתמשך או הרצאה מעוררת השראה — אנחנו כאן כדי לבנות יחד את המסלול המושלם עבורכם.</p>
-      <p ><span style="text-align: center !important; display: flex !important; justify-content: center !important; align-items: flex-start !important; width: 100% !important;"><a href="/contact" class="learning-options-cta-section__cta" style="outline: none; color: rgb(43, 35, 64) !important; border-color: transparent !important; background-color: transparent !important; background-image: linear-gradient(135deg, rgb(247, 59, 59), rgb(247, 95, 95)) !important;" data-element-id="zappy-drop-otz3ylrnj" data-element-type="button" data-text-color="rgb(43, 35, 64)">צרו קשר להתאמת תוכנית</a>
+      <p style><span style="text-align: center !important; display: flex !important; justify-content: center !important; align-items: flex-start !important; width: 100% !important;"><a href="/contact" class="learning-options-cta-section__cta" style="outline: none; color: rgb(43, 35, 64) !important; border-color: transparent !important; background-color: transparent !important; background-image: linear-gradient(135deg, rgb(247, 59, 59), rgb(247, 95, 95)) !important;" data-element-id="zappy-drop-otz3ylrnj" data-element-type="button" data-text-color="rgb(43, 35, 64)">צרו קשר להתאמת תוכנית</a>
       </span></p>
     </div>
     <div class="learning-options-cta-section__decoration" aria-hidden="true"></div>
