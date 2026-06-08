@@ -18,18 +18,18 @@ https://example.com/meet-the-team
 https://example.com/learning-options
 Be A Winner - אפשרויות הלימוד שלנו
 
-### Page
-https://example.com/what-makes-us-unique
-
-### מה אומרים הלקוחות
+### ההוכחה שהשינוי מתחיל בכם — Be A Winner
 https://example.com/customer-testimonials
 מנהלים ומנכ&quot;לים מספרים על המהפך האישי והעסקי בזכות סדנאות המנהיגות שלנו. כנסו לקרוא חוות דעת אמיתיות ולגלות איך גם אתם יכולים לנצח.
 
-### הופעות בתקשורת והשראה
+### Page
+https://example.com/what-makes-us-unique
+
+### הצצה מעשירה לעולם המנהיגות — Be A Winner
 https://example.com/media-appearances-and-inspiration
 צפו בסרטוני תוכן מקצועי שידליקו בכם את ניצוץ המנהיגות. טיפים, תובנות וכלים פרקטיים מהסדנאות לעסקים שלנו. התחילו לצפות ולהתפתח עוד היום.
 
-### ממנהל למנהיג - הספר
+### המדריך הכתוב לניצחון בניהול — Be A Winner
 https://example.com/manager-to-leader
 הספר שכל מנהל חייב לקרוא – כלים מעשיים, תובנות מעמיקות ותהליכי התפתחות שיהפכו אתכם למנהיגים מובילים. רכשו עכשיו והתחילו להוביל אחרת.
 
@@ -63,12 +63,12 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text, required)
-  - `email` (email, required)
-  - `phone` (tel, required)
-  - `inquiry_reason` (select, required)
+  - `name` (text)
+  - `email` (email)
+  - `phone` (tel)
+  - `inquiry_reason` (select)
   - `message` (textarea, required)
-  - `privacy_consent` (checkbox, required)
+  - `privacy_consent` (checkbox)
 
 ---
 
