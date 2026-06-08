@@ -5513,6 +5513,8 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: rgba(249, 115, 22, 0.3) 0px 4px 15px;
+  min-width: auto;
+  flex: 0 0 auto;
 }
 
 .book-product-intro-section__cta--primary:hover {
@@ -5541,6 +5543,8 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   letter-spacing: 0.02em;
   text-decoration: none;
   transition: all 0.3s ease;
+  min-width: auto;
+  flex: 0 0 auto;
 }
 
 .book-product-intro-section__cta--secondary:hover {
