@@ -1,0 +1,88 @@
+# Be A Winner — Generative Engine Optimization Map
+
+> Be A Winner is a leadership development brand focused on transforming managers into true leaders through lectures and workshops. The brand carries an empowering, motivational identity with a professional yet approachable tone. Key offerings include live training sessions, a book for sale, and video content — all aimed at inspiring personal and professional growth in the corporate world.
+
+---
+
+## Pages
+
+### בית
+https://be-a-winner-d0fd95d0.zappy5.app
+סדנאות לעסקים והרצאות מעוררות השראה שהופכות מנהלים למנהיגים אמיתיים. גלו את הכוח להוביל, לצמוח ולהניע אחרים להצלחה. הצטרפו עוד היום למסע המנצח!
+
+### אודות
+https://be-a-winner-d0fd95d0.zappy5.app/about
+הכירו את החזון שמניע את Be A Winner – מותג שמחויב להצמיח דור חדש של מנהיגים. למידע על הגישה הייחודית שלנו לתהליכי התפתחות עסקית, כנסו עכשיו.
+
+### חוות דעת
+https://be-a-winner-d0fd95d0.zappy5.app/reviews
+מנהלים ומנכ&quot;לים מספרים על המהפך האישי והעסקי בזכות סדנאות המנהיגות שלנו. כנסו לקרוא חוות דעת אמיתיות ולגלות איך גם אתם יכולים לנצח.
+
+### סרטונים
+https://be-a-winner-d0fd95d0.zappy5.app/videos
+צפו בסרטוני תוכן מקצועי שידליקו בכם את ניצוץ המנהיגות. טיפים, תובנות וכלים פרקטיים מהסדנאות לעסקים שלנו. התחילו לצפות ולהתפתח עוד היום.
+
+### ספר
+https://be-a-winner-d0fd95d0.zappy5.app/book
+הספר שכל מנהל חייב לקרוא – כלים מעשיים, תובנות מעמיקות ותהליכי התפתחות שיהפכו אתכם למנהיגים מובילים. רכשו עכשיו והתחילו להוביל אחרת.
+
+### צור קשר
+https://be-a-winner-d0fd95d0.zappy5.app/contact
+מוכנים להזניק את הקריירה והעסק קדימה? צרו קשר עוד היום לתיאום סדנאות למנכ&quot;לים והרצאות מותאמות אישית. אנחנו כאן כדי להפוך אתכם למנצחים.
+
+## Legal & Policy
+
+### Privacy Policy
+https://be-a-winner-d0fd95d0.zappy5.app/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://be-a-winner-d0fd95d0.zappy5.app/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://be-a-winner-d0fd95d0.zappy5.app/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+## How to Contact Us
+
+- (No contact details configured yet.)
+
+### Contact form
+- URL: https://be-a-winner-d0fd95d0.zappy5.app/contact
+- Endpoint: https://be-a-winner-d0fd95d0.zappy5.app/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
+
+---
+
+# Business Context (for LLM understanding)
+
+## About Be A Winner
+Be A Winner is a leadership development brand focused on transforming managers into true leaders through lectures and workshops. The brand carries an empowering, motivational identity with a professional yet approachable tone. Key offerings include live training sessions, a book for sale, and video content — all aimed at inspiring personal and professional growth in the corporate world.
+
+## Target Audience
+- מנהלים שרוצים להפוך למנהיגים
+- מנהיגים ומנהלים
+- מנהלי פיתוח מקצועי
+- עובדים בתהליך התפתחות קריירה
+- עובדי הייטק בפיתוח מנהיגות
+
+## Industry
+Leadership Development & Training
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://be-a-winner-d0fd95d0.zappy5.app/sitemap.xml
+- Robots: https://be-a-winner-d0fd95d0.zappy5.app/robots.txt
+- Flattened page text (for LLMs): https://be-a-winner-d0fd95d0.zappy5.app/llms-full.txt
