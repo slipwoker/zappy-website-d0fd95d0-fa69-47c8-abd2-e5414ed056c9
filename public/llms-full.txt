@@ -281,11 +281,11 @@ Description: סדנאות לעסקים והרצאות מעוררות השראה 
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -305,6 +305,7 @@ Description: סדנאות לעסקים והרצאות מעוררות השראה 
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -660,11 +661,11 @@ Be A Winner נולד מתוך ההבנה שהעולם הארגוני זקוק ל
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -684,6 +685,7 @@ Be A Winner נולד מתוך ההבנה שהעולם הארגוני זקוק ל
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -1232,11 +1234,11 @@ Description: Be A Winner - אפשרויות הלימוד שלנו
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -1256,6 +1258,7 @@ Description: Be A Winner - אפשרויות הלימוד שלנו
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -1608,11 +1611,11 @@ Description: מנהלים ומנכ&quot;לים מספרים על המהפך הא
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -1632,6 +1635,7 @@ Description: מנהלים ומנכ&quot;לים מספרים על המהפך הא
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -1808,11 +1812,11 @@ URL: https://example.com/what-makes-us-unique
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -1832,6 +1836,7 @@ URL: https://example.com/what-makes-us-unique
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -2073,11 +2078,11 @@ Description: צפו בסרטוני תוכן מקצועי שידליקו בכם �
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -2097,6 +2102,7 @@ Description: צפו בסרטוני תוכן מקצועי שידליקו בכם �
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -2286,9 +2292,9 @@ Be A Winner ("החברה", "אנו", "שלנו") מחויבת להגן על פר
 
 - חברה: Be A Winner
 
-- אימייל: [business_email]
+- אימייל: robi@robi-steiner.co.il
 
-- טלפון: [business_phone]
+- טלפון: +97258-7458008
 
 - כתובת: [business_address]
 
@@ -2336,11 +2342,11 @@ Be A Winner ("החברה", "אנו", "שלנו") מחויבת להגן על פר
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -2360,6 +2366,7 @@ Be A Winner ("החברה", "אנו", "שלנו") מחויבת להגן על פר
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -2557,9 +2564,9 @@ Be A Winner מחויבת להנגיש את השירותים לכלל הציבו�
 
 - חברה: Be A Winner
 
-- אימייל: [business_email]
+- אימייל: robi@robi-steiner.co.il
 
-- טלפון: [business_phone]
+- טלפון: +97258-7458008
 
 
 
@@ -2608,11 +2615,11 @@ Be A Winner מחויבת להנגיש את השירותים לכלל הציבו�
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -2632,6 +2639,7 @@ Be A Winner מחויבת להנגיש את השירותים לכלל הציבו�
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -2852,9 +2860,9 @@ Be A Winner מספקת Leadership Development & Training דרך האתר. השי
 
 - חברה: Be A Winner
 
-- אימייל: [business_email]
+- אימייל: robi@robi-steiner.co.il
 
-- טלפון: [business_phone]
+- טלפון: +97258-7458008
 
 - כתובת: [business_address]
 
@@ -2899,11 +2907,11 @@ Be A Winner מספקת Leadership Development & Training דרך האתר. השי
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -2923,6 +2931,7 @@ Be A Winner מספקת Leadership Development & Training דרך האתר. השי
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -3109,11 +3118,11 @@ Description: הספר שכל מנהל חייב לקרוא – כלים מעשי�
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -3133,6 +3142,7 @@ Description: הספר שכל מנהל חייב לקרוא – כלים מעשי�
 
 
 #### עקבו אחרינו
+
 
 
 
@@ -3245,8 +3255,8 @@ Description: מוכנים להזניק את הקריירה והעסק קדימה
 ### מוזמן ליצור איתנו קשר בכל דרך שנוחה לך. נשמח לשמוע על האתגרים שלך ולספר לך עוד על איך אנחנו יכולים לעזור.
 
 
-- [business_phone]
-- [business_email]
+- +97258-7458008
+- robi@robi-steiner.co.il
 - [business_address]
 
 
@@ -3489,11 +3499,11 @@ message هذا الحقل مطلوب
 #### צור קשר
 
 
-- [business_email]
+- robi@robi-steiner.co.il
 
-- [business_phone]
+- +97258-7458008
 
-- [business_address]
+- [business_address
 
 
 
@@ -3513,6 +3523,7 @@ message هذا الحقل مطلوب
 
 
 #### עקבו אחרינו
+
 
 
 

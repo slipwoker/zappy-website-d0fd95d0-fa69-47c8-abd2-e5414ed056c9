@@ -55,7 +55,9 @@ Information about WCAG compliance and accessibility features.
 
 ## How to Contact Us
 
-- (No contact details configured yet.)
+- Email: robi@robi-steiner.co.il
+- Phone: +97258-7458008
+- Phone (tel): tel:+972587458008
 
 ### Contact form
 - URL: https://example.com/contact
