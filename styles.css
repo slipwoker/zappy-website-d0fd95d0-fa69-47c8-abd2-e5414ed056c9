@@ -9377,6 +9377,10 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 .contact-contact-form-section__form-group select.contact-contact-form-section__select option:first-child {
   color: #A9A3B8;
 }
+
+#zappy-element-1780918806489-122szk330 .los-lecture-card p {
+  font-size: 1rem !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
