@@ -1,0 +1,3838 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>אפשרויות הלימוד שלנו</title>
+    <meta name="description" content="Be A Winner - אפשרויות הלימוד שלנו">
+    <meta name="keywords" content="">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'd0fd95d0-fa69-47c8-abd2-e5414ed056c9',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="אפשרויות הלימוד שלנו">
+    <meta property="og:description" content="Be A Winner - אפשרויות הלימוד שלנו">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="אפשרויות הלימוד שלנו">
+    <meta name="twitter:description" content="Be A Winner - אפשרויות הלימוד שלנו">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .skip-link { position: absolute; top: 0; left: 0; transform: translateY(-200%); padding: 12px 18px; background: var(--bg-dark, #1a1a1a); color: var(--text-light, #fff); font-weight: 600; border-radius: 0 0 8px 0; z-index: 10000; }
+    .skip-link:focus { transform: none; outline: 2px solid var(--ring, #fff); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--ring, currentColor); outline-offset: 3px; }
+  </style>
+
+
+  
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="article">
+    
+    
+    
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="אפשרויות הלימוד שלנו">
+    <meta property="og:locale" content="en_US">
+    <!-- Twitter Card Meta Tags -->
+    
+    
+    
+    
+    <meta name="twitter:image:alt" content="אפשרויות הלימוד שלנו"><style id="zappy-ai-page-styles">.learning-options-hero-section {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 96px 72px 88px 72px;
+  background-color: #1A1535;
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(232,160,48,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(233,113,90,0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #1A1535 0%, #2D2060 60%, #1A1535 100%);
+  color: var(--text-light);
+  direction: rtl;
+}
+
+/* Grain Overlay */
+.learning-options-hero-section .hero-grain-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  background-repeat: repeat;
+}
+
+/* Decorative Triangle Watermark */
+.learning-options-hero-section .hero-decor-triangle {
+  position: absolute;
+  bottom: 10%;
+  left: -5%;
+  width: 300px;
+  height: 300px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.learning-options-hero-section .hero-decor-triangle svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Background Media Layer */
+.learning-options-hero-section .hero-bg-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.learning-options-hero-section .hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.35;
+  mix-blend-mode: soft-light;
+}
+
+/* Scrim Overlay */
+.learning-options-hero-section .hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(26,21,53,0.4) 0%, rgba(26,21,53,0.85) 50%, rgba(26,21,53,0.95) 100%);
+}
+
+/* Content Container */
+.learning-options-hero-section .hero-content-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Hero Grid */
+.learning-options-hero-section .hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  direction: rtl;
+}
+
+/* Text Column */
+.learning-options-hero-section .hero-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: right;
+}
+
+/* Eyebrow */
+.learning-options-hero-section .hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.learning-options-hero-section .eyebrow-line {
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.learning-options-hero-section .eyebrow-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.6;
+}
+
+/* Headline */
+.learning-options-hero-section .hero-headline {font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--text-light);
+  margin: 0;}
+
+/* Subtitle */
+.learning-options-hero-section .hero-subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(249,245,239,0.85);
+  margin: 0;
+  max-width: 540px;
+  margin-inline-start: auto;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+/* CTA Group */
+.learning-options-hero-section .hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+/* Primary Button */
+.learning-options-hero-section .btn-primary {
+  background: var(--accent);
+  color: #FFFFFF;
+  padding: 14px 28px;
+  border-radius: 100px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(232,160,48,0.25);
+}
+
+.learning-options-hero-section .btn-primary:hover {
+  background: #C8922A;
+  box-shadow: 0 12px 32px rgba(232,160,48,0.4);
+  transform: translateY(-2px);
+}
+
+/* Secondary Button */
+.learning-options-hero-section .btn-secondary {
+  background: transparent;
+  color: #FFFFFF;
+  padding: 14px 28px;
+  border-radius: 100px;
+  border: 2px solid rgba(249,245,239,0.3);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(4px);
+}
+
+.learning-options-hero-section .btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(232,160,48,0.08);
+  transform: translateY(-2px);
+}
+
+/* Image Column */
+.learning-options-hero-section .hero-image-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Image Frame */
+.learning-options-hero-section .hero-image-frame {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 4 / 3;
+}
+
+/* Coral Glow Behind Image */
+.learning-options-hero-section .hero-image-glow {
+  position: absolute;
+  inset: -16px;
+  background: radial-gradient(ellipse at center, rgba(233,113,90,0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(24px);
+}
+
+/* Image Card */
+.learning-options-hero-section .hero-image-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+  overflow: hidden;
+  box-shadow: 0 24px 72px rgba(26,21,53,0.40);
+  transform: perspective(800px) rotateY(-4deg);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.learning-options-hero-section .hero-image-card:hover {
+  transform: perspective(800px) rotateY(-2deg) translateY(-4px);
+  box-shadow: 0 32px 80px rgba(26,21,53,0.50);
+}
+
+.learning-options-hero-section .hero-editorial-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Gold Outline Frame */
+.learning-options-hero-section .hero-image-outline {
+  position: absolute;
+  inset: -12px;
+  z-index: 1;
+  pointer-events: none;
+  border: 1.5px solid var(--accent);
+  border-radius: 16px;
+  opacity: 0.4;
+  transform: rotate(2deg);
+}
+
+/* Bottom Divider */
+.learning-options-hero-section .hero-divider-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.learning-options-hero-section .hero-divider-wrapper svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .learning-options-hero-section {
+    padding: 120px 48px 88px 48px;
+  }
+
+  .learning-options-hero-section .hero-grid {
+    gap: 48px;
+  }
+
+  .learning-options-hero-section .hero-headline {
+    font-size: 2.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .learning-options-hero-section {
+    padding: 120px 24px 88px 24px;
+    min-height: auto;
+  }
+
+  .learning-options-hero-section .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 64px;
+  }
+
+  .learning-options-hero-section .hero-text-col {
+    order: 1;
+    text-align: center;
+    align-items: center;
+  }
+
+  .learning-options-hero-section .hero-eyebrow {
+    justify-content: center;
+  }
+
+  .learning-options-hero-section .hero-headline {
+    font-size: 2.25rem;
+    text-align: center;
+  }
+
+  .learning-options-hero-section .hero-subtitle {
+    text-align: center;
+    max-width: 100%;
+    margin-inline-start: 0;
+  }
+
+  .learning-options-hero-section .hero-cta-group {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .learning-options-hero-section .btn-primary,
+  .learning-options-hero-section .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .learning-options-hero-section .hero-image-col {
+    order: 0;
+  }
+
+  .learning-options-hero-section .hero-image-frame {
+    max-width: 100%;
+  }
+
+  .learning-options-hero-section .hero-image-card {
+    transform: none;
+  }
+
+  .learning-options-hero-section .hero-image-card:hover {
+    transform: none;
+  }
+
+  .learning-options-hero-section .hero-image-outline {
+    display: none;
+  }
+
+  .learning-options-hero-section .hero-decor-triangle {
+    width: 180px;
+    height: 180px;
+    bottom: 5%;
+    left: -10%;
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 480px) {
+  .learning-options-hero-section {
+    padding: 110px 16px 80px 16px;
+  }
+
+  .learning-options-hero-section .hero-headline {
+    font-size: 1.75rem;
+  }
+
+  .learning-options-hero-section .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .learning-options-hero-section .hero-grid {
+    gap: 48px;
+  }
+}
+/* ZAPPY_POSTGEN_GUARD_HERO_FONT_CAP:learning-options-hero */
+.hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 48px !important; line-height: 1.2 !important; }
+@media (max-width: 1024px) {
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 36px !important; }
+}
+@media (max-width: 768px) {
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 28px !important; }
+}
+
+/* ZAPPY_POSTGEN_GUARD_HERO_TYPO:אפשרויות הלימוד שלנו-hero (learning-options-hero) — stripped 1 jarring hero headline effect(s) */
+
+
+.learning-options-services-section {
+  position: relative;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  padding: 100px 16px 80px;
+  overflow: hidden;
+}
+
+.learning-options-services-section .section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Section Header */
+.learning-options-services-section .section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.learning-options-services-section .section-header h2 {
+  font-family: 'Sora', 'Montserrat', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  max-width: none !important;
+}
+
+.learning-options-services-section .section-header p {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Services Grid */
+.learning-options-services-section .services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  direction: rtl;
+}
+
+/* Service Card */
+.learning-options-services-section .service-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(26, 21, 53, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: right;
+  height: 100%;
+  position: relative;
+  background-image: radial-gradient(circle at 10% 20%, rgba(76, 59, 143, 0.03) 0%, transparent 50%);
+}
+
+.learning-options-services-section .service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(26, 21, 53, 0.1);
+}
+
+/* Card Icon Container */
+.learning-options-services-section .card-icon-container {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(233, 113, 90, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: var(--secondary);
+  flex-shrink: 0;
+}
+
+.learning-options-services-section .card-icon-container svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Card Title */
+.learning-options-services-section .service-card h3 {
+  font-family: 'Sora', 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+/* Card Description */
+.learning-options-services-section .service-card > p {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+/* Benefits List */
+.learning-options-services-section .benefits-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--border-light);
+  padding-top: 20px;
+}
+
+.learning-options-services-section .benefit-item {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.learning-options-services-section .benefit-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  display: inline-block;
+  margin-top: 2px;
+}
+
+/* Bottom Prompt */
+.learning-options-services-section .bottom-prompt {
+  text-align: center;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-light);
+}
+
+.learning-options-services-section .bottom-prompt p {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: none !important;
+}
+
+.learning-options-services-section .bottom-prompt a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.learning-options-services-section .bottom-prompt a:hover {
+  color: var(--secondary);
+  border-color: var(--secondary);
+}
+
+/* Decorative Watermark */
+.learning-options-services-section .decorative-triangle-watermark {
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  width: 300px;
+  height: 300px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.learning-options-services-section .decorative-triangle-watermark svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .learning-options-services-section {
+    padding: 100px 16px 60px;
+  }
+
+  .learning-options-services-section .section-header {
+    margin-bottom: 40px;
+  }
+
+  .learning-options-services-section .section-header h2 {
+    font-size: 2rem;
+  }
+
+  .learning-options-services-section .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+
+  .learning-options-services-section .service-card {
+    padding: 24px;
+  }
+
+  .learning-options-services-section .decorative-triangle-watermark {
+    width: 180px;
+    height: 180px;
+    bottom: -20px;
+    left: -20px;
+  }
+
+  .learning-options-services-section .bottom-prompt {
+    margin-top: 32px;
+    padding-top: 24px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .learning-options-services-section .services-grid {
+    gap: 24px;
+  }
+
+  .learning-options-services-section .service-card {
+    padding: 24px;
+  }
+}
+
+.learning-options-services-section {
+  position: relative;
+  background: linear-gradient(180deg, #1A1535 0%, #2D2060 60%, #1A1535 100%);
+  color: var(--text-light);
+  overflow: visible;
+  padding: 120px 24px 80px;
+  direction: rtl;
+  z-index: 1;
+}
+
+/* Background Overlay Texture */
+.learning-options-services-section .los-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 30%, rgba(232,160,48,0.06) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(233,113,90,0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Decorative Glow behind image */
+.learning-options-services-section .los-decorative-glow {
+  position: absolute;
+  top: 10%;
+  inset-inline-end: 0;
+  width: 50%;
+  height: 70%;
+  background: radial-gradient(ellipse at center, rgba(233,113,90,0.15) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Decorative dashed line */
+.learning-options-services-section .los-decorative-line {
+  position: absolute;
+  bottom: 15%;
+  inset-inline-start: 0;
+  width: 45%;
+  height: 200px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+.learning-options-services-section .los-decorative-line svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Main Container */
+.learning-options-services-section .los-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Image Column (Left in RTL) */
+.learning-options-services-section .los-image-column {
+  flex: 0 0 42%;
+  position: relative;
+}
+
+.learning-options-services-section .los-image-panel {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 24px 72px rgba(26,21,53,0.20);
+  background: linear-gradient(135deg, #2D2060 0%, #1A1535 100%);
+  padding: 16px;
+}
+
+.learning-options-services-section .los-image-glow {
+  position: absolute;
+  top: -20%;
+  inset-inline-start: -20%;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle at 30% 30%, rgba(232,160,48,0.3) 0%, transparent 60%);
+  filter: blur(40px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.learning-options-services-section .los-image-panel img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+  object-fit: cover;
+  aspect-ratio: 3/2;
+}
+
+.learning-options-services-section .los-image-accent {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, rgba(26,21,53,0.8) 0%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Text Column (Right in RTL) */
+.learning-options-services-section .los-text-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.learning-options-services-section .los-text-column h2 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text-light);
+  margin: 0;
+  text-align: start;
+}
+
+.learning-options-services-section .los-intro {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-light);
+  opacity: 0.85;
+  margin: 0;
+  text-align: start;
+  max-width: 560px;
+}
+
+/* Stats Strip */
+.learning-options-services-section .los-stats-strip {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.learning-options-services-section .los-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 180px;
+  min-width: 160px;
+}
+
+.learning-options-services-section .los-stat-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232,160,48,0.15);
+  border-radius: 50%;
+  color: var(--accent);
+}
+
+.learning-options-services-section .los-stat-item p {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text-light);
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Benefits Grid */
+.learning-options-services-section .los-benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.learning-options-services-section .los-benefit-tile {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.learning-options-services-section .los-benefit-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232,160,48,0.1);
+  border-radius: 8px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.learning-options-services-section .los-benefit-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.learning-options-services-section .los-benefit-content h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-light);
+  margin: 0;
+  text-align: start;
+}
+
+.learning-options-services-section .los-benefit-content p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-light);
+  opacity: 0.8;
+  margin: 0;
+  text-align: start;
+}
+
+/* CTA Button */
+.learning-options-services-section .los-cta {
+  align-self: flex-start;
+  border-radius: 100px;
+  padding: 14px 36px;
+  background: #E8A030;
+  color: #FFFFFF;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 16px rgba(232,160,48,0.3);
+}
+
+.learning-options-services-section .los-cta:hover {
+  box-shadow: 0 8px 24px rgba(232,160,48,0.5);
+  transform: translateY(-2px);
+}
+
+/* Bottom Divider */
+.learning-options-services-section .los-divider-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  pointer-events: none;
+  z-index: 5;
+}
+.learning-options-services-section .los-divider-wrapper svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .learning-options-services-section {
+    padding: 100px 16px 70px;
+  }
+
+  .learning-options-services-section .los-container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .learning-options-services-section .los-image-column {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .learning-options-services-section .los-text-column {
+    gap: 24px;
+  }
+
+  .learning-options-services-section .los-text-column h2 {
+    font-size: 1.75rem;
+    text-align: start;
+  }
+
+  .learning-options-services-section .los-intro {
+    max-width: 100%;
+  }
+
+  .learning-options-services-section .los-stats-strip {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .learning-options-services-section .los-stat-item {
+    flex: 1 1 auto;
+  }
+
+  .learning-options-services-section .los-benefits-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
+  .learning-options-services-section .los-decorative-line {
+    width: 80%;
+    bottom: 10%;
+  }
+
+  .learning-options-services-section .los-cta {
+    align-self: center;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .learning-options-services-section .los-container {
+    gap: 40px;
+  }
+
+  .learning-options-services-section .los-image-column {
+    flex: 0 0 45%;
+  }
+
+  .learning-options-services-section .los-benefits-grid {
+    gap: 20px;
+  }
+}
+
+.learning-options-services-section {
+  background: #F5F0E8;
+  color: var(--text-dark);
+  padding: 80px 24px 0;
+  position: relative;
+  overflow: visible;
+  direction: rtl;
+  text-align: right;
+}
+
+/* Lavender background wash behind content */
+.learning-options-services-section::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 0;
+  width: 65%;
+  height: 80%;
+  background: radial-gradient(ellipse at 80% 50%, rgba(76, 59, 143, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.learning-options-services-section__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Text Column */
+.learning-options-services-section__text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.learning-options-services-section__top-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.learning-options-services-section__heading {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin: 0;
+  text-align: right;
+}
+
+.learning-options-services-section__intro {
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: right;
+  max-width: 540px;
+}
+
+.learning-options-services-section__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.learning-options-services-section__chip {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-dark);
+  background: transparent;
+  white-space: nowrap;
+}
+
+/* Details Grid */
+.learning-options-services-section__details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.learning-options-services-section__detail-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.learning-options-services-section__detail-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-dark);
+  margin: 0;
+  text-align: right;
+}
+
+.learning-options-services-section__detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.learning-options-services-section__detail-list li {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-dark);
+  text-align: right;
+}
+
+.learning-options-services-section__bullet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--secondary);
+  margin-top: 2px;
+}
+
+.learning-options-services-section__bullet svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+/* CTA */
+.learning-options-services-section__cta-wrapper {
+  margin-top: 8px;
+}
+
+.learning-options-services-section__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  padding: 12px 28px;
+  background: #E8A030;
+  color: #FFFFFF;
+  border: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.learning-options-services-section__cta:hover {
+  box-shadow: 0 0 40px rgba(232, 160, 48, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Image Column */
+.learning-options-services-section__image-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.learning-options-services-section__image-frame {
+  position: relative;
+  display: inline-block;
+  border-radius: 8px;
+  overflow: visible;
+  box-shadow: 0 24px 72px rgba(26, 21, 53, 0.20);
+}
+
+.learning-options-services-section__image-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Coral accent lines and plum shadow edge */
+.learning-options-services-section__image-frame::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: -16px;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--secondary);
+  border-radius: 8px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.learning-options-services-section__image-frame::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: -8px;
+  width: 100%;
+  height: 100%;
+  background: rgba(76, 59, 143, 0.15);
+  border-radius: 8px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Thin gold line divider */
+.learning-options-services-section__divider {
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  margin-top: 80px;
+  opacity: 0.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .learning-options-services-section {
+    padding: 60px 16px 0;
+  }
+
+  .learning-options-services-section__container {
+    grid-template-columns: 1fr !important;
+    gap: 40px;
+  }
+
+  .learning-options-services-section__heading {
+    font-size: 1.75rem;
+  }
+
+  .learning-options-services-section__details-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+
+  .learning-options-services-section__image-col {
+    order: -1; /* Image first on mobile */
+  }
+
+  .learning-options-services-section__image-frame::before,
+  .learning-options-services-section__image-frame::after {
+    display: none;
+  }
+
+  .learning-options-services-section__divider {
+    margin-top: 48px;
+  }
+
+  .learning-options-services-section::before {
+    width: 100%;
+    height: 60%;
+    top: 20%;
+    right: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(76, 59, 143, 0.05) 0%, transparent 70%);
+  }
+}
+
+.learning-options-services-section {
+  position: relative;
+  overflow: hidden;
+  background-color: #1A1535;
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(76, 59, 143, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(216, 166, 65, 0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #1A1535 0%, #2D2060 60%, #1A1535 100%);
+  color: var(--text-light);
+  padding: 100px 16px 80px;
+  direction: rtl;
+}
+
+/* Background grain texture */
+.learning-options-services-section__bg-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Decorative triangle watermark */
+.learning-options-services-section::after {
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  left: -5%;
+  width: 350px;
+  height: 350px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  border: 3px solid var(--accent);
+  transform: rotate(15deg);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.learning-options-services-section__container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Header */
+.learning-options-services-section__header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.learning-options-services-section__kicker {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.learning-options-services-section__title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text-light);
+  max-width: 800px;
+  margin: 0 auto 24px;
+}
+
+.learning-options-services-section__subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Process Grid */
+.learning-options-services-section__process {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: start;
+  gap: 24px;
+  margin-bottom: 80px;
+}
+
+/* Step Cards */
+.learning-options-services-section__step {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 2rem 1.75rem;
+  text-align: right;
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  min-width: 0;
+}
+
+.learning-options-services-section__step:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.learning-options-services-section__step-marker {
+  font-family: 'Sora', 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--secondary);
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.learning-options-services-section__step-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+.learning-options-services-section__step-desc {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.learning-options-services-section__step-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.learning-options-services-section__step-benefits li {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-light);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.learning-options-services-section__step-benefits li::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Connectors */
+.learning-options-services-section__connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  width: 100%;
+  min-width: 60px;
+}
+
+.learning-options-services-section__connector svg {
+  width: 100%;
+  height: auto;
+  max-width: 80px;
+}
+
+/* Conclusion Panel */
+.learning-options-services-section__conclusion {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 40px;
+  align-items: center;
+  direction: rtl;
+}
+
+.learning-options-services-section__conclusion-content {
+  text-align: right;
+}
+
+.learning-options-services-section__conclusion-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+.learning-options-services-section__conclusion-text {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.learning-options-services-section__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #FFFFFF;
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.learning-options-services-section__cta:hover {
+  box-shadow: 0 0 40px rgba(232, 160, 48, 0.35);
+  transform: translateY(-2px);
+}
+
+.learning-options-services-section__conclusion-image {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3 / 5;
+  max-height: 420px;
+  box-shadow: 0 16px 48px rgba(26, 21, 53, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.learning-options-services-section__conclusion-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .learning-options-services-section__process {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .learning-options-services-section__connector {
+    padding: 16px 0;
+    transform: rotate(90deg);
+    width: 40px;
+    margin: 0 auto;
+  }
+
+  .learning-options-services-section__connector svg {
+    width: 40px;
+  }
+
+  .learning-options-services-section__conclusion {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+
+  .learning-options-services-section__conclusion-image {
+    max-width: 300px;
+    margin: 0 auto;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .learning-options-services-section {
+    padding: 100px 16px 60px;
+  }
+
+  .learning-options-services-section__header {
+    margin-bottom: 48px;
+  }
+
+  .learning-options-services-section__title {
+    font-size: 1.75rem;
+  }
+
+  .learning-options-services-section__process {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .learning-options-services-section__step {
+    padding: 1.5rem;
+  }
+
+  .learning-options-services-section__step-marker {
+    font-size: 2.5rem;
+  }
+
+  .learning-options-services-section__step-title {
+    font-size: 1.3rem;
+  }
+
+  .learning-options-services-section__connector {
+    padding: 8px 0;
+    transform: rotate(90deg);
+    width: 36px;
+    margin: 0 auto;
+  }
+
+  .learning-options-services-section__conclusion {
+    grid-template-columns: 1fr !important;
+    padding: 1.5rem;
+    gap: 24px;
+  }
+
+  .learning-options-services-section__conclusion-image {
+    max-width: 240px;
+    margin: 0 auto;
+    order: -1;
+  }
+
+  .learning-options-services-section__conclusion-title {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .learning-options-services-section__conclusion-text {
+    text-align: center;
+  }
+
+  .learning-options-services-section__cta {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .learning-options-services-section {
+    padding: 80px 12px 48px;
+  }
+
+  .learning-options-services-section__step {
+    padding: 1.25rem;
+  }
+
+  .learning-options-services-section__conclusion {
+    padding: 1.25rem;
+  }
+
+  .learning-options-services-section__conclusion-image {
+    max-width: 200px;
+  }
+}
+
+.learning-options-cta-section {
+  background-color: #1A1535;
+  background-image:
+    radial-gradient(ellipse at 50% 30%, rgba(76, 59, 143, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 70%, rgba(233, 113, 90, 0.25) 0%, transparent 60%),
+    linear-gradient(180deg, #1A1535 0%, #2D2060 60%, #1A1535 100%);
+  color: var(--text-light);
+  padding: 100px 20px 100px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  direction: rtl;
+}
+
+.learning-options-cta-section__container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 60px 48px;
+  border: 1px solid rgba(216, 166, 65, 0.15);
+  box-shadow: 0 16px 48px rgba(26, 21, 53, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.learning-options-cta-section__content {
+  position: relative;
+  z-index: 3;
+}
+
+.learning-options-cta-section__title {
+  font-family: 'Sora', 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-light);
+  margin: 0 0 20px 0;
+  text-align: center;
+  max-width: none;
+}
+
+.learning-options-cta-section__description {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-light);
+  opacity: 0.9;
+  margin: 0 auto 32px auto;
+  max-width: 650px;
+  text-align: center;
+}
+
+.learning-options-cta-section__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #E8A030;
+  color: #FFFFFF;
+  padding: 16px 40px;
+  border-radius: 100px;
+  border: none;
+  font-family: 'Sora', 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(232, 160, 48, 0.35);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 4;
+}
+
+.learning-options-cta-section__cta:hover {
+  background: #D89A2E;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(232, 160, 48, 0.5);
+}
+
+.learning-options-cta-section__reassurance {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: center;
+  max-width: none;
+}
+
+.learning-options-cta-section__decoration {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(232, 160, 48, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.learning-options-cta-section__decoration::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(76, 59, 143, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .learning-options-cta-section {
+    padding: 80px 16px 80px;
+  }
+
+  .learning-options-cta-section__container {
+    padding: 40px 24px;
+    border-radius: 20px;
+  }
+
+  .learning-options-cta-section__title {
+    font-size: 1.75rem;
+  }
+
+  .learning-options-cta-section__description {
+    margin-bottom: 24px;
+  }
+
+  .learning-options-cta-section__cta {
+    padding: 14px 32px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .learning-options-cta-section__decoration {
+    width: 200px;
+    height: 200px;
+    top: -50px;
+    right: -50px;
+  }
+}</style>
+<style data-zappy-section-v2-css="true">
+/* V2 Regenerated Section CSS */
+.learning-Options-layout-section {
+  position: relative;
+  background-color: #F5F0E8;
+  background-image: 
+    radial-gradient(circle at 10% 80%, rgba(216, 166, 65, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 90% 20%, rgba(76, 59, 143, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #F5F0E8 0%, #EDE6D8 100%);
+  color: var(--text-dark);
+  padding: 80px 16px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.learning-Options-layout-section__container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.learning-Options-layout-section__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  direction: rtl;
+}
+
+.learning-Options-layout-section__card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(26, 21, 53, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 3px solid var(--accent);
+}
+
+.learning-Options-layout-section__card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(26, 21, 53, 0.12);
+}
+
+.learning-Options-layout-section__card-image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-dark);
+}
+
+.learning-Options-layout-section__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.learning-Options-layout-section__card:hover .learning-Options-layout-section__card-image img {
+  transform: scale(1.05);
+}
+
+.learning-Options-layout-section__card-content {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: start;
+}
+
+.learning-Options-layout-section__card-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-dark);
+  margin: 0 0 12px 0;
+  font-family: 'Sora', 'Montserrat', sans-serif;
+}
+
+.learning-Options-layout-section__card-text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0 0 20px 0;
+  flex: 1;
+}
+
+.learning-Options-layout-section__card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--accent);
+  text-decoration: none;
+  align-self: flex-start;
+  transition: color 0.2s ease, gap 0.2s ease;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.learning-Options-layout-section__card-link:hover {
+  color: var(--primary);
+  gap: 10px;
+  border-bottom-color: var(--primary);
+}
+
+.learning-Options-layout-section__card-link-arrow {
+  font-size: 1.1em;
+  transition: transform 0.2s ease;
+}
+
+.learning-Options-layout-section__card-link:hover .learning-Options-layout-section__card-link-arrow {
+  transform: translateX(-3px);
+}
+
+/* Decorative Watermark */
+.learning-Options-layout-section__watermark {
+  position: absolute;
+  bottom: -60px;
+  inset-inline-end: -60px;
+  width: 350px;
+  height: 350px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .learning-Options-layout-section {
+    padding: 60px 16px;
+  }
+
+  .learning-Options-layout-section__grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+
+  .learning-Options-layout-section__card-image {
+    height: 200px;
+  }
+
+  .learning-Options-layout-section__card-content {
+    padding: 20px 20px 24px;
+  }
+
+  .learning-Options-layout-section__watermark {
+    width: 200px;
+    height: 200px;
+    bottom: -40px;
+    inset-inline-end: -40px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .learning-Options-layout-section__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>
+
+          <style id="zappy-cta-mobile-style">
+            /* Hide CTA list item on desktop (tablets and up) */
+            @media (min-width: 769px) {
+              .nav-cta-item-mobile {
+                display: none !important;
+              }
+            }
+            /* Show CTA list item on mobile */
+            @media (max-width: 768px) {
+              .nav-cta-item-mobile {
+                display: list-item !important;
+              }
+            }
+          </style>
+        
+          <style id="zappy-nested-menu-style">
+            /* Desktop only: vertically center nav items */
+            @media (min-width: 769px) {
+              .nav-menu,
+              #navMenu {
+                align-items: center !important;
+              }
+            }
+            
+            /* Menu Group styling (non-clickable parent) - TOP LEVEL ONLY with ultra-specific selector */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+            }
+            
+            /* Desktop: show submenu on Menu Group hover */
+            li:has(.menu-group-title):hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when hovering */
+            }
+            
+            /* Hide menu items marked as hidden (overrides hover states) */
+            .zappy-hidden-menu-item,
+            li:has(.menu-group-title):hover > .sub-menu .zappy-hidden-menu-item {
+              display: none !important;
+              opacity: 0 !important;
+              visibility: hidden !important;
+              pointer-events: none !important;
+            }
+            
+            /* Keep submenu visible when hovering over the submenu itself */
+            .sub-menu:hover {
+              opacity: 1 !important;
+              visibility: visible !important;
+              pointer-events: auto !important;
+            }
+            
+            /* Nested dropdown menu styles - using more specific selectors */
+            .nav-menu .sub-menu,
+            nav .sub-menu,
+            .navbar .sub-menu {
+              display: block !important; /* Ensure submenu is in the DOM */
+              position: absolute !important;
+              top: 100%;
+              left: 0;
+              right: auto;
+              min-width: 200px;
+              background: white;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+              border-radius: 8px;
+              padding: 8px 0;
+              margin-top: 0px; /* Remove gap to prevent hover loss */
+              opacity: 0 !important;
+              visibility: hidden !important;
+              transform: translateY(-10px);
+              transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+              z-index: 1000;
+              list-style: none;
+              pointer-events: none; /* Prevent interaction when hidden */
+            }
+            
+            /* RTL (Hebrew/Arabic) submenu positioning - align to right instead of left */
+            [dir="rtl"] .nav-menu .sub-menu,
+            [dir="rtl"] nav .sub-menu,
+            [dir="rtl"] .navbar .sub-menu,
+            html[lang="he"] .nav-menu .sub-menu,
+            html[lang="he"] nav .sub-menu,
+            html[lang="he"] .navbar .sub-menu,
+            html[lang="ar"] .nav-menu .sub-menu,
+            html[lang="ar"] nav .sub-menu,
+            html[lang="ar"] .navbar .sub-menu {
+              left: auto;
+              right: 0;
+            }
+            
+            /* Show submenu on parent hover - more specific selectors */
+            .nav-menu li:hover > .sub-menu,
+            nav li:hover > .sub-menu,
+            .navbar li:hover > .sub-menu {
+              opacity: 1 !important;
+              visibility: visible !important;
+              transform: translateY(0) !important;
+              pointer-events: auto !important; /* Enable interaction when visible */
+            }
+            
+            /* Parent item must be relatively positioned */
+            .nav-menu li:has(.sub-menu),
+            nav li:has(.sub-menu),
+            .navbar li:has(.sub-menu) {
+              position: relative;
+            }
+            
+            /* Style for submenu items */
+            .sub-menu li {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+            }
+            
+            .sub-menu a,
+            .sub-menu .menu-group-title {
+              display: block !important;
+              padding: 10px 12px !important;
+              color: #333 !important;
+              font-weight: 600 !important;
+              text-decoration: none;
+              transition: background-color 0.2s;
+              white-space: nowrap;
+              cursor: default;
+            }
+            
+            .sub-menu a:hover {
+              background-color: #f5f5f5;
+            }
+            
+            /* CRITICAL: Override submenu styles for TOP-LEVEL Menu Groups only - must come AFTER submenu styles */
+            .nav-menu > li > .menu-group-title,
+            #navMenu > li > .menu-group-title {
+              display: inline-block !important;
+              padding: 0.5rem 1rem !important;
+              color: var(--nav-color) !important;
+              font-weight: 500 !important;
+              line-height: 1.7 !important;
+              cursor: default !important;
+              user-select: none !important;
+              vertical-align: middle !important;
+              text-decoration: none !important;
+              margin: 0 !important;
+              transition: color 0.3s ease !important;
+            }
+            
+            .nav-menu > li > .menu-group-title:hover,
+            #navMenu > li > .menu-group-title:hover {
+              color: var(--nav-hover-color) !important;
+              background-color: transparent !important;
+            }
+            
+            /* On mobile, show nested menus as expandable accordion */
+            @media (max-width: 768px) {
+              /* Mobile submenu styling */
+              .nav-menu .sub-menu,
+              nav .sub-menu,
+              .navbar .sub-menu {
+                position: static !important;
+                transform: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                margin-top: 0 !important;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                visibility: hidden;
+                transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease, padding 0.3s ease;
+                padding: 0 !important;
+                border-radius: 0 !important;
+              }
+              
+              /* Expanded state — no internal scroll; parent navMenu scrolls */
+              .sub-menu.mobile-expanded {
+                max-height: none !important;
+                overflow-y: visible !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                padding: 8px 0 8px 16px !important;
+              }
+              
+              /* RTL padding adjustment */
+              [dir="rtl"] .sub-menu.mobile-expanded,
+              html[lang="he"] .sub-menu.mobile-expanded,
+              html[lang="ar"] .sub-menu.mobile-expanded {
+                padding: 8px 16px 8px 0 !important;
+              }
+              
+              /* Disable hover behavior on mobile */
+              .nav-menu li:hover > .sub-menu,
+              nav li:hover > .sub-menu,
+              .navbar li:hover > .sub-menu {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+              }
+              
+              /* Enable visibility for expanded submenus */
+              .nav-menu li > .sub-menu.mobile-expanded,
+              nav li > .sub-menu.mobile-expanded,
+              .navbar li > .sub-menu.mobile-expanded {
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+              }
+              
+              .sub-menu a {
+                padding: 10px 0 !important;
+                display: block !important;
+                font-size: 14px !important;
+                white-space: normal !important;
+              }
+              
+              .sub-menu a:hover {
+                background-color: transparent !important;
+              }
+              
+              /* Parent item wrapper - flex layout with relative positioning for absolute toggle */
+              .nav-menu li:has(.sub-menu),
+              nav li:has(.sub-menu),
+              .navbar li:has(.sub-menu) {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                align-items: center !important;
+                position: relative !important;
+                min-height: 44px !important;
+              }
+              
+              /* Parent link - takes full width since toggle is absolute (not a flex child) */
+              .nav-menu li:has(.sub-menu) > a,
+              nav li:has(.sub-menu) > a,
+              .navbar li:has(.sub-menu) > a,
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                flex: 1 !important;
+                min-width: 0 !important;
+              }
+              
+              /* Normalize menu-group-title in mobile nav to match link alignment */
+              .nav-menu > li > .menu-group-title,
+              #navMenu > li > .menu-group-title {
+                padding: 0 !important;
+                line-height: inherit !important;
+              }
+              
+              /* Submenu takes full width below parent */
+              .nav-menu li:has(.sub-menu) > .sub-menu,
+              nav li:has(.sub-menu) > .sub-menu,
+              .navbar li:has(.sub-menu) > .sub-menu {
+                flex-basis: 100% !important;
+                width: 100% !important;
+              }
+              
+              /* HIDE EXISTING CHEVRONS/ARROWS from cloned sites to prevent duplicates */
+              .nav-menu li:has(.sub-menu) > a .fa-chevron-down,
+              .nav-menu li:has(.sub-menu) > a .fa-angle-down,
+              .nav-menu li:has(.sub-menu) > a [class*="chevron"],
+              .nav-menu li:has(.sub-menu) > a [class*="arrow"],
+              nav li:has(.sub-menu) > a [class*="chevron"],
+              nav li:has(.sub-menu) > a [class*="arrow"],
+              #navMenu li:has(.sub-menu) > a [class*="chevron"],
+              #navMenu li:has(.sub-menu) > a [class*="arrow"] {
+                display: none !important;
+                visibility: hidden !important;
+              }
+              
+              /* Toggle arrow button - flex child that stretches to match nav-link height */
+              .mobile-submenu-toggle {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 44px !important;
+                height: auto !important;
+                background: transparent !important;
+                border: none !important;
+                cursor: pointer !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                position: static !important;
+                flex-shrink: 0 !important;
+                align-self: stretch !important;
+                z-index: 2 !important;
+                -webkit-tap-highlight-color: transparent;
+              }
+              
+              .mobile-submenu-toggle::after {
+                content: '' !important;
+                display: block !important;
+                width: 0 !important;
+                height: 0 !important;
+                border-left: 6px solid transparent !important;
+                border-right: 6px solid transparent !important;
+                border-top: 7px solid currentColor !important;
+                transition: transform 0.3s ease !important;
+              }
+              
+              /* Rotate arrow when expanded */
+              .mobile-submenu-toggle.expanded::after {
+                transform: rotate(180deg) !important;
+              }
+            }
+            
+            /* Hide toggle button on desktop */
+            @media (min-width: 769px) {
+              .mobile-submenu-toggle {
+                display: none !important;
+              }
+            }
+          </style>
+          
+          <script id="zappy-mobile-menu-script">
+            // Mobile menu toggle for nested submenus (including Menu Groups)
+            // Uses separate toggle button - link navigates, arrow toggles submenu
+            (function() {
+              function initMobileMenuToggles() {
+                // Only run on mobile
+                if (window.innerWidth > 768) {
+                  // Remove any toggle buttons on desktop
+                  document.querySelectorAll('.mobile-submenu-toggle').forEach(btn => btn.remove());
+                  document.querySelectorAll('.sub-menu.mobile-expanded').forEach(menu => {
+                    menu.classList.remove('mobile-expanded');
+                  });
+                  console.log('[MOBILE MENU] Desktop mode - cleanup done');
+                  return;
+                }
+                
+                console.log('[MOBILE MENU] Initializing mobile menu toggles...');
+                
+                // Find all parent menu items (items with .sub-menu)
+                const menuItemsWithSubmenus = document.querySelectorAll(
+                  '.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)'
+                );
+                
+                console.log('[MOBILE MENU] Found', menuItemsWithSubmenus.length, 'items with submenus');
+                
+                menuItemsWithSubmenus.forEach(function(li) {
+                  // Skip if already has toggle button
+                  if (li.querySelector('.mobile-submenu-toggle')) {
+                    return;
+                  }
+                  
+                  const submenu = li.querySelector('.sub-menu');
+                  const parentLink = li.querySelector(':scope > a') || li.querySelector(':scope > .menu-group-title');
+                  
+                  if (!submenu || !parentLink) return;
+                  
+                  // Create toggle button
+                  const toggleBtn = document.createElement('button');
+                  toggleBtn.className = 'mobile-submenu-toggle';
+                  toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+                  toggleBtn.setAttribute('type', 'button');
+
+                  // Insert toggle button after the link
+                  parentLink.insertAdjacentElement('afterend', toggleBtn);
+                  
+                  console.log('[MOBILE MENU] Created toggle button for:', parentLink.textContent?.trim());
+                  
+                  // Handle toggle button click - only toggles submenu
+                  toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const isExpanded = submenu.classList.contains('mobile-expanded');
+                    
+                    // Close all other submenus first
+                    document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+                      if (menu !== submenu) {
+                        menu.classList.remove('mobile-expanded');
+                        const otherToggle = menu.parentElement.querySelector('.mobile-submenu-toggle');
+                        if (otherToggle) otherToggle.classList.remove('expanded');
+                      }
+                    });
+                    
+                    // Toggle this submenu
+                    submenu.classList.toggle('mobile-expanded');
+                    toggleBtn.classList.toggle('expanded');
+                    
+                    console.log('[MOBILE MENU] Toggled submenu:', !isExpanded ? 'expanded' : 'collapsed');
+                  });
+                  
+                  // Parent link navigates normally - no preventDefault
+                });
+              }
+              
+              // Initialize on DOM load
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMobileMenuToggles);
+              } else {
+                initMobileMenuToggles();
+              }
+              
+              // Re-initialize on window resize (but use debounce to avoid too many calls)
+              let resizeTimer;
+              window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(initMobileMenuToggles, 250);
+              });
+              
+              // Also initialize when mobile menu becomes visible
+              // This handles cases where the mobile menu is hidden initially
+              const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                  if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const target = mutation.target;
+                    if (target.classList.contains('active') || target.style.display !== 'none') {
+                      console.log('[MOBILE MENU] Mobile menu became visible, re-initializing...');
+                      setTimeout(initMobileMenuToggles, 100);
+                    }
+                  }
+                });
+              });
+              
+              // Observe mobile menu containers
+              const mobileMenus = document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu');
+              mobileMenus.forEach(function(menu) {
+                observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+              });
+            })();
+          </script>
+    <link rel="stylesheet" href="/styles.css">
+    <script>window.ZAPPY_WEBSITE_ID = "d0fd95d0-fa69-47c8-abd2-e5414ed056c9"; window.ZAPPY_API_BASE = "https://api.zappy5.com";</script>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">דלג לתוכן הראשי</a>
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+  <button class="phone-header-btn" data-phone="+972587458008" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+  <div class="nav-container">
+    <div class="nav-right-group"><div class="nav-brand">
+      <a href="/" class="logo-link"><img class="logo" src="/assets/be-a-winner-leadership-development-training-logo-1781012970269-d8g6cc.webp?v=1781012970734-3nmm6k" alt="Be A Winner"></a>
+    </div><ul class="nav-menu" id="navMenu"><li><a href="/our-learning-options" class="nav-link">אפשרויות הלימוד שלנו</a></li><li><a href="/what-makes-us-unique">מה הופך אותנו לייחודיים</a></li><li><a href="/media-appearances-and-inspiration">הופעות בתקשורת והשראה</a></li><li><a href="/manager-to-leader">ממנהל למנהיג - הספר</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li></ul></div>
+    
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">צור קשר</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .navbar,
+          nav.navbar {
+            min-height: 70px !important;
+          }
+
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            margin-top: auto !important;
+            margin-bottom: auto !important;
+            transform: none !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-light)) !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent !important;
+          }
+
+          html[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          body[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] header .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] nav .phone-header-btn {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '0', 'important');
+          mobileToggle.style.setProperty('bottom', '0', 'important');
+          mobileToggle.style.setProperty('margin-top', 'auto', 'important');
+          mobileToggle.style.setProperty('margin-bottom', 'auto', 'important');
+          mobileToggle.style.setProperty('transform', 'none', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '0', 'important');
+          phoneBtn.style.setProperty('bottom', '0', 'important');
+          phoneBtn.style.setProperty('margin-top', 'auto', 'important');
+          phoneBtn.style.setProperty('margin-bottom', 'auto', 'important');
+          phoneBtn.style.setProperty('transform', 'none', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu handler (shared by click and touchend)
+    function handleToggle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+      const closeIcon = newToggle.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    }
+    
+    // Use click for desktop/emulation and touchend as iOS Safari fallback.
+    // Prevent double-fire with a timestamp guard.
+    var lastToggleTime = 0;
+    function guardedToggle(e) {
+      var now = Date.now();
+      if (now - lastToggleTime < 300) return;
+      lastToggleTime = now;
+      handleToggle(e);
+    }
+    
+    newToggle.addEventListener('click', guardedToggle);
+    newToggle.addEventListener('touchend', guardedToggle);
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '+97258-7458008';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // WhatsApp button visibility is now controlled via CSS (siteSettings).
+    // No JS-based desktop hiding — the button is visible on both mobile and desktop by default.
+  });
+})();
+
+</script>
+  
+  <main id="main" class="blog-page ai-generated-page">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="learning-options-hero-section" data-layout-spec="אפשרויות הלימוד שלנו-hero" data-hero-type="fullscreen-scrim" id="learning-options-hero-section">
+  <!-- Grain Overlay -->
+  <div class="hero-grain-overlay" aria-hidden="true"></div>
+
+  <!-- Decorative Triangle Watermark -->
+  <div class="hero-decor-triangle" aria-hidden="true">
+    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M150 20 L280 260 L20 260 Z" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="8 8" opacity="0.15"></path>
+    </svg>
+  </div>
+
+  <!-- Background Media Layer -->
+  <div class="hero-bg-media">
+    <img data-hero-bg="true" data-context="Dynamic leadership workshop environment with a professional speaker on stage in a modern auditorium, warm stage lighting with coral and plum tones, audience silhouettes, motivational atmosphere, editorial photography style, 16:9 aspect ratio" width="1200" height="675" src="/assets/be-a-winner-leadership-development-training-section-hero-learning-options-hero-image-1.webp" alt="סדנת מנהיגות מעוררת השראה" class="hero-bg-image" data-hero-background="true" data-element-type="image" data-element-id="img-1780919206832-9qef4vqg7">
+  </div>
+
+  <!-- Scrim Overlay for Text Legibility -->
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <!-- Main Content Grid -->
+  <div class="hero-content-container">
+    <div class="hero-grid">
+      <!-- Right Column: Text & CTAs -->
+      <div class="hero-text-col">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-line" aria-hidden="true"></span>
+          <small class="eyebrow-text">הדרך שלך למנהיגות מתחילה כאן</small>
+        </div>
+        <h1 class="hero-headline">להוביל את העתיד,<br>לנצח בכל יום</h1>
+        <h3 class="hero-subtitle">גלו את הפוטנציאל הטמון בכם עם סדנאות והרצאות מעוררות השראה שהופכות מנהלים למנהיגים אמיתיים</h3>
+        <p><a href="/contact" class="hero-btn-primary btn btn-primary" style="color: rgb(43, 35, 64) !important; outline: none; border-color: transparent !important; background-color: transparent !important; background-image: linear-gradient(135deg, rgb(247, 59, 59), rgb(247, 95, 95)) !important;" data-element-type="button" data-element-id="zappy-drop-p84c6o354" data-native-element="true" data-text-color="rgb(43, 35, 64)">
+            <span style="color: rgb(43, 35, 64) !important;">צרו קשר עכשיו</span>
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+          </a></p><div class="hero-cta-group">
+          
+          
+        </div>
+      </div>
+
+      <!-- Left Column: Editorial Image -->
+      <div class="hero-image-col">
+        <div class="hero-image-frame">
+          <div class="hero-image-glow" aria-hidden="true"></div>
+          <div class="hero-image-card"><div style="position: relative; width: 100%; height: 100%; padding-top: 56.25%;">
+  <iframe src="https://www.youtube.com/embed/JdfCzgbJk6o" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy">
+  </iframe>
+</div></div>
+          <div class="hero-image-outline" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Divider Transition -->
+  <div class="hero-divider-wrapper" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,45 Q60,35 120,42 T240,38 Q300,42 360,35 T480,40 Q540,38 600,42 T720,35 Q780,40 840,38 T960,42 Q1020,35 1080,40 T1200,45 L1200,80 Z" fill="var(--bg-light)"></path>
+    </svg>
+  </div>
+</section>
+<section class="learning-options-services-section" data-layout-spec="אפשרויות הלימוד שלנו-services" id="zappy-section-2-dup-1780918515113" style="opacity: 1;">
+  <div class="los-bg-overlay" aria-hidden="true"></div>
+  <div class="los-decorative-glow" aria-hidden="true"></div>
+  <div class="los-decorative-line" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,100 Q100,80 200,100 T400,100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"></path>
+    </svg>
+  </div>
+
+  <div class="los-container">
+    <!-- Left Side: Image with decorative panel -->
+    <div class="los-image-column">
+      <div class="los-image-panel">
+        <div class="los-image-glow" aria-hidden="true"></div>
+        <img data-context="A dynamic lecture hall or keynote setting with a charismatic speaker on stage engaging a corporate audience, warm professional lighting, leadership training atmosphere" width="600" height="400" src="/assets/be-a-winner-leadership-development-training-section-services-learning-options-services-image-1.webp" alt="הרצאה מעוררת השראה למנהלים - Be A Winner" data-element-type="image" data-element-id="img-1780917766778-tzqihlcep">
+        <div class="los-image-accent" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Right Side: Text Content -->
+    <div class="los-text-column"><h2>הרצאות</h2>
+<p class="los-intro" style="margin-bottom: 12px;">כל ההרצאות הן למסגרת זמן של שעה עד שעה וחצי. כולן כייפיות, משעשעות, מלמדות, משכילות ובגובה העיניים.</p>
+
+<div class="los-lectures-grid zappy-preserve-css-grid" style="--zappy-grid-cols: 1fr 1fr; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; align-items: stretch !important;" data-zappy-explicit-columns="true" id="zappy-auto-grid-1780920473097-1jnpbh" data-zappy-auto-grid="true" data-original-item-width="308" data-original-gap="20px">
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="0">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473080-mt72flpy5" data-icon-type="svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">לעשות טוב, לעשות הון</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">מה הקשר בין לעשות טוב לבין שורת הרווח? למה להפוך את העולם למקום טוב יותר משתלם ברמת ההנאה וברמת חשבון הבנק. הרצאה מלמדת ופוקחת עיניים על הקשר המטורף בין קידום הטוב בעולם, בליבת הפעילות העסקית, לבין מידת ההנאה ושורת הרווח.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="1">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473080-aqj7by9c9" data-icon-type="svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מוטיבציה אש</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">להכיר את הכלים הפשוטים הגורמים לאנשים ולעסק לעוף. הרצאה משעשעת, מלמדת ומשכילה על מגוון הכלים והאפשרויות להעלות באופן דרמטי את המוטיבציה והמחויבות שלך ושל העובדים איתך.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="2">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(76,59,143,0.15); border-radius: 8px; color: var(--primary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473080-la65qqjox" data-icon-type="svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">אושר, כך עושים זאת תכלס</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">לפגוש את האושר כפי שכנראה מעולם עוד לא פגשת. הרצאה משעשעת, מלמדת ומשכילה, המנפצת מיתוסים לגבי מושג ה'אושר' ומנגישה אותו למשתתפים כפי שהם כנראה מעולם לא פגשו.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="3">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473081-mz5xy3nj0" data-icon-type="svg"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">חדשנות ניהולית או להיות טויוטה</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">לגלות את הנשק הסודי של חברות מובילות שוק. למה חדשנות ניהולית זה התחום שהכי משתלם לחברה להשקיע בו? הרצאה משעשעת, מלמדת, משכילה ופוקחת עיניים.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="4">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473081-hgymvu2d9" data-icon-type="svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מנהיגות? כל אחד יכול!</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">מנהיגות זה הערך המבוקש ביותר בעולם העבודה. הרצאה משעשעת, מלמדת ומשכילה שעומדת לנפץ את כל מה שנדמה לכם על מנהיגות, ולהציגה כמיומנות פשוטה שכל אחד יכול ללמוד ולפתח.</p>
+  </div><div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease; grid-column: auto" data-grid-item-index="5">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(76,59,143,0.15); border-radius: 8px; color: var(--primary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920473081-q8mbln9sc" data-icon-type="svg"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">לממש פוטנציאל אישי ועסקי, כך עושים זאת תכלס!</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">ככל שהעולם הופך טכנולוגי יותר, רמת האומללות בו עולה. מימוש הפוטנציאל האישי הוא אחד מתחומי הידע החשובים בעולם כיום. הרצאה משעשעת, מלמדת ומשכילה שתגלה לכם דברים שלא ידעתם שלא ידעתם.</p>
+  </div>
+
+  
+
+</div>
+
+
+
+</div>
+  </div>
+
+  <!-- Bottom Divider -->
+  <div class="los-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,35 Q60,25 120,38 T240,30 Q300,40 360,32 T480,38 Q540,25 600,35 T720,28 Q780,40 840,32 T960,38 Q1020,30 1080,40 T1200,32 L1200,80 Z" fill="var(--bg-light)"></path>
+    </svg>
+  </div>
+</section>
+<section class="learning-options-services-section" data-layout-spec="אפשרויות הלימוד שלנו-services" id="zappy-section-2-dup-1780918493550">
+  <div class="los-bg-overlay" aria-hidden="true"></div>
+  <div class="los-decorative-glow" aria-hidden="true"></div>
+  <div class="los-decorative-line" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,100 Q100,80 200,100 T400,100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"></path>
+    </svg>
+  </div>
+
+  <div class="zappy-horizontal-grid grid zappy-preserve-css-grid" id="zappy-horizontal-grid-1780918727918-hon3m9" data-zappy-local-grid="true" data-zappy-grid-kind="horizontal-pair" data-zappy-grid-align="start" data-original-item-width="690" data-original-gap="16px" style="display: grid; gap: 24px; padding: 0px 24px; max-width: 100%; margin-left: 0px; margin-right: 0px; --zappy-grid-cols: repeat(2, minmax(0, 1fr)); align-items: stretch !important; grid-template-columns: repeat(2, minmax(0, 1fr));" data-zappy-explicit-columns="true"><div class="zappy-inserted-element" id="zappy-element-1780918760285-fc3nxi2i3" data-element-id="zappy-element-1780918760285-fc3nxi2i3" data-element-type="h2" data-zappy-newly-inserted="true" data-grid-item-index="0" style="margin: 0px !important; padding: 20px !important; box-sizing: border-box; display: block; align-self: start !important;"><h2 class="font-bold" data-element-type="h2" data-element-id="zappy-element-1780918760285-fc3nxi2i3" id="zappy-element-1780918760285-fc3nxi2i3" data-zappy-newly-inserted="true" style="color: rgb(249, 245, 239) !important;"><span style="color: #f5efeb !important">סדנאות חד יומיות</span></h2><div class="zappy-inserted-element" id="zappy-element-1780918806489-122szk330" data-element-id="zappy-element-1780918806489-122szk330" data-element-type="paragraph" data-zappy-newly-inserted="true" style="width: 100%;"><div class="los-lectures-grid" style="--zappy-grid-cols: 1fr 1fr; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px;" data-zappy-explicit-columns="true">
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-lzbo0ylla" data-icon-type="svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">לאתר ולגייס את סופרמן</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">איך לאתר ולגייס את העובד הכי מדויק ונכון עבורך, באופן קל, פשוט ומעשי. יום סדנה מלא שעומד להפוך את החברה למקום העבודה המועדף. מתאים לכל אדם בחברה שעוסק בקליטת עובדים.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-ozwlzl24s" data-icon-type="svg"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">משקיע נכון או משקיע אסון</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">איך לאתר את המשקיע הנכון עבורך, כזה שיעזור לעסק לעוף, וגם לקבל 'כן' בקלות. יום סדנה מלא, או תהליך אישי של 3-4 מפגשים. מתאים לכל חברה ואדם העוסקים בגיוס משקיעים או שותפים.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-iz8de19ef" data-icon-type="svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מוטיבציה אש</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">להכיר את הכלים הפשוטים שיוצרים שינוי דרמטי ברמת המחויבות ובמוטיבציה, אצלך ואצל העובדים איתך. יום סדנה מלא, או שני מפגשים של 4 שעות. מיועד לצוותי ניהול ולמועמדים לקידום.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-50og8sea0" data-icon-type="svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">אלוף במכירות</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">איך לקבל 'כן' בקלות — למכור בלי 'למכור', בלי צורך לשכנע איש לעולם. מומלץ לכל עובדי החברה. לא מתאים למכירה קמעונאית או דרך האינטרנט.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease; grid-column: 1 / -1;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(76,59,143,0.15); border-radius: 8px; color: var(--primary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780919179497-lqpc3nxst" data-icon-type="svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">הנעה בהנאה — סדנת חצי יום</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">לגלות את הכלים הפשוטים וסופר אפקטיביים להניע אחרים לפעולה באפס מאמץ. שתי מיומנויות קסומות: הקשבה ושאילת שאלות. סדנת חצי יום, עד 4 שעות. מתאים לכולם — לא מוגבל בכמות משתתפים.</p>
+  </div>
+
+</div></div></div><div class="los-container zappy-grid-item-no-stretch" data-zappy-pre-grid- data-zappy-pre-grid-class="los-container" data-zappy-was-wrapped-into-grid="true" data-zappy-grid-anchor="true" data-grid-item-index="1" style="display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: stretch !important; align-self: stretch !important; height: 100% !important;"><div class="zappy-inserted-element" id="zappy-element-1780918653529-ar08eycq9" data-element-id="zappy-element-1780918653529-ar08eycq9" data-element-type="h2" data-zappy-newly-inserted="true" style="width: 100%;"></div>
+    <!-- Left Side: Image with decorative panel -->
+    <div class="los-image-column">
+      <div class="los-image-panel">
+        <div class="los-image-glow" aria-hidden="true"></div>
+        <img data-context="A dynamic lecture hall or keynote setting with a charismatic speaker on stage engaging a corporate audience, warm professional lighting, leadership training atmosphere" width="600" height="400" src="/assets/be-a-winner-leadership-development-training-section-services-learning-options-services-image-1.webp" alt="הרצאה מעוררת השראה למנהלים - Be A Winner" data-element-type="image" data-element-id="img-1780917766778-tzqihlcep">
+        <div class="los-image-accent" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Right Side: Text Content -->
+    <div class="los-text-column">
+
+
+
+
+</div>
+  </div></div>
+
+  <!-- Bottom Divider -->
+  <div class="los-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,35 Q60,25 120,38 T240,30 Q300,40 360,32 T480,38 Q540,25 600,35 T720,28 Q780,40 840,32 T960,38 Q1020,30 1080,40 T1200,32 L1200,80 Z" fill="var(--bg-light)"></path>
+    </svg>
+  </div>
+</section>
+<section class="learning-options-services-section" data-layout-spec="אפשרויות הלימוד שלנו-services" id="zappy-section-2-dup-1780918515113">
+  <div class="los-bg-overlay" aria-hidden="true"></div>
+  <div class="los-decorative-glow" aria-hidden="true"></div>
+  <div class="los-decorative-line" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,100 Q100,80 200,100 T400,100" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4"></path>
+    </svg>
+  </div>
+
+  <div class="los-container">
+    <!-- Left Side: Image with decorative panel -->
+    <div class="los-image-column">
+      <div class="los-image-panel">
+        <div class="los-image-glow" aria-hidden="true"></div>
+        <img data-context="A dynamic lecture hall or keynote setting with a charismatic speaker on stage engaging a corporate audience, warm professional lighting, leadership training atmosphere" width="600" height="400" src="/assets/be-a-winner-leadership-development-training-section-services-learning-options-services-image-1.webp" alt="הרצאה מעוררת השראה למנהלים - Be A Winner" data-element-type="image" data-element-id="img-1780917766778-tzqihlcep">
+        <div class="los-image-accent" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Right Side: Text Content -->
+    <div class="los-text-column"><h2>תהליך קבוצתי פנים ארגוני ואישי</h2>
+
+<div class="los-lectures-grid zappy-preserve-css-grid" style="--zappy-grid-cols: 1fr 1fr; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; align-items: stretch !important;" data-zappy-explicit-columns="true" id="zappy-auto-grid-1780920171013-v57z64" data-zappy-auto-grid="true" data-original-item-width="308" data-original-gap="20px">
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="0">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170992-fhusv662j" data-icon-type="svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">ממנהל למנהיג: התהליך הקבוצתי</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">תהליך פנים ארגוני, מוגבל עד 16 משתתפים. 16 מפגשים, אחת לשבוע, כל מפגש בן 4 שעות. מיועד לשדרת הניהול של החברה — רשימת מועמדים המוצעים על ידי המנכ"ל או משא"ש.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="1">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170992-zijsrrmdi" data-icon-type="svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">ממנהל למנהיג: התהליך האישי</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">מיועד למנהלים בכירים ומנכ"לים. תהליך אישי פרונטלי בלבד — פגישה אחת לשבוע, כל פגישה בת שעה וחצי לערך. במשרדי החברה או במקום אחר לפי רצון הצדדים.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="2">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(76,59,143,0.15); border-radius: 8px; color: var(--primary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170993-zxyuqp0kd" data-icon-type="svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מה יוצא לחברה או לארגון?</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">שיפור משמעותי בתוצאות העסקיות • הטמעת חדשנות ניהולית • צוות שעובד יחד כמו סיירת מובחרת • צמצום תחלופת עובדים • כוח אדם יוזם, מעורב ואכפתי • סביבת עבודה מהנה ואפקטיבית.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease;" data-grid-item-index="3">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(233,113,90,0.15); border-radius: 8px; color: var(--secondary); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170993-j6ru7ygy2" data-icon-type="svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">מה יוצא למשתתף?</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">ביטחון עצמי מלא • דימוי עצמי משודרג • יכולת לרתום קבוצה למטרה משותפת • שחרור מהפחד • שליטה מלאה על החיים • שיפור מערכות יחסים • ניצול 100% מהיכולות • קבלת 'כן' בקלות במכירה וגיוס.</p>
+  </div>
+
+  <div class="los-lecture-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; transition: transform 0.3s ease, border-color 0.3s ease; grid-column: 1 / -1;" data-grid-item-index="4">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <span style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,160,48,0.15); border-radius: 8px; color: var(--accent); flex-shrink: 0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-element-type="icon" data-element-id="icon-1780920170993-s5yv3ila8" data-icon-type="svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      </span>
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-light); margin: 0;">תהליך הקבלה</h3>
+    </div>
+    <p style="font-size: 0.9rem; line-height: 1.6; color: rgba(249,245,239,0.8); margin: 0;">אין קבלה אוטומטית. שלב ראשון — מפגש חשיפה ראשוני של כשעה לכלל המועמדים. שלב שני — שיחה טלפונית ושאלון למילוי. שלב שלישי — פגישת הכרות של עד שעה וחצי. בסופה כל צד מחליט אם נכון לו לצאת לדרך.</p>
+  </div>
+
+</div>
+
+<p class="los-intro" style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); text-align: start;">*14 מפגשים, אחת לשבוע — במשרדי החברה או במיקום חיצוני</p></div>
+  </div>
+
+  <!-- Bottom Divider -->
+  <div class="los-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,35 Q60,25 120,38 T240,30 Q300,40 360,32 T480,38 Q540,25 600,35 T720,28 Q780,40 840,32 T960,38 Q1020,30 1080,40 T1200,32 L1200,80 Z" fill="var(--bg-light)"></path>
+    </svg>
+  </div>
+</section>
+<section class="learning-options-cta-section" data-layout-spec="אפשרויות הלימוד שלנו-cta" id="learning-options-cta-section">
+  <div class="learning-options-cta-section__container">
+    <div class="learning-options-cta-section__content">
+      <h2 class="learning-options-cta-section__title">מוכנים להפוך למנהיגים שאתם יכולים להיות?</h2>
+      <p class="learning-options-cta-section__description">התוכניות שלנו מותאמות אישית לצרכי הארגון שלכם. בין אם אתם מחפשים סדנה חד-יומית, תהליך ליווי מתמשך או הרצאה מעוררת השראה — אנחנו כאן כדי לבנות יחד את המסלול המושלם עבורכם.</p>
+      <p ><span style="text-align: center !important; display: flex !important; justify-content: center !important; align-items: flex-start !important; width: 100% !important;"><a href="/contact" class="learning-options-cta-section__cta" style="outline: none; color: rgb(43, 35, 64) !important; border-color: transparent !important; background-color: transparent !important; background-image: linear-gradient(135deg, rgb(247, 59, 59), rgb(247, 95, 95)) !important;" data-element-id="zappy-drop-otz3ylrnj" data-element-type="button" data-text-color="rgb(43, 35, 64)">צרו קשר להתאמת תוכנית</a>
+      </span></p>
+    </div>
+    <div class="learning-options-cta-section__decoration" aria-hidden="true"></div>
+  </div>
+</section></main>
+  
+  <footer class="site-footer" dir="rtl">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div class="footer-col footer-company-col">
+        <div data-zappy-zoom-wrapper="true" data-element-id="img-1781013477684-dq0ndiwqa" data-element-type="image" data-zappy-zoom-wrapper-width="124px" data-zappy-zoom-wrapper-height="60px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-wrapper-align="center" style="position: relative !important; overflow: hidden !important; width: 124px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 60px !important; display: block !important;" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true"><img src="/assets/be-a-winner-leadership-development-training-service-1781013556003-509edv.webp?v=1781013558662" alt="Be A Winner" class="logo" data-element-type="image" data-element-id="img-1781013477684-dq0ndiwqa" data-zappy-footer-image="true" style="object-fit: contain; width: auto; height: auto; max-width: 600px; display: block; border-radius: 8px; object-position: 50% 50% !important; margin: 0px !important;" data-zappy-object-position="50% 50%" data-zappy-zoom="1"></div>
+        <p class="footer-tagline">מפתחים מנהיגים, בונים עתיד – הדרך שלך לניצחון מתחילה כאן.</p>
+      </div>
+      <div class="footer-col footer-links-col">
+        <h4>ניווט מהיר</h4>
+        <ul class="footer-links">
+          <li><a href="/">בית</a></li>
+          
+          
+          <li><a href="/media-appearances-and-inspiration">הופעות בתקשורת והשראה</a></li>
+          <li><a href="/manager-to-leader">ממנהל למנהיג - הספר</a></li>
+          <li><a href="/contact">צור קשר</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-contact-col">
+        <h4>צור קשר</h4>
+        <ul class="footer-contact" ><li>
+            <span class="contact-icon"><i class="fas fa-envelope" data-element-type="icon" data-element-id="icon-1781013477684-rqeg3gzx9" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
+            <span class="contact-text"><a href="/cdn-cgi/l/email-protection#0b796469624b7964696226787f6e62656e79256864256267"><span class="__cf_email__" data-cfemail="f4869b969db4869b969dd98780919d9a9186da979bda9d98">[email&nbsp;protected]</span></a></span>
+          </li><li>
+            <span class="contact-icon"><i class="fas fa-phone" data-element-type="icon" data-element-id="icon-1781013477684-him3pr8cp" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
+            <span class="contact-text"><a href="tel:+97258-7458008">+97258-7458008</a></span></li><li><span class="contact-text">(טלפון לווטסאפ בלבד)&nbsp;</span></li><li><a href="/" ><span class="contact-icon"></span><span class="contact-text"><br></span></a></li></ul>
+      </div>
+      <div class="footer-col footer-hours-col">
+        <h4>שעות פעילות</h4>
+        <ul class="footer-hours">
+          <li><a href="/"><span class="hours-day">ימים א'–ה'</span> <span class="hours-time">09:00–18:00</span></a></li>
+          <li><a href="/"><span class="hours-day">יום ו'</span> <span class="hours-time">09:00–13:00</span></a></li>
+          <li><a href="/"><span class="hours-day">שבת</span> <span class="hours-time">סגור</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-social-col">
+        <h4>עקבו אחרינו</h4>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook" data-zappy-social-placeholder="true" style="display:none !important;"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram" data-zappy-social-placeholder="true" style="display:none !important;"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="WhatsApp" data-zappy-social-placeholder="true" style="display:none !important;"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://youtube.com/@embed/4El7sLeqtw4" aria-label="YouTube" target="_blank" rel="noopener noreferrer" data-element-id="element-ai-1781013450235-y8k2m9" data-element-type="social-link"><i class="fab fa-youtube" data-element-type="icon" data-element-id="icon-1781013477684-csvtr40qy" data-icon-type="fontawesome"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <p class="footer-copyright">© 2026 Be A Winner. כל הזכויות שמורות.</p>
+      </div>
+      <div class="footer-bottom-right">
+        <a href="/privacy">מדיניות פרטיות</a>
+        <span class="footer-divider">|</span>
+        <a href="/terms">תנאי שימוש</a>
+        <span class="footer-divider">|</span>
+        <a href="/accessibility">נגישות</a>
+        <span class="footer-divider">|</span>
+        <a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+  <a href="https://wa.me/+972587458008" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-navbar-scroll-effect">
+    (function(){
+      var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');
+      var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');
+      if(!nb)return;
+      var fb='rgba(246,240,232,0.85)';
+      var th=60;
+      var rs=getComputedStyle(document.documentElement);
+      var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';
+      var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';
+      var st=true?td:tl;
+      nb.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease,box-shadow 0.3s ease';
+      if(cm)cm.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease';
+      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';
+      var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle'];
+      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}
+      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}
+      function applyScrolled(){
+        nb.classList.add('scrolled');
+        if(window.innerWidth>768){
+          nb.style.setProperty('--frosted-text',st);
+          nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('background-color',fb,'important');
+          nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+        }
+        if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}
+      }
+      function onS(){
+        if(window._zappyNavNoDarkHero) return;
+        if(window.innerWidth<=768){nb.classList.remove('scrolled');cTC(nb);if(cm){cm.classList.remove('scrolled');cTC(cm);}return;}
+        var y=window.scrollY||window.pageYOffset;
+        if(y>th){
+          nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+          if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}
+        }else{
+          nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');
+          nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';
+          cTC(nb);
+          if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}
+        }
+      }
+      function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}
+      window.addEventListener('scroll',onS,{passive:true});
+      window.addEventListener('resize',onS,{passive:true});
+      onS();
+      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main:not(.courses-page-main)>section:first-child');
+      var hasDH=false;
+      if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}
+      if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);applyScrolled();window._zappyNavNoDarkHero=true;}
+    })();
+    </script>
+
+    <script>
+    (function(){
+      var _applied=false;
+      function _isHeroBg(w){var img=w.querySelector('img');if(img&&(img.getAttribute('data-hero-bg')==='true'||img.getAttribute('data-hero-background')==='true'))return true;var p=(w.style.position||'').replace(/\s*!important\s*/g,'').trim();var ww=(w.style.width||'').replace(/\s*!important\s*/g,'').trim();var hh=(w.style.height||'').replace(/\s*!important\s*/g,'').trim();return p==='absolute'&&ww==='100%'&&hh==='100%';}
+      function fixDesktopWrappers(){
+        // No-op: desktop wrapper restoration is handled by ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME
+        // in script.js (restoreWrapperDimensions). The old inflation logic here was expanding
+        // small wrappers (e.g. 139px logo wrappers) to their parent width, conflicting with
+        // the correct stored dimensions.
+      }
+      function _parsePos(s){var x=50,y=50;try{var m=(s||'').match(/(-?d+(?:.d+)?)%s+(-?d+(?:.d+)?)%/);if(m){x=parseFloat(m[1]);y=parseFloat(m[2]);}}catch(e){}if(!isFinite(x))x=50;if(!isFinite(y))y=50;return{x:Math.max(0,Math.min(100,x)),y:Math.max(0,Math.min(100,y))};}
+      function _coverPct(iA,cA){if(!isFinite(iA)||iA<=0||!isFinite(cA)||cA<=0)return{w:100,h:100};if(iA>=cA)return{w:(iA/cA)*100,h:100};return{w:100,h:(cA/iA)*100};}
+      function applyMobile(){
+        if(_applied)return;_applied=true;
+        document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){
+          if(_isHeroBg(w))return;
+          var cw=w.style.getPropertyValue('width');
+          var _sW=parseFloat(w.getAttribute('data-zappy-zoom-wrapper-width'))||0;
+          var _sH=parseFloat(w.getAttribute('data-zappy-zoom-wrapper-height'))||0;
+          if(!cw&&!(_sW>0&&_sH>0))return;
+          if(!w._zappyDesktop)w._zappyDesktop={wStyle:w.getAttribute('style')};
+          var img=w.querySelector('img');
+          if(!img)return;
+          if(!img._zappyDesktop)img._zappyDesktop={src:img.getAttribute('src'),style:img.getAttribute('style')};
+          var mobileZoomStr=img.getAttribute('data-zappy-mobile-zoom');
+          var mobileZoom=parseFloat(mobileZoomStr);
+          var mobileSrc=img.getAttribute('data-zappy-mobile-src');
+          var mobilePos=img.getAttribute('data-zappy-mobile-object-position');
+          var parentOvf=w.parentElement?((w.parentElement.style.overflow||'')+(window.getComputedStyle(w.parentElement).overflow||'')).trim():'';
+          var inConstrainedParent=parentOvf.indexOf('hidden')!==-1||parentOvf.indexOf('clip')!==-1;
+          if(inConstrainedParent){
+            w.style.setProperty('max-width','100%','important');
+          }else{
+            w.style.setProperty('width','100%','important');
+            w.style.setProperty('max-width','100%','important');
+          }
+          if(mobileSrc)img.src=mobileSrc;
+          function _applyZoomCrop(_img,_w,_ePos,_eZoom){
+            var rect=_w.getBoundingClientRect();
+            if(!rect||!rect.width||!rect.height)return;
+            var nW=_img.naturalWidth||0,nH=_img.naturalHeight||0;
+            if(!(nW>0&&nH>0))return;
+            var iA=nW/nH,cA=rect.width/rect.height;
+            var cv=_coverPct(iA,cA);
+            var wP=100,hP=100;
+            if(_eZoom>=1){wP=cv.w*_eZoom;hP=cv.h*_eZoom;}
+            else{var t2=(_eZoom-0.5)/0.5;if(!isFinite(t2))t2=0;t2=Math.max(0,Math.min(1,t2));wP=100+t2*(cv.w-100);hP=100+t2*(cv.h-100);}
+            var p2=_parsePos(_ePos);
+            var lP=(100-wP)*(p2.x/100);
+            var tP=(100-hP)*(p2.y/100);
+            _img.style.setProperty('position','absolute','important');
+            _img.style.setProperty('left',lP+'%','important');
+            _img.style.setProperty('top',tP+'%','important');
+            _img.style.setProperty('width',wP+'%','important');
+            _img.style.setProperty('height',hP+'%','important');
+            _img.style.setProperty('max-width','none','important');
+            _img.style.setProperty('max-height','none','important');
+            _img.style.setProperty('display','block','important');
+            _img.style.setProperty('object-fit',_eZoom<1?'fill':'cover','important');
+            _img.style.setProperty('transform','none','important');
+            _img.style.setProperty('margin','0','important');
+          }
+          if(_sW>0&&_sH>0){
+            var effZoom=(isFinite(mobileZoom)&&mobileZoom>0)?mobileZoom:(parseFloat(img.getAttribute('data-zappy-zoom'))||1);
+            var effPos=mobilePos||img.getAttribute('data-zappy-object-position')||img.style.objectPosition||'50% 50%';
+            w.style.setProperty('overflow','hidden','important');
+            w.style.setProperty('position','relative','important');
+            w.style.setProperty('width','100%','important');
+            w.style.setProperty('max-width','100%','important');
+            if(_sW>0&&_sH>0){w.style.setProperty('padding-bottom','0','important');w.style.setProperty('aspect-ratio',_sW+'/'+_sH,'important');w.style.setProperty('height','auto','important');}
+            _applyZoomCrop(img,w,effPos,effZoom);
+            if(!(img.complete&&img.naturalWidth>0)){
+              (function(_i,_w2,_p,_z){_i.addEventListener('load',function _ol(){_i.removeEventListener('load',_ol);try{_applyZoomCrop(_i,_w2,_p,_z);}catch(e){}});
+              })(img,w,effPos,effZoom);
+            }
+          }else{
+            if(!inConstrainedParent)w.style.setProperty('height','auto','important');
+            img.style.setProperty('position','relative','important');
+            img.style.setProperty('width','100%','important');
+            img.style.setProperty('height','auto','important');
+            img.style.setProperty('max-width','100%','important');
+            img.style.setProperty('max-height',inConstrainedParent?'none':'400px','important');
+            img.style.setProperty('object-fit','cover','important');
+            img.style.setProperty('left','0','important');
+            img.style.setProperty('top','0','important');
+            img.style.setProperty('transform','none','important');
+          }
+        });
+        document.querySelectorAll('img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]').forEach(function(img){
+          var zw=img.closest('[data-zappy-zoom-wrapper="true"]');
+          if(zw&&!_isHeroBg(zw))return;
+          if(!img._zappyDesktop)img._zappyDesktop={src:img.getAttribute('src'),style:img.getAttribute('style')};
+          var mobileSrc=img.getAttribute('data-zappy-mobile-src');
+          var mobilePos=img.getAttribute('data-zappy-mobile-object-position');
+          var mobileZoom=parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
+          if(mobileSrc)img.src=mobileSrc;
+          if(mobilePos)img.style.setProperty('object-position',mobilePos,'important');
+          if(mobileZoom>1){
+            img.style.setProperty('transform','scale('+mobileZoom+')','important');
+            img.style.setProperty('transform-origin',mobilePos||'50% 50%','important');
+            var p=img.parentElement;
+            if(p)p.style.setProperty('overflow','hidden','important');
+          }
+        });
+      }
+      function revertDesktop(){
+        if(!_applied)return;_applied=false;
+        document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){
+          if(w._zappyDesktop&&w._zappyDesktop.wStyle!=null){w.setAttribute('style',w._zappyDesktop.wStyle);}
+          var img=w.querySelector('img');
+          if(img&&img._zappyDesktop){
+            if(img._zappyDesktop.src!=null)img.setAttribute('src',img._zappyDesktop.src);
+            if(img._zappyDesktop.style!=null)img.setAttribute('style',img._zappyDesktop.style);
+            else img.removeAttribute('style');
+          }
+        });
+        document.querySelectorAll('img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]').forEach(function(img){
+          var zw=img.closest('[data-zappy-zoom-wrapper="true"]');
+          if(zw&&!_isHeroBg(zw))return;
+          if(img._zappyDesktop){
+            if(img._zappyDesktop.src!=null)img.setAttribute('src',img._zappyDesktop.src);
+            if(img._zappyDesktop.style!=null)img.setAttribute('style',img._zappyDesktop.style);
+            else img.removeAttribute('style');
+          }
+        });
+        _fixHeroBgWrappers();
+        fixDesktopWrappers();
+      }
+      function _fixHeroBgWrappers(){var isMob=window.innerWidth<=768;document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){if(!_isHeroBg(w))return;w.style.setProperty('position','absolute','important');w.style.setProperty('top','0','important');w.style.setProperty('left','0','important');w.style.setProperty('width','100%','important');w.style.setProperty('height','100%','important');w.style.setProperty('max-width','none','important');w.style.setProperty('overflow','hidden','important');w.setAttribute('data-zappy-zoom-wrapper-width-mode','full');var img=w.querySelector('img');if(img){img.style.setProperty('width','100%','important');img.style.setProperty('height','100%','important');img.style.setProperty('object-fit','cover','important');img.style.setProperty('position','relative','important');img.style.setProperty('top','0','important');img.style.setProperty('left','0','important');img.style.setProperty('max-width','none','important');img.style.setProperty('max-height','none','important');img.style.setProperty('display','block','important');if(isMob){var mSrc=img.getAttribute('data-zappy-mobile-src');var mPos=img.getAttribute('data-zappy-mobile-object-position');var mZoom=parseFloat(img.getAttribute('data-zappy-mobile-zoom'));if(mSrc){if(!img._zappyDesktop)img._zappyDesktop={src:img.getAttribute('src'),style:img.getAttribute('style')};img.src=mSrc;}if(mPos)img.style.setProperty('object-position',mPos,'important');if(mZoom>1){img.style.setProperty('transform','scale('+mZoom+')','important');img.style.setProperty('transform-origin',mPos||'50% 50%','important');}}}});}
+      function init(){
+        _fixHeroBgWrappers();
+        var mq=window.matchMedia('(max-width:768px)');
+        function onChange(e){if(e.matches)applyMobile();else revertDesktop();}
+        if(mq.matches)applyMobile();
+        else fixDesktopWrappers();
+        try{mq.addEventListener('change',onChange);}catch(e){mq.addListener(onChange);}
+      }
+      if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+      else setTimeout(init,50);
+    })();
+    </script>
+</body>
+</html>
