@@ -14,10 +14,6 @@ https://example.com
 https://example.com/learning-options
 Be A Winner - אפשרויות הלימוד שלנו
 
-### ההוכחה שהשינוי מתחיל בכם — Be A Winner
-https://example.com/customer-testimonials
-מנהלים ומנכ&quot;לים מספרים על המהפך האישי והעסקי בזכות סדנאות המנהיגות שלנו. כנסו לקרוא חוות דעת אמיתיות ולגלות איך גם אתם יכולים לנצח.
-
 ### Page
 https://example.com/what-makes-us-unique
 
@@ -64,7 +60,7 @@ Information about WCAG compliance and accessibility features.
   - `name` (text, required)
   - `email` (email, required)
   - `phone` (tel, required)
-  - `inquiry_reason` (select, required)
+  - `inquiry_reason` (select)
   - `message` (textarea, required)
   - `privacy_consent` (checkbox, required)
 
