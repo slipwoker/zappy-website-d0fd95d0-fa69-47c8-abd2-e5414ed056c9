@@ -9477,6 +9477,26 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 #layout-1780924243863 .uniqueness-card {
   gap: 18px !important;
 }
+
+#layout-1780924243863 .what-Makes-Us-Unique-layout-section__container {
+  gap: 40px !important;
+}
+
+#layout-1780924243863 .what-Makes-Us-Unique-layout-section__text-col {
+  gap: 16px !important;
+}
+
+#layout-1780924243863 .what-Makes-Us-Unique-layout-section__heading {
+  font-size: 2.4rem !important;
+}
+
+#layout-1780924243863 .what-Makes-Us-Unique-layout-section__subtitle {
+  font-size: 1.2rem !important;
+}
+
+#layout-1780924243863 .what-Makes-Us-Unique-layout-section__ctas {
+  margin-top: 8px !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
