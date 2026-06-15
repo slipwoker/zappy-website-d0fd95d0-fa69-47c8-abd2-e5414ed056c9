@@ -2,13 +2,13 @@
 
 Be A Winner is a leadership development brand focused on transforming managers into true leaders through lectures and workshops. The brand carries an empowering, motivational identity with a professional yet approachable tone. Key offerings include live training sessions, a book for sale, and video content — all aimed at inspiring personal and professional growth in the corporate world.
 
-Source: https://example.com
+Source: https://be-a-winner-1.zappy5.app
 
 ---
 
 ## הפכו למנהיגים שמשנים מציאות — Be A Winner
 
-URL: https://example.com
+URL: https://be-a-winner-1.zappy5.app
 Description: סדנאות לעסקים והרצאות מעוררות השראה שהופכות מנהלים למנהיגים אמיתיים. גלו את הכוח להוביל, לצמוח ולהניע אחרים להצלחה. הצטרפו עוד היום למסע המנצח!
 
 הפכו למנהיגים שמשנים מציאות — Be A Winner
@@ -88,7 +88,7 @@ Description: סדנאות לעסקים והרצאות מעוררות השראה 
 ## אנחנו מייצרים מנהיגים בחברות וארגונים
 
 
-### הופכים מנהלים טובים למנהיגים מעוררי השראה, כדי להינות ולהרוויח הרבה יותר
+### הופכים מנהלים טובים למנהיגים מעוררי השראה, כדי להנות ולהרוויח הרבה יותר
 
 
 
@@ -278,7 +278,7 @@ Description: סדנאות לעסקים והרצאות מעוררות השראה 
 
 #### צור קשר
 
-- [email protected]
+- robi@robi-steiner.co.il
 - +97258-7458008
 - (טלפון לווטסאפ בלבד)
 -
@@ -328,7 +328,7 @@ Description: סדנאות לעסקים והרצאות מעוררות השראה 
 
 ## אפשרויות הלימוד שלנו
 
-URL: https://example.com/our-learning-options
+URL: https://be-a-winner-1.zappy5.app/our-learning-options
 Description: Be A Winner - אפשרויות הלימוד שלנו
 
 אפשרויות הלימוד שלנו
@@ -844,7 +844,7 @@ Description: Be A Winner - אפשרויות הלימוד שלנו
 
 #### צור קשר
 
-- [email protected]
+- robi@robi-steiner.co.il
 - +97258-7458008
 - (טלפון לווטסאפ בלבד)
 -
@@ -892,9 +892,9 @@ Description: Be A Winner - אפשרויות הלימוד שלנו
 
 ---
 
-## https://example.com/what-makes-us-unique
+## https://be-a-winner-1.zappy5.app/what-makes-us-unique
 
-URL: https://example.com/what-makes-us-unique
+URL: https://be-a-winner-1.zappy5.app/what-makes-us-unique
 
 מה הופך אותנו לייחודיים
 
@@ -1211,7 +1211,7 @@ URL: https://example.com/what-makes-us-unique
 
 #### צור קשר
 
-- [email protected]
+- robi@robi-steiner.co.il
 - +97258-7458008
 - (טלפון לווטסאפ בלבד)
 -
@@ -1261,7 +1261,7 @@ URL: https://example.com/what-makes-us-unique
 
 ## הצצה מעשירה לעולם המנהיגות — Be A Winner
 
-URL: https://example.com/media-appearances-and-inspiration
+URL: https://be-a-winner-1.zappy5.app/media-appearances-and-inspiration
 Description: צפו בסרטוני תוכן מקצועי שידליקו בכם את ניצוץ המנהיגות. טיפים, תובנות וכלים פרקטיים מהסדנאות לעסקים שלנו. התחילו לצפות ולהתפתח עוד היום.
 
 הופעות בתקשורת והשראה
@@ -1470,7 +1470,7 @@ Description: צפו בסרטוני תוכן מקצועי שידליקו בכם �
 
 #### צור קשר
 
-- [email protected]
+- robi@robi-steiner.co.il
 - +97258-7458008
 - (טלפון לווטסאפ בלבד)
 -
@@ -1520,7 +1520,7 @@ Description: צפו בסרטוני תוכן מקצועי שידליקו בכם �
 
 ## מדיניות פרטיות
 
-URL: https://example.com/privacy
+URL: https://be-a-winner-1.zappy5.app/privacy
 Description: מדיניות הפרטיות שלנו - כיצד אנו אוספים, משתמשים ומגנים על המידע שלכם
 
 מדיניות פרטיות
@@ -1727,7 +1727,7 @@ Be A Winner ("החברה", "אנו", "שלנו") מחויבת להגן על פר
 
 #### צור קשר
 
-- [email protected]
+- robi@robi-steiner.co.il
 - +97258-7458008
 - (טלפון לווטסאפ בלבד)
 -
@@ -1777,7 +1777,7 @@ Be A Winner ("החברה", "אנו", "שלנו") מחויבת להגן על פר
 
 ## הצהרת נגישות
 
-URL: https://example.com/accessibility
+URL: https://be-a-winner-1.zappy5.app/accessibility
 Description: הצהרת הנגישות שלנו - מחויבותנו לנגישות דיגיטלית
 
 הצהרת נגישות
@@ -1993,7 +1993,7 @@ Be A Winner מחויבת להנגיש את השירותים לכלל הציבו�
 
 #### צור קשר
 
-- [email protected]
+- robi@robi-steiner.co.il
 - +97258-7458008
 - (טלפון לווטסאפ בלבד)
 -
@@ -2043,7 +2043,7 @@ Be A Winner מחויבת להנגיש את השירותים לכלל הציבו�
 
 ## תנאי שימוש
 
-URL: https://example.com/terms
+URL: https://be-a-winner-1.zappy5.app/terms
 Description: תנאי השימוש באתר - הזכויות והחובות של המשתמשים
 
 תנאי שימוש
@@ -2278,7 +2278,7 @@ Be A Winner מספקת Leadership Development & Training דרך האתר. השי
 
 #### צור קשר
 
-- [email protected]
+- robi@robi-steiner.co.il
 - +97258-7458008
 - (טלפון לווטסאפ בלבד)
 -
@@ -2328,7 +2328,7 @@ Be A Winner מספקת Leadership Development & Training דרך האתר. השי
 
 ## המדריך הכתוב לניצחון בניהול — Be A Winner
 
-URL: https://example.com/manager-to-leader
+URL: https://be-a-winner-1.zappy5.app/manager-to-leader
 Description: הספר שכל מנהל חייב לקרוא – כלים מעשיים, תובנות מעמיקות ותהליכי התפתחות שיהפכו אתכם למנהיגים מובילים. רכשו עכשיו והתחילו להוביל אחרת.
 
 ממנהל למנהיג - הספר
@@ -2482,7 +2482,7 @@ Description: הספר שכל מנהל חייב לקרוא – כלים מעשי�
 
 #### צור קשר
 
-- [email protected]
+- robi@robi-steiner.co.il
 - +97258-7458008
 - (טלפון לווטסאפ בלבד)
 -
@@ -2532,7 +2532,7 @@ Description: הספר שכל מנהל חייב לקרוא – כלים מעשי�
 
 ## הצעד הראשון למנהיגות שלכם — Be A Winner
 
-URL: https://example.com/contact
+URL: https://be-a-winner-1.zappy5.app/contact
 Description: מוכנים להזניק את הקריירה והעסק קדימה? צרו קשר עוד היום לתיאום סדנאות למנכ&quot;לים והרצאות מותאמות אישית. אנחנו כאן כדי להפוך אתכם למנצחים.
 
 הצעד הראשון למנהיגות שלכם — Be A Winner
@@ -2709,7 +2709,7 @@ message هذا الحقل مطلوب
 
 #### צור קשר
 
-- [email protected]
+- robi@robi-steiner.co.il
 - +97258-7458008
 - (טלפון לווטסאפ בלבד)
 -
