@@ -161,26 +161,31 @@
       // Track button clicks (counted as actions)
       if (target.tagName === 'BUTTON' || target.closest('button')) {
         var button = target.tagName === 'BUTTON' ? target : target.closest('button');
-        trackEvent('click', {
+        var clickMeta = {
           element: 'button',
           text: button.textContent.trim().substring(0, 100),
           id: button.id || null,
           class: button.className || null
-        });
+        };
+        
+        trackEvent('click', clickMeta);
       }
       
       // Track link clicks (navigation - not counted as actions)
       else if (target.tagName === 'A' || target.closest('a')) {
         var link = target.tagName === 'A' ? target : target.closest('a');
-        trackEvent('navigation', {
+        var navMeta = {
           element: 'link',
           text: link.textContent.trim().substring(0, 100),
           href: link.href,
           external: link.hostname !== window.location.hostname
-        });
+        };
+        
+        trackEvent('navigation', navMeta);
       }
     }, true);
   }
+  
   
   // Track form submissions
   if (config.trackFormSubmissions) {
@@ -218,6 +223,7 @@
 })();
 </script>
 <!-- End Zappy Analytics -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://leadership-coaching.co.il#organization","name":"Be A Winner","url":"https://leadership-coaching.co.il","description":"Be A Winner is a leadership development brand focused on transforming managers into true leaders through lectures and workshops. The brand carries an empowering, motivational identity with a professional yet approachable tone. Key offerings include live training sessions, a book for sale, and video content — all aimed at inspiring personal and professional growth in the corporate world.","contactPoint":[{"@type":"ContactPoint","contactType":"customer service","email":"robi@robi-steiner.co.il","telephone":"+97258-7458008"}]},{"@type":"WebSite","@id":"https://leadership-coaching.co.il#website","url":"https://leadership-coaching.co.il","name":"Be A Winner","publisher":{"@id":"https://leadership-coaching.co.il#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://leadership-coaching.co.il"},{"@type":"ListItem","position":2,"name":"What Makes Us Unique","item":"https://leadership-coaching.co.il/what-makes-us-unique"}]}]}</script>
     <meta property="og:type" content="website">
   <meta property="og:locale" content="he_IL">
   
@@ -2085,7 +2091,7 @@
   <div class="footer-container">
     <div class="footer-grid">
       <div class="footer-col footer-company-col">
-        <div data-zappy-zoom-wrapper="true" data-element-id="img-1781013477684-dq0ndiwqa" data-element-type="image" data-zappy-zoom-wrapper-width="124px" data-zappy-zoom-wrapper-height="60px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-wrapper-align="center" style="position: relative !important; overflow: hidden !important; width: 124px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 60px !important; display: block !important;" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true"><img src="/assets/be-a-winner-leadership-development-training-service-1781013556003-509edv.webp?v=1781013558662" alt="Be A Winner" class="logo" data-element-type="image" data-element-id="img-1781013477684-dq0ndiwqa" data-zappy-footer-image="true" style="object-fit: contain; width: auto; height: auto; max-width: 600px; display: block; border-radius: 8px; object-position: 50% 50% !important; margin: 0px !important;" data-zappy-object-position="50% 50%" data-zappy-zoom="1"></div>
+        <div data-zappy-zoom-wrapper="true" data-element-id="img-1781013477684-dq0ndiwqa" data-element-type="image" data-zappy-zoom-wrapper-width="124px" data-zappy-zoom-wrapper-height="60px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-wrapper-align="center" style="position: relative !important; overflow: hidden !important; width: 124px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 60px !important; display: block !important;" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true"><img src="/assets/be-a-winner-leadership-development-training-service-1781013556003-509edv.webp?v=1781013558662" alt="Be A Winner" class="logo" data-element-type="image" data-element-id="img-1781013477684-dq0ndiwqa" data-zappy-footer-image="true" style="object-fit: cover !important; width: 100.025% !important; height: 100% !important; max-width: none !important; display: block !important; border-radius: 8px; object-position: 50% 50% !important; margin: 0px !important; position: absolute !important; left: -0.0125031% !important; top: 0% !important; max-height: none !important;" data-zappy-object-position="50% 50%" data-zappy-zoom="1"></div>
         <p class="footer-tagline">מפתחים מנהיגים, בונים עתיד – הדרך שלך לניצחון מתחילה כאן.</p>
       </div>
       <div class="footer-col footer-links-col">
@@ -2103,7 +2109,7 @@
         <h4>צור קשר</h4>
         <ul class="footer-contact" ><li>
             <span class="contact-icon"><i class="fas fa-envelope" data-element-type="icon" data-element-id="icon-1781013477684-rqeg3gzx9" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
-            <span class="contact-text"><a href="/cdn-cgi/l/email-protection#0b796469624b7964696226787f6e62656e79256864256267"><span class="__cf_email__" data-cfemail="f4869b969db4869b969dd98780919d9a9186da979bda9d98">[email&nbsp;protected]</span></a></span>
+            <span class="contact-text"><a href="mailto:robi@robi-steiner.co.il"><span>robi@robi-steiner.co.il</span></a></span>
           </li><li>
             <span class="contact-icon"><i class="fas fa-phone" data-element-type="icon" data-element-id="icon-1781013477684-him3pr8cp" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
             <span class="contact-text"><a href="tel:+97258-7458008">+97258-7458008</a></span></li><li><span class="contact-text">(טלפון לווטסאפ בלבד)&nbsp;</span></li><li><a href="/" ><span class="contact-icon"></span><span class="contact-text"><br></span></a></li></ul>

@@ -7,40 +7,40 @@
 ## Pages
 
 ### הפכו למנהיגים שמשנים מציאות — Be A Winner
-https://be-a-winner-1.zappy5.app
+https://leadership-coaching.co.il
 סדנאות לעסקים והרצאות מעוררות השראה שהופכות מנהלים למנהיגים אמיתיים. גלו את הכוח להוביל, לצמוח ולהניע אחרים להצלחה. הצטרפו עוד היום למסע המנצח!
 
 ### אפשרויות הלימוד שלנו
-https://be-a-winner-1.zappy5.app/our-learning-options
+https://leadership-coaching.co.il/our-learning-options
 Be A Winner - אפשרויות הלימוד שלנו
 
 ### Page
-https://be-a-winner-1.zappy5.app/what-makes-us-unique
+https://leadership-coaching.co.il/what-makes-us-unique
 
 ### הצצה מעשירה לעולם המנהיגות — Be A Winner
-https://be-a-winner-1.zappy5.app/media-appearances-and-inspiration
+https://leadership-coaching.co.il/media-appearances-and-inspiration
 צפו בסרטוני תוכן מקצועי שידליקו בכם את ניצוץ המנהיגות. טיפים, תובנות וכלים פרקטיים מהסדנאות לעסקים שלנו. התחילו לצפות ולהתפתח עוד היום.
 
 ### המדריך הכתוב לניצחון בניהול — Be A Winner
-https://be-a-winner-1.zappy5.app/manager-to-leader
+https://leadership-coaching.co.il/manager-to-leader
 הספר שכל מנהל חייב לקרוא – כלים מעשיים, תובנות מעמיקות ותהליכי התפתחות שיהפכו אתכם למנהיגים מובילים. רכשו עכשיו והתחילו להוביל אחרת.
 
 ### הצעד הראשון למנהיגות שלכם — Be A Winner
-https://be-a-winner-1.zappy5.app/contact
+https://leadership-coaching.co.il/contact
 מוכנים להזניק את הקריירה והעסק קדימה? צרו קשר עוד היום לתיאום סדנאות למנכ&quot;לים והרצאות מותאמות אישית. אנחנו כאן כדי להפוך אתכם למנצחים.
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://be-a-winner-1.zappy5.app/privacy
+https://leadership-coaching.co.il/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://be-a-winner-1.zappy5.app/terms
+https://leadership-coaching.co.il/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://be-a-winner-1.zappy5.app/accessibility
+https://leadership-coaching.co.il/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
@@ -52,8 +52,8 @@ Information about WCAG compliance and accessibility features.
 - Phone (tel): tel:+972587458008
 
 ### Contact form
-- URL: https://be-a-winner-1.zappy5.app/contact
-- Endpoint: https://be-a-winner-1.zappy5.app/api/email/contact-form
+- URL: https://leadership-coaching.co.il/contact
+- Endpoint: https://leadership-coaching.co.il/api/email/contact-form
 - Method: POST
 - Content-Type: application/json
 - Fields:
@@ -85,6 +85,6 @@ Leadership Development & Training
 
 # Machine-readable feeds
 
-- Sitemap (XML): https://be-a-winner-1.zappy5.app/sitemap.xml
-- Robots: https://be-a-winner-1.zappy5.app/robots.txt
-- Flattened page text (for LLMs): https://be-a-winner-1.zappy5.app/llms-full.txt
+- Sitemap (XML): https://leadership-coaching.co.il/sitemap.xml
+- Robots: https://leadership-coaching.co.il/robots.txt
+- Flattened page text (for LLMs): https://leadership-coaching.co.il/llms-full.txt
