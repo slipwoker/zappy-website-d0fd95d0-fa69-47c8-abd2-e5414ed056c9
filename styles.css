@@ -9743,13 +9743,6 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 }
 /* /Zappy custom logo size */
 
-
-.navbar .nav-brand .nav-brand-tagline {
-  display: block;
-  color: #ffffff;
-  font-size: 14px;
-  margin-top: 4px;
-}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
