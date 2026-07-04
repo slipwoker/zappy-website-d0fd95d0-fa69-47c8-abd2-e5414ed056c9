@@ -1813,14 +1813,15 @@ window.onload = function() {
         var slotCS = window.getComputedStyle(slotEl);
         var slotWidthGap = slotRect.width - wrapRect.width;
         var slotHeightGap = wrapRect.height - slotRect.height;
-        if (slotWidthGap <= 4 && !(slotHeightGap > 4 && slotRect.height > 0 && slotCS.overflow !== 'visible')) return;
+        var forceCardSlotFill = widthMode === 'card-slot' || wrapper.getAttribute('data-zappy-card-slot-fill') === '1';
+        if (!forceCardSlotFill && slotWidthGap <= 4 && !(slotHeightGap > 4 && slotRect.height > 0 && slotCS.overflow !== 'visible')) return;
         var swStr = wrapper.getAttribute('data-zappy-zoom-wrapper-width');
         var shStr = wrapper.getAttribute('data-zappy-zoom-wrapper-height');
         var swNum = parseFloat(swStr) || 0;
         var shNum = parseFloat(shStr) || 0;
         wrapper.style.setProperty('width', '100%', 'important');
         wrapper.style.setProperty('max-width', '100%', 'important');
-        if (slotHeightGap > 4 && slotRect.height > 0 && slotCS.overflow !== 'visible') {
+        if (slotRect.height > 0 && (forceCardSlotFill || (slotHeightGap > 4 && slotCS.overflow !== 'visible'))) {
           wrapper.style.setProperty('height', '100%', 'important');
           wrapper.style.setProperty('aspect-ratio', 'auto', 'important');
           wrapper.style.setProperty('padding-bottom', '0', 'important');
@@ -2189,6 +2190,67 @@ window.onload = function() {
 /* END ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME */
 
 
+/* ZAPPY_PUBLISHED_MOBILE_IMAGE_SWAP_V2 */
+(function(){
+  try {
+    if (window.__zappyMobileImageSwapInitV2) return;
+    window.__zappyMobileImageSwapInitV2 = true;
+    var SEL = 'img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]';
+    var applied = false;
+    function standalone(img){ return img && !img.closest('[data-zappy-zoom-wrapper="true"]'); }
+    function applyMobile(){
+      if (applied) return; applied = true;
+      document.querySelectorAll(SEL).forEach(function(img){
+        if (!standalone(img)) return;
+        if (!img._zappyDesktop) img._zappyDesktop = { src: img.getAttribute('src'), style: img.getAttribute('style') };
+        var mSrc = img.getAttribute('data-zappy-mobile-src');
+        var mPos = img.getAttribute('data-zappy-mobile-object-position');
+        var mZoom = parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
+        if (mSrc) img.src = mSrc;
+        if (mPos) img.style.setProperty('object-position', mPos, 'important');
+        if (isFinite(mZoom) && mZoom > 1) {
+          img.style.setProperty('transform', 'scale(' + mZoom + ')', 'important');
+          img.style.setProperty('transform-origin', mPos || '50% 50%', 'important');
+          var p = img.parentElement;
+          if (p) {
+            if (!p._zappyDesktop) p._zappyDesktop = { style: p.getAttribute('style') };
+            p.style.setProperty('overflow', 'hidden', 'important');
+          }
+        }
+      });
+    }
+    function revertDesktop(){
+      if (!applied) return; applied = false;
+      document.querySelectorAll(SEL).forEach(function(img){
+        if (!standalone(img)) return;
+        if (img._zappyDesktop) {
+          if (img._zappyDesktop.src != null) img.setAttribute('src', img._zappyDesktop.src);
+          if (img._zappyDesktop.style != null) img.setAttribute('style', img._zappyDesktop.style);
+          else img.removeAttribute('style');
+        }
+        var p = img.parentElement;
+        if (p && p._zappyDesktop) {
+          if (p._zappyDesktop.style != null) p.setAttribute('style', p._zappyDesktop.style);
+          else p.removeAttribute('style');
+        }
+      });
+    }
+    function init(){
+      var mq = window.matchMedia('(max-width:768px)');
+      function onChange(e){ if (e.matches) applyMobile(); else revertDesktop(); }
+      if (mq.matches) applyMobile();
+      try { mq.addEventListener('change', onChange); } catch (e) { mq.addListener(onChange); }
+    }
+    // script.js loads at end of <body>, so the <img> elements already exist —
+    // run immediately to minimise the desktop-image flash, with a
+    // DOMContentLoaded fallback for the head-loaded edge case.
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+    else init();
+  } catch (eOuter) {}
+})();
+/* END ZAPPY_PUBLISHED_MOBILE_IMAGE_SWAP_V2 */
+
+
 /* ZAPPY_MOBILE_MENU_TOGGLE */
 (function(){
   try {
@@ -2354,6 +2416,94 @@ window.onload = function() {
         question.__zappyFaqBound = true;
         question.style.cursor = 'pointer';
 
+        // Shared answer expand/collapse animation (used by both the <details>
+        // toggle path and the generic click path) so the two stay identical.
+        function expandFaqAnswer(answer) {
+          if (!answer) return;
+          answer.style.display = '';
+          answer.style.paddingTop = '';
+          answer.style.paddingBottom = '';
+          var inners = answer.querySelectorAll(answerSel);
+          inners.forEach(function(inn) {
+            inn.style.maxHeight = '';
+            inn.style.overflow = '';
+            inn.style.opacity = '';
+            inn.style.paddingTop = '';
+            inn.style.paddingBottom = '';
+          });
+          answer.style.transition = 'none';
+          answer.style.maxHeight = 'none';
+          answer.style.opacity = '0';
+          var realH = answer.scrollHeight;
+          answer.style.maxHeight = '0';
+          answer.offsetHeight;
+          answer.style.transition = 'max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease';
+          answer.style.maxHeight = realH + 'px';
+          answer.style.overflow = 'hidden';
+          answer.style.opacity = '1';
+        }
+        function collapseFaqAnswer(answer) {
+          if (!answer) return;
+          answer.style.transition = 'max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease';
+          answer.style.maxHeight = '0';
+          answer.style.overflow = 'hidden';
+          answer.style.opacity = '0';
+          answer.style.paddingTop = '0';
+          answer.style.paddingBottom = '0';
+        }
+
+        // Native <details>/<summary> accordions: the browser hides the answer
+        // whenever the <details> lacks the `open` attribute, so animating
+        // max-height alone is NOT enough — and a click handler that
+        // preventDefault()s the summary blocks the native open toggle, leaving
+        // the answer permanently clamped (max-height:0 inside a closed details).
+        // Drive the animation off the native `toggle` event instead — it fires
+        // no matter WHERE inside the summary the user clicks (text, icon,
+        // padding) — and let the browser own the `open` state. This is the
+        // modern FAQ markup the legacy click+preventDefault path never handled.
+        var detailsEl = (item.tagName === 'DETAILS')
+          ? item
+          : (question.closest ? question.closest('details') : null);
+        if (detailsEl) {
+          if (detailsEl.__zappyFaqToggleBound) return;
+          detailsEl.__zappyFaqToggleBound = true;
+          detailsEl.addEventListener('toggle', function() {
+            var isActive = detailsEl.open;
+            item.classList.toggle('active', isActive);
+            question.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            if (isActive) {
+              // Single-open accordion: close the OTHER open <details> in this
+              // FAQ list. Match by the SAME faq-item selector (NOT
+              // `details[class*="faq-item"]`) and resolve each item's
+              // <details>, because the faq-item / accordion-item class
+              // frequently lives on a WRAPPER (e.g.
+              // `<div class="faq-item"><details>…</details></div>`) rather
+              // than on the <details> itself — querying for class-bearing
+              // <details> would miss those siblings and let multiple answers
+              // stay open.
+              var parent = item.parentElement;
+              if (parent) {
+                var sibItems = parent.querySelectorAll('[class*="faq-item"], .accordion-item');
+                sibItems.forEach(function(sibItem) {
+                  if (sibItem === item) return;
+                  var sibDetails = (sibItem.tagName === 'DETAILS') ? sibItem : sibItem.querySelector('details');
+                  if (sibDetails && sibDetails !== detailsEl && sibDetails.open) sibDetails.open = false;
+                });
+              }
+              expandFaqAnswer(pickAnswer(item, question));
+            } else {
+              collapseFaqAnswer(pickAnswer(item, question));
+            }
+            var chevron = question.querySelector('[class*="chevron"], [class*="icon"], svg');
+            if (chevron) {
+              chevron.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+              chevron.style.transition = 'transform 0.3s ease';
+            }
+          });
+          if (detailsEl.open) { item.classList.add('active'); expandFaqAnswer(pickAnswer(item, question)); }
+          return;
+        }
+
         question.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -2425,6 +2575,9 @@ window.onload = function() {
 
       items.forEach(function(item) {
         if (item.classList.contains('active')) return;
+        // Native <details> manage their own open/closed visibility; never clamp
+        // an open one to max-height:0 (its toggle handler already expanded it).
+        if (item.tagName === 'DETAILS' && item.open) return;
         if (item.closest(answerSel)) return;
         var question = item.querySelector('[class*="faq-question"], [class*="faq-header"], [class*="faq-item__question"], [class*="faq-item__btn"], [class*="faq-btn"], .accordion-header, .accordion-toggle');
         // No clickable question/header toggle exists → this is a STATIC FAQ
@@ -2559,6 +2712,85 @@ function resolveVar(val){
   return getComputedStyle(document.documentElement).getPropertyValue('--'+m[1]).trim()||val;
 }
 
+// An explicit inline `color:` on the element itself means the colour is
+// intentional and must not be auto-"fixed" (handled in the loop). The SAME
+// intent applies when an ANCESTOR set an explicit inline colour and this element
+// merely inherits it (e.g. a panel whose <h3 style="color:#fff"> wraps a <span>
+// that inherits white). Without this, removing a child's own colour to let it
+// inherit would make the child eligible for the fixer, which on a mid-tone
+// background can compute black > white contrast and flip intentional white text
+// to black with !important (the "white flash then black" bug). Respecting the
+// ancestor's explicit colour keeps the fixer for genuinely un-styled text only.
+function ancestorHasExplicitColor(el){
+  var n=el&&el.parentElement;
+  while(n&&n!==document.body){
+    var st=n.getAttribute&&n.getAttribute('style');
+    if(st&&/(?:^|;)\s*color\s*:/i.test(st))return true;
+    n=n.parentElement;
+  }
+  return false;
+}
+
+// Respect deliberate author-level `color: ... !important` rules. The runtime
+// fixer runs late and writes inline `!important`, so without this check it can
+// override an explicit user/AI styling request (e.g. white FAQ text on a brand
+// orange card) simply because black has a slightly higher WCAG ratio. We still
+// fix ordinary generated CSS, but an author `!important` colour is intentional.
+function elementMatchesColorRule(el, importantOnly){
+  if(!el||!el.matches)return false;
+  function ruleApplies(rule){
+    if(!rule)return false;
+    if(rule.type===1){
+      try{
+        if(rule.style&&rule.style.getPropertyValue('color')&&
+          (!importantOnly||rule.style.getPropertyPriority('color')==='important')&&
+          el.matches(rule.selectorText)){
+          return true;
+        }
+      }catch(e){return false;}
+    }
+    if(rule.cssRules){
+      try{
+        for(var ri=0;ri<rule.cssRules.length;ri++){
+          if(ruleApplies(rule.cssRules[ri]))return true;
+        }
+      }catch(e2){return false;}
+    }
+    return false;
+  }
+  for(var si=0;si<document.styleSheets.length;si++){
+    var rules=null;
+    try{rules=document.styleSheets[si].cssRules;}catch(e3){continue;}
+    if(!rules)continue;
+    for(var i=0;i<rules.length;i++){
+      if(ruleApplies(rules[i]))return true;
+    }
+  }
+  return false;
+}
+function elementMatchesImportantColorRule(el){
+  return elementMatchesColorRule(el,true);
+}
+function elementMatchesAuthorColorRule(el){
+  return elementMatchesColorRule(el,false);
+}
+function selfOrAncestorHasImportantAuthorColor(el){
+  var n=el;
+  while(n&&n!==document.body){
+    if(elementMatchesImportantColorRule(n))return true;
+    n=n.parentElement;
+  }
+  return false;
+}
+function selfOrAncestorHasAuthorColor(el){
+  var n=el;
+  while(n&&n!==document.body){
+    if(elementMatchesAuthorColorRule(n))return true;
+    n=n.parentElement;
+  }
+  return false;
+}
+
 function isDecorativeAccentText(el){
   if(!el||!el.matches)return false;
   if(el.matches('.font-accent,.hero-logotype,.hero-logotype-line,[class*="script"],[class*="accent-line"],[class*="subheadline"]'))return true;
@@ -2586,16 +2818,51 @@ function fixContrast(){
   if(!darkRGB)darkRGB={r:26,g:26,b:26};
   if(!lightRGB)lightRGB={r:255,g:255,b:255};
 
+  var TEXT_SEL='h1,h2,h3,h4,h5,h6,p,span,a,button,li,label,td,th,dt,dd,figcaption';
   var mainEl=document.querySelector('main')||document.body;
-  var els=mainEl.querySelectorAll('h1,h2,h3,h4,h5,h6,p,span,a,button,li,label,td,th,dt,dd,figcaption');
+  var els=[];
+  var mainNodes=mainEl.querySelectorAll(TEXT_SEL);
+  for(var mi=0;mi<mainNodes.length;mi++)els.push(mainNodes[mi]);
+  // The page footer (e.g. <footer class="site-footer">) usually lives OUTSIDE
+  // <main>, so it would never be scanned otherwise. Pull in any footer not
+  // already covered by mainEl so its (often muted-on-dark) text is fixed too.
+  var extraFooters=document.querySelectorAll('footer,.site-footer,.zappy-footer');
+  for(var fi=0;fi<extraFooters.length;fi++){
+    var ft=extraFooters[fi];
+    if(mainEl.contains(ft))continue;
+    var fNodes=ft.querySelectorAll(TEXT_SEL);
+    for(var fj=0;fj<fNodes.length;fj++)els.push(fNodes[fj]);
+  }
+  // The navbar CTA pill (.nav-cta-btn / .cta-button) is a SOLID-FILL button, so
+  // unlike plain nav links (which are transparent over the managed navbar bg and
+  // are intentionally skipped below) its text contrast is well-defined against
+  // its own fill. It lives OUTSIDE <main>, so add it + its text nodes explicitly.
+  var ctaPills=document.querySelectorAll('.nav-cta-btn,.cta-button');
+  for(var ci=0;ci<ctaPills.length;ci++){
+    var cp=ctaPills[ci];
+    if(mainEl.contains(cp))continue;
+    els.push(cp);
+    var cpNodes=cp.querySelectorAll(TEXT_SEL);
+    for(var cj=0;cj<cpNodes.length;cj++)els.push(cpNodes[cj]);
+  }
   var fixed=0;
   for(var i=0;i<els.length;i++){
     var el=els[i];
-    if(el.closest('nav,header,.zappy-header,footer,.zappy-footer'))continue;
+    // Skip the navbar/header only — those are managed by the navbar contrast
+    // helpers. Footers are NOT skipped: the page footer (e.g. .site-footer) is
+    // often a dark band with muted/grey text, AND the LLM frequently uses a
+    // semantic <footer> for citation/role text INSIDE testimonial/blockquote
+    // cards — both need the same computed-background contrast fix as body text.
+    // The navbar CTA pill is the ONE nav element we DO fix: it's a solid-fill
+    // button whose text/bg contrast is self-contained (the AI sometimes paints
+    // the label the same hue as the fill → invisible until hover).
+    if(el.closest('nav,header,.zappy-header')&&!el.closest('.nav-cta-btn,.cta-button'))continue;
     if(isDecorativeAccentText(el))continue;
     if(hasImageOrVideoBackground(el))continue;
     var inlineStyle=el.getAttribute('style')||'';
     if(/(?:^|;\s*)color\s*:/i.test(inlineStyle))continue;
+    if(ancestorHasExplicitColor(el))continue;
+    if(selfOrAncestorHasImportantAuthorColor(el))continue;
     if(el.tagName==='FONT'&&el.hasAttribute('color'))continue;
     var txt=el.textContent?el.textContent.trim():'';
     if(!txt)continue;
@@ -2608,6 +2875,7 @@ function fixContrast(){
     if(!cRGB||!bRGB)continue;
     var ratio=contrastRatio(cRGB,bRGB);
     if(ratio<4.5){
+      if(ratio>=3&&selfOrAncestorHasAuthorColor(el))continue;
       var darkC=contrastRatio(darkRGB,bRGB);
       var lightC=contrastRatio(lightRGB,bRGB);
       var best=darkC>=lightC?dark:light;
@@ -2890,6 +3158,14 @@ function fixContrast(){
             container.removeAttribute('data-zappy-grid-centered');
           }
 
+          // List grids (<ul>/<ol>) read in document order and align to the start
+          // (first column); centering a checklist's lonely last item breaks its
+          // column alignment with the rows above. Cards (div grids) still center.
+          // The cleanup above already reverted any prior centering, so a list
+          // centered before this runtime shipped snaps back to its natural spot.
+          var containerTag = (container.tagName || '').toLowerCase();
+          if (containerTag === 'ul' || containerTag === 'ol') continue;
+
           var items = [];
           for (var c = 0; c < container.children.length; c++) {
             var ch = container.children[c];
@@ -3047,6 +3323,11 @@ function fixContrast(){
       }
 
       var c = ['justify-content:center!important'];
+      if (hAlign === 'center') {
+        c.push('margin-left:auto!important');
+        c.push('margin-right:auto!important');
+        c.push('text-align:center!important');
+      }
       if (!isFlex && hAlign !== 'center') {
         c.push('min-width:33.33%!important');
         c.push('text-align:start!important');
@@ -3054,6 +3335,10 @@ function fixContrast(){
 
       var css = '';
       if (hPx !== 0 || vPx !== 0) css += sel + '{overflow:hidden!important}';
+      if (hAlign === 'center') {
+        css += sel + '{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;text-align:center!important}';
+        t.push('text-align:center!important');
+      }
       css += sel + ' [data-zappy-align-target]{' + t.join(';') + '}';
       css += sel + ' [data-zappy-align-target]>*{' + c.join(';') + '}';
       css += '@media(max-width:768px){' +
@@ -4471,13 +4756,74 @@ function fixContrast(){
     }
   })();
 
+  function reviveCanonicalHeroBackgroundWrappers() {
+    try {
+      var imgs = document.querySelectorAll('img[data-hero-bg], img[data-hero-background="true"]');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        var parent = img.parentElement;
+        while (parent && parent !== document.body && parent.tagName !== 'SECTION') {
+          parent.style.display = '';
+          parent.removeAttribute('data-zappy-original-bg');
+          parent.removeAttribute('data-zappy-preview-hidden');
+          parent = parent.parentElement;
+        }
+        img.removeAttribute('data-zappy-original-bg');
+      }
+    } catch (e) {}
+  }
+
+  function scheduleCanonicalHeroWrapperRevival() {
+    reviveCanonicalHeroBackgroundWrappers();
+    [100, 500, 1500, 3000, 6000, 10000].forEach(function(delay) {
+      setTimeout(reviveCanonicalHeroBackgroundWrappers, delay);
+    });
+    try {
+      if (window.__zappyHeroWrapperRevivalObserver) return;
+      var observer = new MutationObserver(function(mutations) {
+        for (var i = 0; i < mutations.length; i++) {
+          var target = mutations[i].target;
+          if (!target || !target.querySelector) continue;
+          if (
+            (target.matches && target.matches('img[data-hero-bg], img[data-hero-background="true"]')) ||
+            target.querySelector('img[data-hero-bg], img[data-hero-background="true"]')
+          ) {
+            reviveCanonicalHeroBackgroundWrappers();
+            break;
+          }
+        }
+      });
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'data-zappy-original-bg', 'data-zappy-preview-hidden']
+      });
+      window.__zappyHeroWrapperRevivalObserver = observer;
+      setTimeout(function() {
+        try {
+          observer.disconnect();
+          if (window.__zappyHeroWrapperRevivalObserver === observer) {
+            window.__zappyHeroWrapperRevivalObserver = null;
+          }
+        } catch (e) {}
+      }, 15000);
+    } catch (e) {}
+  }
+
+  scheduleCanonicalHeroWrapperRevival();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleCanonicalHeroWrapperRevival, { once: true });
+  }
+  window.addEventListener('load', scheduleCanonicalHeroWrapperRevival, { once: true });
+
 })();
 
 
-/* ZAPPY_ECOM_LANGUAGE_ROUTING_RUNTIME_V20 */
+/* ZAPPY_ECOM_LANGUAGE_ROUTING_RUNTIME_V21 */
 (function() {
-  if (window.__zappyEcomLanguageRoutingRuntime >= 20) return;
-  window.__zappyEcomLanguageRoutingRuntime = 20;
+  if (window.__zappyEcomLanguageRoutingRuntime >= 21) return;
+  window.__zappyEcomLanguageRoutingRuntime = 21;
 
   // Routing strategy: use path-based language URLs for ALL storefront pages
   // (including dynamic /product/:slug and /category/:slug). The publish
@@ -4890,12 +5236,12 @@ function fixContrast(){
   // declaration merging that was eating the standalone CSS injection.
   function ensureRuntimeCssInjected() {
     var existing = document.getElementById('zappy-ecom-routing-runtime-css');
-    if (existing && existing.getAttribute('data-v') === '25') return;
+    if (existing && existing.getAttribute('data-v') === '26') return;
     if (existing) existing.remove();
     var style = document.createElement('style');
     style.id = 'zappy-ecom-routing-runtime-css';
     style.setAttribute('data-zappy-runtime', 'ecom-routing');
-    style.setAttribute('data-v', '25');
+    style.setAttribute('data-v', '26');
     style.textContent =
       '@media (min-width: 769px){' +
         'html[dir="ltr"] .nav-container > .nav-brand,body[dir="ltr"] .nav-container > .nav-brand,html[dir="ltr"] .nav-right-group > .nav-brand,body[dir="ltr"] .nav-right-group > .nav-brand{order:-1!important}' +
@@ -4915,6 +5261,11 @@ function fixContrast(){
         'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-categories{display:flex!important;align-items:flex-start!important;align-content:flex-start!important;row-gap:4px!important;column-gap:2px!important}' +
         'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-item{padding-inline:10px!important}' +
         'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-all{margin-top:0!important;align-self:flex-start!important}' +
+        '.navbar .nav-menu>li:has(>.sub-menu),nav.navbar .nav-menu>li:has(>.sub-menu),#navMenu>li:has(>.sub-menu){position:relative!important}' +
+        '.navbar .nav-menu>li>.sub-menu,nav.navbar .nav-menu>li>.sub-menu,#navMenu>li>.sub-menu{display:block!important;position:absolute!important;top:100%!important;inset-inline-start:0!important;inset-inline-end:auto!important;min-width:200px!important;max-width:min(280px,calc(100vw - 32px))!important;width:max-content!important;max-height:calc(100vh - 150px)!important;overflow-y:auto!important;background:var(--background-color,var(--background,#fff))!important;border-radius:12px!important;box-shadow:0 8px 30px rgba(0,0,0,.15),0 2px 8px rgba(0,0,0,.06)!important;padding:8px!important;margin:0!important;list-style:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateY(6px)!important;z-index:100001!important}' +
+        '.navbar .nav-menu>li:hover>.sub-menu,.navbar .nav-menu>li:focus-within>.sub-menu,nav.navbar .nav-menu>li:hover>.sub-menu,nav.navbar .nav-menu>li:focus-within>.sub-menu,#navMenu>li:hover>.sub-menu,#navMenu>li:focus-within>.sub-menu{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateY(0)!important}' +
+        '.navbar .nav-menu>li>.sub-menu>li,nav.navbar .nav-menu>li>.sub-menu>li,#navMenu>li>.sub-menu>li{display:block!important;width:100%!important;list-style:none!important;margin:0!important;padding:0!important}' +
+        '.navbar .nav-menu>li>.sub-menu a,nav.navbar .nav-menu>li>.sub-menu a,#navMenu>li>.sub-menu a{display:block!important;white-space:nowrap!important;padding:10px 16px!important;border-radius:8px!important;text-decoration:none!important}' +
         '.nav-menu .zappy-products-dropdown>.sub-menu,#navMenu .zappy-products-dropdown>.sub-menu{left:50%!important;right:auto!important;transform:translateX(-50%) translateY(8px)!important}' +
         '.nav-menu .zappy-products-dropdown:hover>.sub-menu,#navMenu .zappy-products-dropdown:hover>.sub-menu,.nav-menu .zappy-products-dropdown:focus-within>.sub-menu,#navMenu .zappy-products-dropdown:focus-within>.sub-menu{transform:translateX(-50%) translateY(0)!important}' +
         '.nav-menu.zappy-desktop-wrap,#navMenu.zappy-desktop-wrap{flex-wrap:wrap!important;max-height:44px!important;align-content:flex-start!important;row-gap:4px!important}' +
@@ -5159,6 +5510,135 @@ function fixContrast(){
     window.addEventListener('load', injectMobileNavIconAlignmentFix);
     setTimeout(injectMobileNavIconAlignmentFix, 250);
     setTimeout(injectMobileNavIconAlignmentFix, 1000);
+  } catch (e) {}
+})();
+
+/* ZAPPY_ANNOUNCEMENT_HEADER_SYNC_V1 */
+(function(){
+  if (window.__zappyAnnouncementHeaderSyncV1) return;
+  window.__zappyAnnouncementHeaderSyncV1 = true;
+
+  function primaryHeader() {
+    var selectors = [
+      'nav#navbar',
+      'nav.navbar',
+      '.navbar:not(.zappy-catalog-menu)',
+      'nav[class*="nav"]',
+      'header.navbar',
+      'header:not([class*="gallery"]):not([class*="hero"]):not([class*="section"])'
+    ];
+    for (var i = 0; i < selectors.length; i++) {
+      var el = document.querySelector(selectors[i]);
+      if (!el) continue;
+      if (el.classList && el.classList.contains('zappy-catalog-menu')) continue;
+      if (el.id === 'zappy-catalog-menu') continue;
+      if (el.classList && el.classList.contains('mobile-search-panel')) continue;
+      if (el.tagName === 'HEADER' && el.closest('section')) continue;
+      if (el.classList && (
+        el.classList.contains('lookbook-gallery-header') ||
+        el.classList.contains('hero-header') ||
+        el.classList.contains('section-header') ||
+        el.classList.contains('page-header')
+      )) continue;
+      return el;
+    }
+    return null;
+  }
+
+  function visibleHeight(el) {
+    if (!el) return 0;
+    var cs;
+    try { cs = window.getComputedStyle(el); } catch (e) {}
+    if (cs && (cs.display === 'none' || cs.visibility === 'hidden')) return 0;
+    var r = el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+    return Math.ceil((r && r.height) || el.offsetHeight || 0);
+  }
+
+  function sync() {
+    var header = primaryHeader();
+    var bar = document.querySelector('.zappy-announcement-bar');
+    var catalog = document.querySelector('.zappy-catalog-menu');
+    var barHeight = visibleHeight(bar);
+    if (!header) {
+      if (barHeight > 0) document.body.style.setProperty('padding-top', barHeight + 'px', 'important');
+      return;
+    }
+
+    header.style.setProperty('position', 'fixed', 'important');
+    header.style.setProperty('top', barHeight + 'px', 'important');
+    header.style.setProperty('left', '0', 'important');
+    header.style.setProperty('right', '0', 'important');
+    header.style.setProperty('z-index', '100000', 'important');
+    header.style.marginBottom = '0';
+
+    var headerHeight = visibleHeight(header);
+    var totalHeight = barHeight + headerHeight;
+    if (catalog && visibleHeight(catalog) > 0) {
+      catalog.style.marginTop = '0';
+      catalog.style.setProperty('top', totalHeight + 'px', 'important');
+      totalHeight += visibleHeight(catalog);
+    }
+
+    document.documentElement.style.setProperty('--header-height', headerHeight + 'px');
+    document.documentElement.style.setProperty('--total-header-height', totalHeight + 'px');
+    document.documentElement.style.setProperty('--zappy-mobile-menu-top', (barHeight + headerHeight) + 'px');
+    document.body.style.setProperty('padding-top', totalHeight + 'px', 'important');
+  }
+
+  var timer = null;
+  function schedule(delay) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(sync, delay || 0);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ schedule(0); });
+  } else {
+    schedule(0);
+  }
+  window.addEventListener('load', function(){ schedule(0); });
+  window.addEventListener('resize', function(){ schedule(50); }, { passive: true });
+  window.addEventListener('zappy:languageChanged', function(){ schedule(50); });
+  window.addEventListener('languageChanged', function(){ schedule(50); });
+  [50, 150, 350, 750, 1500, 3000].forEach(function(ms){ setTimeout(sync, ms); });
+
+  try {
+    new MutationObserver(function(mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        var mutation = mutations[i];
+        var t = mutation.target;
+        var classes = t && t.classList;
+        if (mutation.type === 'childList') {
+          for (var j = 0; j < mutation.addedNodes.length; j++) {
+            var node = mutation.addedNodes[j];
+            var nodeClasses = node && node.classList;
+            if (nodeClasses && (
+              nodeClasses.contains('zappy-announcement-bar') ||
+              nodeClasses.contains('zappy-catalog-menu') ||
+              nodeClasses.contains('navbar')
+            )) {
+              schedule(0);
+              return;
+            }
+          }
+        }
+        if (
+          (t === document.body && mutation.attributeName === 'class') ||
+          (classes && (
+          classes.contains('zappy-announcement-bar') ||
+          classes.contains('zappy-catalog-menu')
+        ))
+        ) {
+          schedule(0);
+          return;
+        }
+      }
+    }).observe(document.body || document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class', 'style']
+    });
   } catch (e) {}
 })();
 
