@@ -9723,6 +9723,22 @@ div[id*="mic-access-tool-box"] button[class*="reset"] * {
 }
 /* /Zappy custom logo size */
 
+
+.nav-brand .nav-tagline {
+  color: #FFFFFF !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  margin: 4px 0 0 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  line-height: 1.3 !important;
+  display: block !important;
+}
+
+.nav-brand {
+  overflow: visible !important;
+}
 /* mobile-submenu-overflow-fix */
 @media (max-width: 768px) {
   .navbar .sub-menu.mobile-expanded,
