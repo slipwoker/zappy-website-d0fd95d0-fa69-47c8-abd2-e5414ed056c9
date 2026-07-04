@@ -1,4 +1,4 @@
-# Be A Winner — Generative Engine Optimization Map
+# Be A Winner - הופכים מנהלים טובים למנהיגים — Generative Engine Optimization Map
 
 > Be A Winner is a leadership development brand focused on transforming managers into true leaders through lectures and workshops. The brand carries an empowering, motivational identity with a professional yet approachable tone. Key offerings include live training sessions, a book for sale, and video content — all aimed at inspiring personal and professional growth in the corporate world.
 
@@ -68,7 +68,7 @@ Information about WCAG compliance and accessibility features.
 
 # Business Context (for LLM understanding)
 
-## About Be A Winner
+## About Be A Winner - הופכים מנהלים טובים למנהיגים
 Be A Winner is a leadership development brand focused on transforming managers into true leaders through lectures and workshops. The brand carries an empowering, motivational identity with a professional yet approachable tone. Key offerings include live training sessions, a book for sale, and video content — all aimed at inspiring personal and professional growth in the corporate world.
 
 ## Target Audience
