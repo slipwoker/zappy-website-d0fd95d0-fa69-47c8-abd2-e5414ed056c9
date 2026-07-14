@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
+<!DOCTYPE html><html lang="he" dir="rtl"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
-    <title>הסיפור שמאחורי המנהיגות המנצחת — Be A Winner</title>
-    <meta name="description" content="הכירו את החזון שמניע את Be A Winner – מותג שמחויב להצמיח דור חדש של מנהיגים. למידע על הגישה הייחודית שלנו לתהליכי התפתחות עסקית, כנסו עכשיו.">
-    <meta name="keywords" content="התפתחות עסקית, תהליכי התפתחות, פיתוח מנהיגים, סדנאות לעסקים">
+    <title>Generated Website</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
     
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
@@ -161,26 +159,31 @@
       // Track button clicks (counted as actions)
       if (target.tagName === 'BUTTON' || target.closest('button')) {
         var button = target.tagName === 'BUTTON' ? target : target.closest('button');
-        trackEvent('click', {
+        var clickMeta = {
           element: 'button',
           text: button.textContent.trim().substring(0, 100),
           id: button.id || null,
           class: button.className || null
-        });
+        };
+        
+        trackEvent('click', clickMeta);
       }
       
       // Track link clicks (navigation - not counted as actions)
       else if (target.tagName === 'A' || target.closest('a')) {
         var link = target.tagName === 'A' ? target : target.closest('a');
-        trackEvent('navigation', {
+        var navMeta = {
           element: 'link',
           text: link.textContent.trim().substring(0, 100),
           href: link.href,
           external: link.hostname !== window.location.hostname
-        });
+        };
+        
+        trackEvent('navigation', navMeta);
       }
     }, true);
   }
+  
   
   // Track form submissions
   if (config.trackFormSubmissions) {
@@ -218,11 +221,7 @@
 })();
 </script>
 <!-- End Zappy Analytics -->
-    <meta property="og:title" content="הסיפור שמאחורי המנהיגות המנצחת — Be A Winner">
-    <meta property="og:description" content="הכירו את החזון שמניע את Be A Winner – מותג שמחויב להצמיח דור חדש של מנהיגים. למידע על הגישה הייחודית שלנו לתהליכי התפתחות עסקית, כנסו עכשיו.">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="הסיפור שמאחורי המנהיגות המנצחת — Be A Winner">
-    <meta name="twitter:description" content="הכירו את החזון שמניע את Be A Winner – מותג שמחויב להצמיח דור חדש של מנהיגים. למידע על הגישה הייחודית שלנו לתהליכי התפתחות עסקית, כנסו עכשיו.">
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://leadership-coaching.co.il#organization","name":"Be A Winner - הופכים מנהלים טובים למנהיגים","url":"https://leadership-coaching.co.il","description":"Be A Winner is a leadership development brand focused on transforming managers into true leaders through lectures and workshops. The brand carries an empowering, motivational identity with a professional yet approachable tone. Key offerings include live training sessions, a book for sale, and video content — all aimed at inspiring personal and professional growth in the corporate world.","contactPoint":[{"@type":"ContactPoint","contactType":"customer service","email":"robi@robi-steiner.co.il","telephone":"+97258-7458008"}]},{"@type":"WebSite","@id":"https://leadership-coaching.co.il#website","url":"https://leadership-coaching.co.il","name":"Be A Winner - הופכים מנהלים טובים למנהיגים","publisher":{"@id":"https://leadership-coaching.co.il#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://leadership-coaching.co.il"},{"@type":"ListItem","position":2,"name":"Meet The Team","item":"https://leadership-coaching.co.il/meet-the-team"}]}]}</script>
     <meta property="og:type" content="website">
   <meta property="og:locale" content="he_IL">
   
@@ -230,7 +229,6 @@
   
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     .skip-link { position: absolute; top: 0; left: 0; transform: translateY(-200%); padding: 12px 18px; background: var(--bg-dark, #1a1a1a); color: var(--text-light, #fff); font-weight: 600; border-radius: 0 0 8px 0; z-index: 10000; }
     .skip-link:focus { transform: none; outline: 2px solid var(--ring, #fff); outline-offset: 2px; }
@@ -249,9 +247,275 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
     <!-- Cookie Consent -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    
     <!-- Mickidum Accessibility Toolbar -->
-    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    
+
+<style data-zappy-section-v2-css="true">
+/* V2 Regenerated Section CSS */
+.index-hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+  padding-bottom: 80px;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+}
+
+.index-hero-section__bg-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.index-hero-section__bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+  animation: hero-zoom 7s ease-out forwards;
+}
+
+@keyframes hero-zoom {
+  from { transform: scale(1.1); }
+  to { transform: scale(1.02); }
+}
+
+.index-hero-section__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    180deg,
+    rgba(26, 21, 53, 0.65) 0%,
+    rgba(26, 21, 53, 0.82) 40%,
+    rgba(26, 21, 53, 0.95) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.index-hero-section__content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 180px 24px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.index-hero-section__text-group {
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: start;
+}
+
+.index-hero-section__headline {
+  font-family: 'Sora', 'Montserrat', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--text-light);
+  margin: 0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.index-hero-section__subtitle {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(249, 245, 239, 0.9);
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.index-hero-section__cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.index-hero-section__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 100px;
+  font-family: 'Inter', 'Assistant', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.index-hero-section__btn--primary {
+  background-color: var(--accent);
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 8px 28px rgba(216, 166, 65, 0.4);
+}
+
+.index-hero-section__btn--primary:hover {
+  background-color: #C8922A;
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(216, 166, 65, 0.55);
+}
+
+.index-hero-section__btn--secondary {
+  background-color: transparent;
+  color: var(--text-light);
+  border: 2px solid rgba(249, 245, 239, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.index-hero-section__btn--secondary:hover {
+  border-color: var(--text-light);
+  background-color: rgba(249, 245, 239, 0.1);
+  transform: translateY(-3px);
+}
+
+.index-hero-section__btn-icon {
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.index-hero-section__decorative-motif {
+  position: absolute;
+  bottom: 120px;
+  inset-inline-end: -20px;
+  width: 160px;
+  height: 160px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.index-hero-section__decorative-motif svg {
+  width: 100%;
+  height: 100%;
+  animation: rotate-motif 20s linear infinite;
+}
+
+@keyframes rotate-motif {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.index-hero-section__divider-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.index-hero-section__divider-wrapper svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .index-hero-section {
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+
+  .index-hero-section__content {
+    padding: 140px 16px 40px;
+    gap: 32px;
+  }
+
+  .index-hero-section__text-group {
+    max-width: 100%;
+    gap: 16px;
+  }
+
+  .index-hero-section__headline {
+    font-size: 2.4rem;
+    line-height: 1.2;
+  }
+
+  .index-hero-section__subtitle {
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .index-hero-section__cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .index-hero-section__btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+
+  .index-hero-section__decorative-motif {
+    bottom: 80px;
+    inset-inline-end: -40px;
+    width: 120px;
+    height: 120px;
+    opacity: 0.4;
+  }
+
+  .index-hero-section__divider-wrapper {
+    height: 60px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .index-hero-section__content {
+    padding: 160px 40px 60px;
+  }
+
+  .index-hero-section__headline {
+    font-size: 3rem;
+  }
+
+  .index-hero-section__subtitle {
+    font-size: 1.3rem;
+  }
+}
+/* ZAPPY_POSTGEN_GUARD_HERO_FONT_CAP:index-hero */
+.hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 48px !important; line-height: 1.2 !important; }
+@media (max-width: 1024px) {
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 36px !important; }
+}
+@media (max-width: 768px) {
+  .hero h1, .hero-section h1, [class*="hero-"] h1, [class~="hero"] h1, .hero .hero-title, .hero-title { font-size: 28px !important; }
+}
+
+</style>
 
           <style id="zappy-cta-mobile-style">
             /* Hide CTA list item on desktop (tablets and up) */
@@ -689,7 +953,13 @@
               });
             })();
           </script>
-    <link rel="stylesheet" href="/styles.css">
+    <style id="zappy-critical-above-fold-css">
+html{box-sizing:border-box;-webkit-text-size-adjust:100%}*,*::before,*::after{box-sizing:inherit}body{margin:0;min-width:320px;overflow-x:clip}img,svg,video{max-width:100%;height:auto}main{display:block}.container{width:min(100% - 32px,1200px);margin-inline:auto}.navbar,nav.navbar,header .navbar,header[role="banner"]{position:relative;z-index:1000;width:100%}.nav-container,.navbar .container{display:flex;align-items:center;justify-content:space-between;min-height:64px}.logo,.logo-link img{display:block;width:35px;height:35px;object-fit:contain}.nav-menu,#navMenu{list-style:none}.fa,.fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands{display:inline-block;min-width:1em;text-align:center}html:not(#zappy-noop)[data-zappy-site-type="ecommerce"] .phone-header-btn,html:not(#zappy-noop) .navbar:has(.nav-ecommerce-icons)>.phone-header-btn{display:none!important;visibility:hidden!important;width:0!important;height:0!important;pointer-events:none!important}.zappy-preview-empty-store-cta{display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important}.hero-section,.index-hero-section,section[class*="hero"]{position:relative;overflow:hidden;min-height:560px}.hero-bg-wrapper,.hero-bg-image,section[class*="hero"] [class*="hero-bg"]{position:absolute;inset:0;width:100%;height:100%}.hero-bg-wrapper img,.hero-bg-image img,section[class*="hero"] [data-hero-bg],section[class*="hero"] img[data-hero-background="true"]{width:100%!important;height:100%!important;object-fit:cover!important;display:block}.hero-content,section[class*="hero"] .container{position:relative;z-index:2}@media(max-width:768px){:root{--header-height:72px;--total-header-height:72px;--zappy-mobile-menu-top:72px}html[data-zappy-site-type="ecommerce"] body{padding-top:var(--total-header-height,72px)}html[data-zappy-site-type="ecommerce"] body>nav.navbar,html[data-zappy-site-type="ecommerce"] body>.navbar:not(.zappy-catalog-menu){position:fixed!important;top:0;left:0;right:0;z-index:100000;width:100%;margin-bottom:0}.zappy-catalog-menu{position:fixed;top:var(--header-height,72px);left:0;right:0;z-index:99999}.nav-container,.navbar .container{min-height:60px}.nav-menu,#navMenu{max-width:100vw;overflow-x:hidden}.hero-section,.index-hero-section,section[class*="hero"]{min-height:100svh}.hero-bg-wrapper,.hero-bg-image,.hero-scrim{min-height:100svh}}
+</style>
+    <link rel="preload" href="/styles.css" as="style">
+    <link rel="stylesheet" href="/styles.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/styles.css"></noscript>
+    
     <script>window.ZAPPY_WEBSITE_ID = "d0fd95d0-fa69-47c8-abd2-e5414ed056c9"; window.ZAPPY_API_BASE = "https://api.zappy5.com";</script>
 
     <style id="zappy-widget-visibility">
@@ -733,10 +1003,10 @@
 <a class="skip-link" href="#main">דלג לתוכן הראשי</a>
   <nav class="navbar" dir="rtl">
   <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
-    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <svg style="display:block !important" class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
       <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
     </svg>
-    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:none !important">
       <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
     </svg>
   </button>
@@ -746,9 +1016,7 @@
     </svg>
   </button>
   <div class="nav-container">
-    <div class="nav-right-group"><div class="nav-brand">
-      <a href="/" class="logo-link"><img class="logo" src="/assets/be-a-winner-leadership-development-training-logo-1781012970269-d8g6cc.webp?v=1781012970734-3nmm6k" alt="Be A Winner"></a>
-    </div><ul class="nav-menu" id="navMenu"><li><a href="/meet-the-team">להכיר את הצוות</a></li><li><a href="/learning-options" class="nav-link">לימוד</a></li><li><a href="/customer-testimonials">מה אומרים הלקוחות</a></li><li><a href="/what-makes-us-unique">מה הופך אותנו לייחודיים</a></li><li><a href="/media-appearances-and-inspiration">הופעות בתקשורת והשראה</a></li><li><a href="/manager-to-leader">ממנהל למנהיג - הספר</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li></ul></div>
+    <div class="nav-right-group"><div class="nav-brand"><a href="/" class="logo-link"><img class="logo" src="/assets/be-a-winner-leadership-development-training-logo-1781012970269-d8g6cc.webp?v=1781012970734-3nmm6k" alt="Be A Winner - הופכים מנהלים טובים למנהיגים" decoding="async" width="35" height="35"></a></div><ul class="nav-menu" id="navMenu"><li><a href="/our-learning-options" class="nav-link">אפשרויות הלימוד שלנו</a></li><li><a href="/what-makes-us-unique">מה הופך אותנו לייחודיים</a></li><li><a href="/media-appearances-and-inspiration">הופעות בתקשורת והשראה</a></li><li><a href="/manager-to-leader">ממנהל למנהיג - הספר</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li><li><a href="/meet-the-team" class="">להכיר את הצוות</a></li></ul></div>
     
     <div class="nav-cta-container">
       <a href="/contact" class="nav-cta-btn">צור קשר</a>
@@ -1196,241 +1464,27 @@
 </script>
   
   <main id="main">
-    <section class="about-intro-section" data-layout-spec="אודות-intro">
-  <div class="about-intro-container">
-    <div class="about-intro-grid">
-      <article class="about-intro-content">
-        <h1 class="about-intro-headline">המסע ממנהל למנהיג מתחיל כאן</h1>
-        <p class="about-intro-paragraph">Be A Winner נולד מתוך ההבנה שהעולם הארגוני זקוק ליותר ממנהלים — הוא זקוק למנהיגים. אנחנו מלווים ארגונים, צוותי הנהלה ומנהלים בדרג הביניים בתהליכי התפתחות עסקית שמחברים בין חזון אישי לתוצאות מדידות. הגישה שלנו משלבת כלים מעשיים עם תובנות מעמיקות, כך שכל מפגש הופך למנוע צמיחה אמיתי.</p>
-        <p class="about-intro-paragraph">דרך הרצאות, סדנאות לעסקים וליווי צמוד, אנחנו בונים תרבות של הובלה, אחריות והשראה. אנחנו מאמינים שמנהיגות אינה תכונה מולדת — היא מיומנות שאפשר ללמוד, לפתח ולשכלל. כל תהליך מותאם לצרכים הייחודיים של הארגון שלך, עם דגש על יצירת אימפקט שנשאר לאורך זמן.</p>
-      </article>
-      <figure class="about-intro-image-wrapper">
-        <img loading="eager" fetchpriority="high" data-placeholder="about-intro-image-1" data-context="Professional leadership workshop scene in Israel: a confident speaker in business casual attire engaging with a diverse group of corporate managers seated in a bright modern conference room, warm natural lighting, authentic candid moment capturing inspiration and connection in a leadership development training session" width="600" height="400" src="/assets/site-about-intro-image-1.webp" alt="סדנת מנהיגות ארגונית עם צוות מנהלים" class="about-intro-image">
-        <div class="about-intro-image-overlay"></div>
-      </figure>
-    </div>
-  </div>
-  <div class="about-intro-divider-wrapper">
-    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,60 L0,30 L200,18 L400,30 L600,22 L800,28 L1000,20 L1200,30 L1200,60 Z" fill="var(--bg-light)"></path>
-    </svg>
-  </div>
-</section>
-
-<section class="about-values-section" data-layout-spec="אודות-values">
-  <div class="about-values-section__container">
-    <!-- Centered Intro Block -->
-    <div class="about-values-section__intro">
-      <h2 class="about-values-section__title">הערכים שמובילים אותנו קדימה</h2>
-      <p class="about-values-section__subtitle">אנחנו מאמינים שמנהיגות אמיתית נולדת מתוך חיבור לערכים עמוקים. כל סדנה, הרצאה ותהליך לימודי שאנחנו מעבירים נטועים בארבעת העקרונות המרכזיים שמגדירים את הדרך שלנו להפוך מנהלים למנהיגים מעוררי השראה.</p>
-    </div>
-
-    <!-- Values Grid -->
-    <div class="about-values-section__grid">
-      <!-- Value 1: Taller -->
-      <article class="about-values-section__card about-values-section__card--tall">
-        <div class="about-values-section__card-icon">
-          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="20" stroke="var(--accent)" stroke-width="1.5" fill="none"></circle>
-            <path d="M24 14V28M24 28L18 22M24 28L30 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M16 34H32" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-          </svg>
+      <section id="layout-1784026998595" class="py-16 md:py-24 bg-white layout-section zappy-removable" data-zappy-component="true" style="width: 100%; padding: 60px 0;">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+          <h1 class="text-3xl md:text-4xl font-bold mb-4">להכיר את הצוות</h1>
+          <p class="text-gray-600 text-lg">This page is ready for your content.</p>
         </div>
-        <h3 class="about-values-section__card-title">אחריות אישית</h3>
-        <p class="about-values-section__card-text">מנהיגות מתחילה בלקיחת אחריות מלאה על ההחלטות, הפעולות והתוצאות. אנחנו מלמדים איך לעבור מתגובתיות ליוזמה, ולהפוך כל אתגר להזדמנות לצמיחה אישית ומקצועית.</p>
-      </article>
-
-      <!-- Value 2 -->
-      <article class="about-values-section__card">
-        <div class="about-values-section__card-icon">
-          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="20" stroke="var(--accent)" stroke-width="1.5" fill="none"></circle>
-            <path d="M16 20C16 18.3431 17.3431 17 19 17H29C30.6569 17 32 18.3431 32 20V28C32 29.6569 30.6569 31 29 31H19C17.3431 31 16 29.6569 16 28V20Z" stroke="currentColor" stroke-width="2"></path>
-            <path d="M20 21H28M20 25H25" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-          </svg>
-        </div>
-        <h3 class="about-values-section__card-title">נוכחות מודעת</h3>
-        <p class="about-values-section__card-text">היכולת להיות נוכח ברגע, להקשיב באמת ולהוביל מתוך קשב פנימי היא לב ליבה של מנהיגות אפקטיבית. אנחנו מפתחים כלים לניהול תשומת לב וחיבור אנושי עמוק.</p>
-      </article>
-
-      <!-- Value 3 -->
-      <article class="about-values-section__card">
-        <div class="about-values-section__card-icon">
-          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="20" stroke="var(--accent)" stroke-width="1.5" fill="none"></circle>
-            <path d="M14 28L20 22L24 26L34 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            <circle cx="34" cy="16" r="2" fill="currentColor"></circle>
-            <path d="M14 34H34" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-          </svg>
-        </div>
-        <h3 class="about-values-section__card-title">תקשורת מנצחת</h3>
-        <p class="about-values-section__card-text">מילים בונות מציאות. אנחנו מקנים מיומנויות תקשורת מתקדמות שמאפשרות להעביר מסרים בצורה בהירה, לייצר שיתופי פעולה פוריים ולהניע אנשים לפעולה מתוך השראה ולא מתוך סמכות.</p>
-      </article>
-
-      <!-- Value 4: Taller -->
-      <article class="about-values-section__card about-values-section__card--tall">
-        <div class="about-values-section__card-icon">
-          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="20" stroke="var(--accent)" stroke-width="1.5" fill="none"></circle>
-            <path d="M24 14V20M24 20L18 18M24 20L30 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M16 28L24 34L32 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M24 34V38" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-          </svg>
-        </div>
-        <h3 class="about-values-section__card-title">צמיחה מתמדת</h3>
-        <p class="about-values-section__card-text">מנהיג אמיתי לעולם לא מפסיק ללמוד. אנחנו מטפחים תרבות של סקרנות, למידה מתמשכת ופריצת גבולות אישיים. כל סדנה שלנו היא נקודת זינוק למסע התפתחותי שממשיך הרבה אחריה.</p>
-      </article>
-    </div>
-  </div>
-
-  <!-- Bottom Divider: Layered gradient fade with thin contour lines -->
-  <div class="about-values-section__divider-wrapper">
-    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="about-values-fade" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="var(--bg-light)" stop-opacity="1"></stop>
-          <stop offset="60%" stop-color="var(--bg-light)" stop-opacity="0.3"></stop>
-          <stop offset="100%" stop-color="var(--bg-light)" stop-opacity="0"></stop>
-        </linearGradient>
-      </defs>
-      <!-- Base gradient fade -->
-      <rect x="0" y="0" width="1200" height="100" fill="url(#about-values-fade)"></rect>
-      <!-- Thin contour lines -->
-      <path d="M0,40 Q300,35 600,42 T1200,38" stroke="var(--border-light)" stroke-width="1" fill="#1A1535" opacity="0.6"></path>
-      <path d="M0,60 Q400,55 800,62 T1200,58" stroke="var(--border-light)" stroke-width="0.5" fill="#1A1535" opacity="0.4"></path>
-      <path d="M0,80 Q500,75 1000,82 T1200,78" stroke="var(--border-light)" stroke-width="0.5" fill="#1A1535" opacity="0.2"></path>
-    </svg>
-  </div>
-</section>
-
-<section class="about-process-section" data-layout-spec="אודות-process" dir="rtl">
-  <div class="about-process-section__container">
-    <div class="about-process-section__header">
-      <h2 class="about-process-section__title">איך הרצאות וסדנאות יוצרות שינוי אמיתי?</h2>
-      <p class="about-process-section__subtitle">המסע ממנהל למנהיג עובר דרך תובנה, תרגול והטמעה בשטח. שלושה שלבים פשוטים שמחוללים מהפך.</p>
-    </div>
-
-    <div class="about-process-section__steps">
-      <!-- Step 1 -->
-      <div class="about-process-section__step">
-        <div class="about-process-section__step-marker">
-          <span class="about-process-section__step-number">01</span>
-          <div class="about-process-section__step-line"></div>
-        </div>
-        <div class="about-process-section__step-content">
-          <h3 class="about-process-section__step-title">תובנה – לזהות את הפוטנציאל</h3>
-          <p class="about-process-section__step-text">כל מסע מתחיל ברגע של בהירות. בהרצאות שלנו, המשתתפים נחשפים לכלים מנהיגותיים מתקדמים, מזהים את החוזקות האישיות שלהם ומבינים את ההזדמנות האדירה שטמונה במעבר מניהול להובלה. זהו השלב שבו ניצת הניצוץ.</p>
-        </div>
-      </div>
-
-      <!-- Step 2 -->
-      <div class="about-process-section__step">
-        <div class="about-process-section__step-marker">
-          <span class="about-process-section__step-number">02</span>
-          <div class="about-process-section__step-line"></div>
-        </div>
-        <div class="about-process-section__step-content">
-          <h3 class="about-process-section__step-title">תרגול – להפוך תיאוריה לפרקטיקה</h3>
-          <p class="about-process-section__step-text">ידע ללא יישום הוא חסר ערך. בסדנאות האינטראקטיביות שלנו, המשתתפים מתרגלים סיטואציות אמיתיות מהשטח, מקבלים משוב מיידי ובונים ביטחון. אנו יוצרים מרחב בטוח להתנסות, לטעות וללמוד – בדיוק כמו בזירת הניהול האמיתית.</p>
-        </div>
-      </div>
-
-      <!-- Step 3 -->
-      <div class="about-process-section__step">
-        <div class="about-process-section__step-marker">
-          <span class="about-process-section__step-number">03</span>
-        </div>
-        <div class="about-process-section__step-content">
-          <h3 class="about-process-section__step-title">הטמעה – להוביל את השינוי בשטח</h3>
-          <p class="about-process-section__step-text">השלב הקריטי ביותר הוא החזרה לארגון. אנו מלווים את המנהלים בתהליך הטמעת המיומנויות החדשות, מייצרים תוכנית פעולה אישית ומספקים ליווי מקצועי. התוצאה: מנהיגים שמובילים צוותים, משפיעים על תרבות ארגונית ומניעים תוצאות יוצאות דופן.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Decorative geometric watermark -->
-  <div class="about-process-section__watermark" aria-hidden="true">
-    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="150,20 280,260 20,260" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.06"></polygon>
-    </svg>
-  </div>
-
-  <!-- Bottom divider: clipped paper-fold edge -->
-  <div class="about-process-section__divider-wrapper" data-no-icon-edit="true" aria-hidden="true">
-    <svg viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,80 L0,45 L100,35 L200,48 L300,30 L400,42 L500,28 L600,38 L700,25 L800,40 L900,32 L1000,44 L1100,30 L1200,45 L1200,80 Z" fill="var(--bg-light)"></path>
-    </svg>
-  </div>
-</section>
-
-<section class="about-story-section" data-layout-spec="אודות-story">
-    <div class="about-story-section__container">
-        <!-- Content Text Block -->
-        <div class="about-story-section__content">
-            <h2 class="about-story-section__heading">המסע ממנהל למנהיג — למה דווקא עכשיו?</h2>
-            <p class="about-story-section__paragraph">
-                בעולם עסקי שמשתנה בקצב מסחרר, היכולת להוביל אנשים הפכה למשאב הקריטי ביותר. "Be A Winner" נולדה מתוך ההבנה שמנהלים רבים מוצאים את עצמם לבד במערכה — נדרשים לקבל החלטות, להניע צוותים ולייצר תוצאות, אך ללא ארגז הכלים המנטלי והרגשי הדרוש. אנחנו לא מדברים על תיאוריה יבשה; אנחנו מביאים פרקטיקה חיה, סיפורים מהשטח, ותהליכים מוכחים שהופכים מנהלים למנהיגים אמיתיים.
-            </p>
-            <p class="about-story-section__paragraph">
-                במשך למעלה מעשור, ליווינו אלפי מנהלים ומנהלות בתהליכי התפתחות אישית ועסקית, דרך הרצאות מעוררות השראה, סדנאות לעסקים חווייתיות וכלים יישומיים. החיבור הבלתי-אמצעי עם הקהל, ההבנה העמוקה של אתגרי השטח, והאמונה שכל אחד יכול לגדול — אלו הם המנועים שמאחורי כל מפגש שלנו. זוהי לא רק העבודה שלנו, זו השליחות.
-            </p>
-            <a href="/contact" class="about-story-section__cta">צרו קשר לתיאום הרצאה</a>
-        </div>
-        
-        <!-- Image Collage Block -->
-        <div class="about-story-section__images">
-            <div class="about-story-section__image-large">
-                <img loading="lazy" decoding="async" data-placeholder="about-story-image-1" data-context="A dynamic leadership workshop in a modern corporate setting, showing a group of diverse professionals actively engaged in a collaborative activity, led by an inspiring speaker. Warm, golden lighting with plum and ivory accents." width="600" height="400" src="/assets/site-about-story-image-1.webp" alt="סדנת מנהיגות דינמית באווירה עסקית מודרנית">
-            </div>
-            <div class="about-story-section__image-small">
-                <img loading="lazy" decoding="async" data-placeholder="about-story-image-2" data-context="Close-up of a motivational speaker's hand gesturing passionately during a leadership training session, with a blurred audience in the background. Warm coral and ivory tones, shallow depth of field." width="400" height="300" src="/assets/site-about-story-image-2.webp" alt="דובר מעורר השראה בהרצאה עסקית">
-            </div>
-            <!-- Decorative Triangle Watermark -->
-            <div class="about-story-section__triangle-watermark" aria-hidden="true">
-                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M100 20 L180 160 L20 160 Z" stroke="var(--accent)" stroke-width="2" fill="none" opacity="0.15"></path>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bottom Divider: Gentle Curved Fade -->
-    <div class="about-story-section__divider-wrapper">
-        <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,80 L0,20 Q150,65 300,35 T600,45 Q750,30 900,40 T1200,25 L1200,80 Z" fill="#1A1535"></path>
-        </svg>
-    </div>
-</section>
-
-<section class="about-contact-cta-section" data-layout-spec="אודות-contact-cta">
-    <div class="about-contact-cta-section__container">
-      <h2 class="about-contact-cta-section__heading">מוכנים להצעיד את הארגון שלכם קדימה?</h2>
-      <p class="about-contact-cta-section__text">ההרצאות והסדנאות של Be A Winner מותאמות אישית לצרכי החברה שלכם — בין אם מדובר בפיתוח מנהיגים, חיזוק עבודת צוות או תהליכי התפתחות עסקית. בואו נדבר על איך אפשר לייצר שינוי אמיתי ומדיד בארגון שלכם.</p>
-      <a href="/contact" class="about-contact-cta-section__cta">
-        <span>צרו קשר עכשיו</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-element-type="icon" data-icon-type="svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-      </a>
-    </div>
-    <!-- Decorative Triangle Watermark -->
-    <svg class="about-contact-cta-section__watermark" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" data-no-icon-edit="true">
-      <polygon points="150,20 280,260 20,260" stroke="#D8A641" stroke-width="2" fill="none" opacity="0.08"></polygon>
-    </svg>
-  </section>
-  </main>
+      </section>
+    </main>
   
   <footer class="site-footer" dir="rtl">
   <div class="footer-container">
     <div class="footer-grid">
       <div class="footer-col footer-company-col">
-        <div data-zappy-zoom-wrapper="true" data-element-id="img-1781013477684-dq0ndiwqa" data-element-type="image" data-zappy-zoom-wrapper-width="124px" data-zappy-zoom-wrapper-height="60px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-wrapper-align="center" style="position: relative !important; overflow: hidden !important; width: 124px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 60px !important; display: block !important;" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true"><img src="/assets/be-a-winner-leadership-development-training-service-1781013556003-509edv.webp?v=1781013558662" alt="Be A Winner" class="logo" data-element-type="image" data-element-id="img-1781013477684-dq0ndiwqa" data-zappy-footer-image="true" style="object-fit: contain; width: auto; height: auto; max-width: 600px; display: block; border-radius: 8px; object-position: 50% 50% !important; margin: 0px !important;" data-zappy-object-position="50% 50%" data-zappy-zoom="1"></div>
+        <div data-zappy-zoom-wrapper="true" data-element-id="img-1781013477684-dq0ndiwqa" data-element-type="image" data-zappy-zoom-wrapper-width="124px" data-zappy-zoom-wrapper-height="60px" data-zappy-zoom-wrapper-width-mode="px" data-zappy-zoom-wrapper-align="center" style="position: relative !important; overflow: hidden !important; width: 124px !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; height: 60px !important; display: block !important;" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true"><img src="/assets/be-a-winner-leadership-development-training-service-1781013556003-509edv.webp?v=1781013558662" alt="Be A Winner - הופכים מנהלים טובים למנהיגים" class="logo" data-element-type="image" data-element-id="img-1781013477684-dq0ndiwqa" data-zappy-footer-image="true" style="object-fit: cover !important; width: 100.025% !important; height: 100% !important; max-width: none !important; display: block !important; border-radius: 8px; object-position: 50% 50% !important; margin: 0px !important; position: absolute !important; left: -0.0125031% !important; top: 0% !important; max-height: none !important;" data-zappy-object-position="50% 50%" data-zappy-zoom="1" decoding="async" width="35" height="35"></div>
         <p class="footer-tagline">מפתחים מנהיגים, בונים עתיד – הדרך שלך לניצחון מתחילה כאן.</p>
       </div>
       <div class="footer-col footer-links-col">
         <h4>ניווט מהיר</h4>
         <ul class="footer-links">
           <li><a href="/">בית</a></li>
-          <li><a href="/meet-the-team">להכיר את הצוות</a></li>
-          <li><a href="/customer-testimonials">מה אומרים הלקוחות</a></li>
+          
+          
           <li><a href="/media-appearances-and-inspiration">הופעות בתקשורת והשראה</a></li>
           <li><a href="/manager-to-leader">ממנהל למנהיג - הספר</a></li>
           <li><a href="/contact">צור קשר</a></li>
@@ -1438,34 +1492,32 @@
       </div>
       <div class="footer-col footer-contact-col">
         <h4>צור קשר</h4>
-        <ul class="footer-contact" ><li>
+        <ul class="footer-contact"><li>
             <span class="contact-icon"><i class="fas fa-envelope" data-element-type="icon" data-element-id="icon-1781013477684-rqeg3gzx9" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
-            <span class="contact-text"><a href="/cdn-cgi/l/email-protection#0b796469624b7964696226787f6e62656e79256864256267"><span class="__cf_email__" data-cfemail="f4869b969db4869b969dd98780919d9a9186da979bda9d98">[email&nbsp;protected]</span></a></span>
+            <span class="contact-text"><a href="mailto:robi@robi-steiner.co.il"><span>robi@robi-steiner.co.il</span></a></span>
           </li><li>
             <span class="contact-icon"><i class="fas fa-phone" data-element-type="icon" data-element-id="icon-1781013477684-him3pr8cp" data-icon-type="fontawesome" style="cursor: pointer;"></i></span>
-            <span class="contact-text"><a href="tel:+97258-7458008">+97258-7458008</a></span></li><li><span class="contact-text">(טלפון לווטסאפ בלבד)&nbsp;</span></li><li><a href="/" ><span class="contact-icon"></span><span class="contact-text"><br></span></a></li></ul>
+            <span class="contact-text"><a href="tel:+97258-7458008">+97258-7458008</a></span></li><li><span class="contact-text">(טלפון לווטסאפ בלבד)&amp;nbsp;</span></li><li><a href="/"><span class="contact-icon"></span><span class="contact-text"><br></span></a></li></ul>
       </div>
       <div class="footer-col footer-hours-col">
         <h4>שעות פעילות</h4>
-        <ul class="footer-hours">
-          <li><a href="/"><span class="hours-day">ימים א'–ה'</span> <span class="hours-time">09:00–18:00</span></a></li>
-          <li><a href="/"><span class="hours-day">יום ו'</span> <span class="hours-time">09:00–13:00</span></a></li>
-          <li><a href="/"><span class="hours-day">שבת</span> <span class="hours-time">סגור</span></a></li>
-        </ul>
+        <ul class="footer-hours"><li><a href="/"><span class="hours-day">יום א’</span> <span class="hours-time">סגור</span></a></li>
+<li><a href="/"><span class="hours-day">ימים ב’–ו’</span> <span class="hours-time">09:00–17:00</span></a></li>
+<li><a href="/"><span class="hours-day">שבת</span> <span class="hours-time">סגור</span></a></li></ul>
       </div>
       <div class="footer-col footer-social-col">
         <h4>עקבו אחרינו</h4>
         <div class="footer-social">
           <a href="#" aria-label="Facebook" data-zappy-social-placeholder="true" style="display:none !important;"><i class="fab fa-facebook-f"></i></a>
           <a href="#" aria-label="Instagram" data-zappy-social-placeholder="true" style="display:none !important;"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="WhatsApp" data-zappy-social-placeholder="true" style="display:none !important;"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://wa.me/972587458008" aria-label="WhatsApp" data-zappy-social-placeholder="true"><i class="fab fa-whatsapp"></i></a>
           <a href="https://youtube.com/@embed/4El7sLeqtw4" aria-label="YouTube" target="_blank" rel="noopener noreferrer" data-element-id="element-ai-1781013450235-y8k2m9" data-element-type="social-link"><i class="fab fa-youtube" data-element-type="icon" data-element-id="icon-1781013477684-csvtr40qy" data-icon-type="fontawesome"></i></a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="footer-bottom-left">
-        <p class="footer-copyright">© 2026 Be A Winner. כל הזכויות שמורות.</p>
+        <p class="footer-copyright">© 2026 Be A Winner - הופכים מנהלים טובים למנהיגים. כל הזכויות שמורות.</p>
       </div>
       <div class="footer-bottom-right">
         <a href="/privacy">מדיניות פרטיות</a>
@@ -1487,6 +1539,10 @@
   <div data-integration="accessibility:toolbar"></div>
 
     <script src="/script.js"></script>
+
+    <script id="zappy-font-awesome-loader">
+(function(){if(window.__zappyFontAwesomeLoader)return;window.__zappyFontAwesomeLoader=true;var href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';function load(){if(document.querySelector('link[href*="font-awesome"][href*="all.min.css"]'))return;var l=document.createElement('link');l.rel='stylesheet';l.href=href;l.crossOrigin='anonymous';l.referrerPolicy='no-referrer';document.head.appendChild(l);}function schedule(){if('requestIdleCallback'in window){requestIdleCallback(load,{timeout:5000});}else{setTimeout(load,3500);}}['pointerdown','keydown','touchstart','mouseover'].forEach(function(evt){window.addEventListener(evt,load,{once:true,passive:true});});schedule();})();
+</script>
 
     <script id="zappy-mobile-submenu-script">
     (function() {
@@ -1552,10 +1608,10 @@
       var st=true?td:tl;
       nb.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease,box-shadow 0.3s ease';
       if(cm)cm.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease';
-      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';
+      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link,.lang-switcher-current';
       var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle'];
-      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}
-      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}
+      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}try{if(typeof window.fixLanguageSwitcherColor==='function')window.fixLanguageSwitcherColor();}catch(e){}}
+      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}try{if(typeof window.fixLanguageSwitcherColor==='function')window.fixLanguageSwitcherColor();}catch(e){}}
       function applyScrolled(){
         nb.classList.add('scrolled');
         if(window.innerWidth>768){
@@ -1735,5 +1791,4 @@
       else setTimeout(init,50);
     })();
     </script>
-</body>
-</html>
+</body></html>
