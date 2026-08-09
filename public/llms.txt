@@ -25,12 +25,12 @@ https://leadership-coaching.co.il/media-appearances-and-inspiration
 https://leadership-coaching.co.il/manager-to-leader
 הספר שכל מנהל חייב לקרוא – כלים מעשיים, תובנות מעמיקות ותהליכי התפתחות שיהפכו אתכם למנהיגים מובילים. רכשו עכשיו והתחילו להוביל אחרת.
 
+### Page
+https://leadership-coaching.co.il/meet-the-team
+
 ### הצעד הראשון למנהיגות שלכם — Be A Winner
 https://leadership-coaching.co.il/contact
 מוכנים להזניק את הקריירה והעסק קדימה? צרו קשר עוד היום לתיאום סדנאות למנכ&quot;לים והרצאות מותאמות אישית. אנחנו כאן כדי להפוך אתכם למנצחים.
-
-### Page
-https://leadership-coaching.co.il/meet-the-team
 
 ## Legal & Policy
 
@@ -60,12 +60,12 @@ Information about WCAG compliance and accessibility features.
 - Method: POST
 - Content-Type: application/json
 - Fields:
-  - `name` (text, required)
-  - `email` (email, required)
-  - `phone` (tel, required)
-  - `inquiry_reason` (select, required)
+  - `name` (text)
+  - `email` (email)
+  - `phone` (tel)
+  - `inquiry_reason` (select)
   - `message` (textarea, required)
-  - `privacy_consent` (checkbox, required)
+  - `privacy_consent` (checkbox)
 
 ---
 

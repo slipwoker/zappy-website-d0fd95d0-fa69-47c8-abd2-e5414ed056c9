@@ -262,898 +262,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-/* Cookie Consent */
-
-// Helper function to check cookie consent
-function hasConsentFor(category) {
-  if (typeof window.CookieConsent === 'undefined') {
-    return false; // Default to no consent if cookie consent not loaded
-  }
-  
-  return window.CookieConsent.validConsent(category);
-}
-
-// Helper function to execute code only with consent
-function withConsent(category, callback) {
-  if (hasConsentFor(category)) {
-    callback();
-  } else {
-    console.log(`[WARNING] Skipping ${category} code - no user consent`);
-  }
-}
-
-// Cookie Consent Initialization (multi-language) /* __ccConfigCustomBannerV1 */
-
-(function() {
-  'use strict';
-  
-  var initAttempts = 0;
-  var maxAttempts = 50;
-  
-  function initCookieConsent() {
-    initAttempts++;
-    
-    if (typeof window.CookieConsent === 'undefined') {
-      if (initAttempts < maxAttempts) {
-        setTimeout(initCookieConsent, 100);
-      }
-      return;
-    }
-
-    if (window.__zappyCookieConsentInitialized) {
-      return;
-    }
-    window.__zappyCookieConsentInitialized = true;
-
-    var cc = window.CookieConsent;
-    
-    try {
-      var __ccConfig = {
-  "autoShow": false,
-  "mode": "opt-in",
-  "revision": 0,
-  "categories": {
-    "necessary": {
-      "enabled": true,
-      "readOnly": true
-    },
-    "analytics": {
-      "enabled": false,
-      "readOnly": false,
-      "autoClear": {
-        "cookies": [
-          {
-            "name": "_ga"
-          },
-          {
-            "name": "_ga_*"
-          },
-          {
-            "name": "_gid"
-          },
-          {
-            "name": "_gat"
-          }
-        ]
-      }
-    },
-    "marketing": {
-      "enabled": false,
-      "readOnly": false,
-      "autoClear": {
-        "cookies": [
-          {
-            "name": "_fbp"
-          },
-          {
-            "name": "_fbc"
-          },
-          {
-            "name": "fr"
-          }
-        ]
-      }
-    }
-  },
-  "language": {
-    "default": "he",
-    "translations": {
-      "en": {
-        "consentModal": {
-          "description": "We use cookies to improve your experience and analyze site usage.",
-          "acceptAllBtn": "Accept",
-          "showPreferencesBtn": "Customize"
-        },
-        "preferencesModal": {
-          "title": "Cookie Preferences",
-          "acceptAllBtn": "Accept",
-          "acceptNecessaryBtn": "Accept Necessary",
-          "savePreferencesBtn": "Save Preferences",
-          "closeIconLabel": "Close",
-          "sections": [
-            {
-              "title": "Essential Cookies",
-              "description": "These cookies are necessary for the website to function and cannot be disabled.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Analytics Cookies",
-              "description": "These cookies help us understand how visitors interact with our website.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Marketing Cookies",
-              "description": "These cookies are used to deliver personalized advertisements.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "es": {
-        "consentModal": {
-          "description": "Usamos cookies para mejorar tu experiencia y analizar el uso del sitio.",
-          "acceptAllBtn": "Aceptar",
-          "showPreferencesBtn": "Personalizar"
-        },
-        "preferencesModal": {
-          "title": "Preferencias de Cookies",
-          "acceptAllBtn": "Aceptar",
-          "acceptNecessaryBtn": "Solo Necesarias",
-          "savePreferencesBtn": "Guardar Preferencias",
-          "closeIconLabel": "Cerrar",
-          "sections": [
-            {
-              "title": "Cookies Esenciales",
-              "description": "Estas cookies son necesarias para que el sitio web funcione y no se pueden desactivar.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Cookies de Análisis",
-              "description": "Estas cookies nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Cookies de Marketing",
-              "description": "Estas cookies se utilizan para entregar anuncios personalizados.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "fr": {
-        "consentModal": {
-          "description": "Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site.",
-          "acceptAllBtn": "Accepter",
-          "showPreferencesBtn": "Personnaliser"
-        },
-        "preferencesModal": {
-          "title": "Préférences des Cookies",
-          "acceptAllBtn": "Accepter",
-          "acceptNecessaryBtn": "Accepter les Nécessaires",
-          "savePreferencesBtn": "Enregistrer les Préférences",
-          "closeIconLabel": "Fermer",
-          "sections": [
-            {
-              "title": "Cookies Essentiels",
-              "description": "Ces cookies sont nécessaires au fonctionnement du site web et ne peuvent pas être désactivés.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Cookies Analytiques",
-              "description": "Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site web.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Cookies Marketing",
-              "description": "Ces cookies sont utilisés pour diffuser des publicités personnalisées.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "de": {
-        "consentModal": {
-          "description": "Wir verwenden Cookies, um Ihr Erlebnis zu verbessern und die Nutzung der Website zu analysieren.",
-          "acceptAllBtn": "Akzeptieren",
-          "showPreferencesBtn": "Anpassen"
-        },
-        "preferencesModal": {
-          "title": "Cookie-Einstellungen",
-          "acceptAllBtn": "Akzeptieren",
-          "acceptNecessaryBtn": "Nur Notwendige",
-          "savePreferencesBtn": "Einstellungen speichern",
-          "closeIconLabel": "Schließen",
-          "sections": [
-            {
-              "title": "Notwendige Cookies",
-              "description": "Diese Cookies sind für die Funktion der Website erforderlich und können nicht deaktiviert werden.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Analyse-Cookies",
-              "description": "Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Marketing-Cookies",
-              "description": "Diese Cookies werden verwendet, um personalisierte Werbung zu liefern.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "it": {
-        "consentModal": {
-          "description": "Utilizziamo i cookie per migliorare la tua esperienza e analizzare l'utilizzo del sito.",
-          "acceptAllBtn": "Accetta",
-          "showPreferencesBtn": "Personalizza"
-        },
-        "preferencesModal": {
-          "title": "Preferenze Cookie",
-          "acceptAllBtn": "Accetta",
-          "acceptNecessaryBtn": "Solo Necessari",
-          "savePreferencesBtn": "Salva Preferenze",
-          "closeIconLabel": "Chiudi",
-          "sections": [
-            {
-              "title": "Cookie Essenziali",
-              "description": "Questi cookie sono necessari per il funzionamento del sito web e non possono essere disattivati.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Cookie Analitici",
-              "description": "Questi cookie ci aiutano a capire come i visitatori interagiscono con il nostro sito web.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Cookie di Marketing",
-              "description": "Questi cookie vengono utilizzati per fornire pubblicità personalizzate.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "pt": {
-        "consentModal": {
-          "description": "Usamos cookies para melhorar sua experiência e analisar o uso do site.",
-          "acceptAllBtn": "Aceitar",
-          "showPreferencesBtn": "Personalizar"
-        },
-        "preferencesModal": {
-          "title": "Preferências de Cookies",
-          "acceptAllBtn": "Aceitar",
-          "acceptNecessaryBtn": "Apenas Necessários",
-          "savePreferencesBtn": "Salvar Preferências",
-          "closeIconLabel": "Fechar",
-          "sections": [
-            {
-              "title": "Cookies Essenciais",
-              "description": "Estes cookies são necessários para o funcionamento do site e não podem ser desativados.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Cookies Analíticos",
-              "description": "Estes cookies nos ajudam a entender como os visitantes interagem com nosso site.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Cookies de Marketing",
-              "description": "Estes cookies são usados para exibir anúncios personalizados.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "nl": {
-        "consentModal": {
-          "description": "Wij gebruiken cookies om uw ervaring te verbeteren en het sitegebruik te analyseren.",
-          "acceptAllBtn": "Accepteren",
-          "showPreferencesBtn": "Aanpassen"
-        },
-        "preferencesModal": {
-          "title": "Cookie-voorkeuren",
-          "acceptAllBtn": "Accepteren",
-          "acceptNecessaryBtn": "Alleen noodzakelijke",
-          "savePreferencesBtn": "Voorkeuren opslaan",
-          "closeIconLabel": "Sluiten",
-          "sections": [
-            {
-              "title": "Noodzakelijke Cookies",
-              "description": "Deze cookies zijn nodig voor het functioneren van de website en kunnen niet worden uitgeschakeld.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Analytische Cookies",
-              "description": "Deze cookies helpen ons te begrijpen hoe bezoekers onze website gebruiken.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Marketing Cookies",
-              "description": "Deze cookies worden gebruikt om gepersonaliseerde advertenties te tonen.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "he": {
-        "consentModal": {
-          "description": "אנחנו משתמשים בעוגיות כדי לשפר את החוויה שלך ולנתח שימוש באתר.",
-          "acceptAllBtn": "אישור",
-          "showPreferencesBtn": "התאמה אישית"
-        },
-        "preferencesModal": {
-          "title": "העדפות עוגיות",
-          "acceptAllBtn": "אישור",
-          "acceptNecessaryBtn": "רק הכרחי",
-          "savePreferencesBtn": "שמור העדפות",
-          "closeIconLabel": "סגור",
-          "sections": [
-            {
-              "title": "עוגיות חיוניות",
-              "description": "עוגיות אלה הכרחיות לתפקוד האתר ולא ניתן להשבית אותן.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "עוגיות ניתוח",
-              "description": "עוגיות אלה עוזרות לנו להבין איך המבקרים מתקשרים עם האתר שלנו.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "עוגיות שיווקיות",
-              "description": "עוגיות אלה משמשות להצגת פרסומות מותאמות אישית.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "ar": {
-        "consentModal": {
-          "description": "نستخدم ملفات تعريف الارتباط لتحسين تجربتك وتحليل استخدام الموقع.",
-          "acceptAllBtn": "قبول",
-          "showPreferencesBtn": "تخصيص"
-        },
-        "preferencesModal": {
-          "title": "تفضيلات ملفات تعريف الارتباط",
-          "acceptAllBtn": "قبول",
-          "acceptNecessaryBtn": "الضرورية فقط",
-          "savePreferencesBtn": "حفظ التفضيلات",
-          "closeIconLabel": "إغلاق",
-          "sections": [
-            {
-              "title": "ملفات تعريف الارتباط الأساسية",
-              "description": "هذه الملفات ضرورية لعمل الموقع ولا يمكن تعطيلها.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "ملفات تعريف الارتباط التحليلية",
-              "description": "تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع موقعنا.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "ملفات تعريف الارتباط التسويقية",
-              "description": "تُستخدم هذه الملفات لعرض إعلانات مخصصة.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "tr": {
-        "consentModal": {
-          "description": "Deneyiminizi geliştirmek ve site kullanımını analiz etmek için çerezler kullanırız.",
-          "acceptAllBtn": "Kabul Et",
-          "showPreferencesBtn": "Özelleştir"
-        },
-        "preferencesModal": {
-          "title": "Çerez Tercihleri",
-          "acceptAllBtn": "Kabul Et",
-          "acceptNecessaryBtn": "Sadece Gerekli",
-          "savePreferencesBtn": "Tercihleri Kaydet",
-          "closeIconLabel": "Kapat",
-          "sections": [
-            {
-              "title": "Zorunlu Çerezler",
-              "description": "Bu çerezler web sitesinin çalışması için gereklidir ve devre dışı bırakılamaz.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Analiz Çerezleri",
-              "description": "Bu çerezler, ziyaretçilerin web sitemizle nasıl etkileşime girdiğini anlamamıza yardımcı olur.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Pazarlama Çerezleri",
-              "description": "Bu çerezler kişiselleştirilmiş reklamlar sunmak için kullanılır.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "ru": {
-        "consentModal": {
-          "description": "Мы используем файлы cookie для улучшения вашего опыта и анализа использования сайта.",
-          "acceptAllBtn": "Принять",
-          "showPreferencesBtn": "Настроить"
-        },
-        "preferencesModal": {
-          "title": "Настройки cookie",
-          "acceptAllBtn": "Принять",
-          "acceptNecessaryBtn": "Только необходимые",
-          "savePreferencesBtn": "Сохранить настройки",
-          "closeIconLabel": "Закрыть",
-          "sections": [
-            {
-              "title": "Необходимые cookie",
-              "description": "Эти файлы cookie необходимы для работы сайта и не могут быть отключены.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Аналитические cookie",
-              "description": "Эти файлы cookie помогают нам понять, как посетители взаимодействуют с нашим сайтом.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Маркетинговые cookie",
-              "description": "Эти файлы cookie используются для показа персонализированной рекламы.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "zh": {
-        "consentModal": {
-          "description": "我们使用 Cookie 来改善您的体验并分析网站使用情况。",
-          "acceptAllBtn": "接受",
-          "showPreferencesBtn": "自定义"
-        },
-        "preferencesModal": {
-          "title": "Cookie 偏好设置",
-          "acceptAllBtn": "接受",
-          "acceptNecessaryBtn": "仅接受必要",
-          "savePreferencesBtn": "保存偏好",
-          "closeIconLabel": "关闭",
-          "sections": [
-            {
-              "title": "必要 Cookie",
-              "description": "这些 Cookie 是网站正常运行所必需的，无法禁用。",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "分析 Cookie",
-              "description": "这些 Cookie 帮助我们了解访问者如何与我们的网站互动。",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "营销 Cookie",
-              "description": "这些 Cookie 用于投放个性化广告。",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "ja": {
-        "consentModal": {
-          "description": "お客様の体験向上とサイト利用状況の分析のためにCookieを使用しています。",
-          "acceptAllBtn": "許可する",
-          "showPreferencesBtn": "カスタマイズ"
-        },
-        "preferencesModal": {
-          "title": "Cookie設定",
-          "acceptAllBtn": "許可する",
-          "acceptNecessaryBtn": "必要なもののみ",
-          "savePreferencesBtn": "設定を保存",
-          "closeIconLabel": "閉じる",
-          "sections": [
-            {
-              "title": "必要なCookie",
-              "description": "これらのCookieはウェブサイトの機能に必要であり、無効にすることはできません。",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "分析Cookie",
-              "description": "これらのCookieは、訪問者がウェブサイトとどのように対話するかを理解するのに役立ちます。",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "マーケティングCookie",
-              "description": "これらのCookieはパーソナライズされた広告を配信するために使用されます。",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "ko": {
-        "consentModal": {
-          "description": "경험 향상과 사이트 사용 분석을 위해 쿠키를 사용합니다.",
-          "acceptAllBtn": "수락",
-          "showPreferencesBtn": "사용자 지정"
-        },
-        "preferencesModal": {
-          "title": "쿠키 설정",
-          "acceptAllBtn": "수락",
-          "acceptNecessaryBtn": "필수만 수락",
-          "savePreferencesBtn": "설정 저장",
-          "closeIconLabel": "닫기",
-          "sections": [
-            {
-              "title": "필수 쿠키",
-              "description": "이 쿠키는 웹사이트 작동에 필요하며 비활성화할 수 없습니다.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "분석 쿠키",
-              "description": "이 쿠키는 방문자가 웹사이트와 어떻게 상호작용하는지 이해하는 데 도움이 됩니다.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "마케팅 쿠키",
-              "description": "이 쿠키는 맞춤형 광고를 제공하는 데 사용됩니다.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "pl": {
-        "consentModal": {
-          "description": "Używamy plików cookie, aby poprawić Twoje wrażenia i analizować korzystanie z witryny.",
-          "acceptAllBtn": "Akceptuję",
-          "showPreferencesBtn": "Dostosuj"
-        },
-        "preferencesModal": {
-          "title": "Preferencje cookie",
-          "acceptAllBtn": "Akceptuję",
-          "acceptNecessaryBtn": "Tylko niezbędne",
-          "savePreferencesBtn": "Zapisz preferencje",
-          "closeIconLabel": "Zamknij",
-          "sections": [
-            {
-              "title": "Niezbędne pliki cookie",
-              "description": "Te pliki cookie są niezbędne do działania strony i nie można ich wyłączyć.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Analityczne pliki cookie",
-              "description": "Te pliki cookie pomagają nam zrozumieć, w jaki sposób odwiedzający korzystają z naszej strony.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Marketingowe pliki cookie",
-              "description": "Te pliki cookie służą do wyświetlania spersonalizowanych reklam.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "uk": {
-        "consentModal": {
-          "description": "Ми використовуємо файли cookie для покращення вашого досвіду та аналізу використання сайту.",
-          "acceptAllBtn": "Прийняти",
-          "showPreferencesBtn": "Налаштувати"
-        },
-        "preferencesModal": {
-          "title": "Налаштування cookie",
-          "acceptAllBtn": "Прийняти",
-          "acceptNecessaryBtn": "Лише необхідні",
-          "savePreferencesBtn": "Зберегти налаштування",
-          "closeIconLabel": "Закрити",
-          "sections": [
-            {
-              "title": "Необхідні cookie",
-              "description": "Ці файли cookie необхідні для роботи сайту і не можуть бути вимкнені.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Аналітичні cookie",
-              "description": "Ці файли cookie допомагають нам зрозуміти, як відвідувачі взаємодіють з нашим сайтом.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Маркетингові cookie",
-              "description": "Ці файли cookie використовуються для показу персоналізованої реклами.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "ro": {
-        "consentModal": {
-          "description": "Folosim cookie-uri pentru a vă îmbunătăți experiența și a analiza utilizarea site-ului.",
-          "acceptAllBtn": "Acceptă",
-          "showPreferencesBtn": "Personalizează"
-        },
-        "preferencesModal": {
-          "title": "Preferințe cookie",
-          "acceptAllBtn": "Acceptă",
-          "acceptNecessaryBtn": "Doar necesare",
-          "savePreferencesBtn": "Salvează preferințele",
-          "closeIconLabel": "Închide",
-          "sections": [
-            {
-              "title": "Cookie-uri esențiale",
-              "description": "Aceste cookie-uri sunt necesare pentru funcționarea site-ului și nu pot fi dezactivate.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Cookie-uri analitice",
-              "description": "Aceste cookie-uri ne ajută să înțelegem cum interacționează vizitatorii cu site-ul nostru.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Cookie-uri de marketing",
-              "description": "Aceste cookie-uri sunt folosite pentru a afișa reclame personalizate.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      },
-      "bg": {
-        "consentModal": {
-          "description": "Използваме бисквитки, за да подобрим изживяването ви и да анализираме използването на сайта.",
-          "acceptAllBtn": "Приемам",
-          "showPreferencesBtn": "Персонализиране"
-        },
-        "preferencesModal": {
-          "title": "Настройки за бисквитки",
-          "acceptAllBtn": "Приемам",
-          "acceptNecessaryBtn": "Само необходимите",
-          "savePreferencesBtn": "Запазване на предпочитанията",
-          "closeIconLabel": "Затвори",
-          "sections": [
-            {
-              "title": "Необходими бисквитки",
-              "description": "Тези бисквитки са необходими за функционирането на уебсайта и не могат да бъдат деактивирани.",
-              "linkedCategory": "necessary"
-            },
-            {
-              "title": "Аналитични бисквитки",
-              "description": "Тези бисквитки ни помагат да разберем как посетителите взаимодействат с нашия уебсайт.",
-              "linkedCategory": "analytics"
-            },
-            {
-              "title": "Маркетингови бисквитки",
-              "description": "Тези бисквитки се използват за показване на персонализирани реклами.",
-              "linkedCategory": "marketing"
-            }
-          ]
-        }
-      }
-    }
-  },
-  "guiOptions": {
-    "consentModal": {
-      "layout": "bar inline",
-      "position": "bottom",
-      "equalWeightButtons": false,
-      "flipButtons": false
-    },
-    "preferencesModal": {
-      "layout": "box",
-      "equalWeightButtons": false,
-      "flipButtons": false
-    }
-  }
-};
-      var __ccCloseLabels = {"en":"Close","es":"Cerrar","fr":"Fermer","de":"Schließen","it":"Chiudi","pt":"Fechar","nl":"Sluiten","he":"סגור","ar":"إغلاق","tr":"Kapat","ru":"Закрыть","zh":"关闭","ja":"閉じる","ko":"닫기","pl":"Zamknij","uk":"Закрити","ro":"Închide","bg":"Затвори"};
-
-      // Detect the current page language and override the build-time default.
-      // Published multi-language sites set <html lang="…"> per URL prefix;
-      // preview pages may store the active language on zappyI18n.
-      var pageLang = (document.documentElement.getAttribute('lang') || '').split('-')[0].toLowerCase();
-      if (!pageLang && typeof zappyI18n !== 'undefined' && zappyI18n.language) {
-        pageLang = String(zappyI18n.language).split('-')[0].toLowerCase();
-      }
-      if (pageLang && __ccConfig.language.translations[pageLang]) {
-        __ccConfig.language.default = pageLang;
-      }
-
-      function getActiveLanguage() {
-        var lang = (document.documentElement.getAttribute('lang') || '').split('-')[0].toLowerCase();
-        if (!lang && typeof zappyI18n !== 'undefined' && zappyI18n.language) {
-          lang = String(zappyI18n.language).split('-')[0].toLowerCase();
-        }
-        if (!lang || !__ccConfig.language.translations[lang]) {
-          lang = __ccConfig.language.default || 'en';
-        }
-        return __ccConfig.language.translations[lang] ? lang : 'en';
-      }
-
-      function getConsentText() {
-        var lang = getActiveLanguage();
-        var translations = __ccConfig.language.translations || {};
-        var current = translations[lang] || translations.en || {};
-        var consent = current.consentModal || {};
-        var labels = __ccCloseLabels || {};
-        return {
-          description: consent.description || '',
-          accept: consent.acceptAllBtn || 'Accept',
-          customize: consent.showPreferencesBtn || 'Customize',
-          close: labels[lang] || labels.en || 'Close'
-        };
-      }
-
-      function removeCustomBanner() {
-        var banner = document.getElementById('zappy-cookie-banner');
-        if (banner && banner.parentNode) {
-          banner.parentNode.removeChild(banner);
-        }
-        document.documentElement.classList.remove('zappy-cookie-banner-visible');
-      }
-
-      function updateCustomBannerText() {
-        var banner = document.getElementById('zappy-cookie-banner');
-        if (!banner) return;
-        var text = getConsentText();
-        var desc = banner.querySelector('[data-zappy-cookie-description]');
-        var accept = banner.querySelector('[data-zappy-cookie-accept]');
-        var customize = banner.querySelector('[data-zappy-cookie-customize]');
-        var close = banner.querySelector('[data-zappy-cookie-close]');
-        banner.setAttribute('aria-label', text.description || text.close);
-        if (desc) desc.textContent = text.description;
-        if (accept) accept.textContent = text.accept;
-        if (customize) customize.textContent = text.customize;
-        if (close) close.setAttribute('aria-label', text.close);
-      }
-
-      // Google Consent Mode v2 integration
-      function updateGoogleConsentMode() {
-        if (typeof gtag !== 'function') {
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = function(){dataLayer.push(arguments);};
-        }
-        
-        var analyticsAccepted = cc.acceptedCategory('analytics');
-        var marketingAccepted = cc.acceptedCategory('marketing');
-        
-        gtag('consent', 'update', {
-          'analytics_storage': analyticsAccepted ? 'granted' : 'denied',
-          'ad_storage': marketingAccepted ? 'granted' : 'denied',
-          'ad_user_data': marketingAccepted ? 'granted' : 'denied',
-          'ad_personalization': marketingAccepted ? 'granted' : 'denied'
-        });
-      }
-
-      function acceptAndClose(categories) {
-        try { cc.acceptCategory(categories); } catch (_) {}
-        removeCustomBanner();
-        updateGoogleConsentMode();
-      }
-
-      function renderCustomBanner() {
-        try {
-          if (typeof cc.validConsent === 'function' && cc.validConsent()) {
-            removeCustomBanner();
-            return;
-          }
-          if (!document.body) {
-            setTimeout(renderCustomBanner, 50);
-            return;
-          }
-          var existing = document.getElementById('zappy-cookie-banner');
-          if (existing) {
-            updateCustomBannerText();
-            return;
-          }
-
-          var text = getConsentText();
-          var banner = document.createElement('div');
-          banner.id = 'zappy-cookie-banner';
-          banner.className = 'zappy-cookie-banner';
-          banner.setAttribute('role', 'region');
-          banner.setAttribute('aria-label', text.description || text.close);
-
-          var inner = document.createElement('div');
-          inner.className = 'zappy-cookie-banner__inner';
-
-          var description = document.createElement('p');
-          description.className = 'zappy-cookie-banner__text';
-          description.setAttribute('data-zappy-cookie-description', 'true');
-          description.textContent = text.description;
-
-          var actions = document.createElement('div');
-          actions.className = 'zappy-cookie-banner__actions';
-
-          var customizeBtn = document.createElement('button');
-          customizeBtn.type = 'button';
-          customizeBtn.className = 'zappy-cookie-banner__button zappy-cookie-banner__button--customize';
-          customizeBtn.setAttribute('data-zappy-cookie-customize', 'true');
-          customizeBtn.textContent = text.customize;
-          customizeBtn.addEventListener('click', function(ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            try { cc.showPreferences(); } catch (_) {}
-          });
-
-          var acceptBtn = document.createElement('button');
-          acceptBtn.type = 'button';
-          acceptBtn.className = 'zappy-cookie-banner__button zappy-cookie-banner__button--accept';
-          acceptBtn.setAttribute('data-zappy-cookie-accept', 'true');
-          acceptBtn.textContent = text.accept;
-          acceptBtn.addEventListener('click', function(ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            acceptAndClose('all');
-          });
-
-          var closeBtn = document.createElement('button');
-          closeBtn.type = 'button';
-          closeBtn.className = 'zappy-cookie-banner__close';
-          closeBtn.setAttribute('data-zappy-cookie-close', 'true');
-          closeBtn.setAttribute('aria-label', text.close);
-          closeBtn.textContent = '\u00D7';
-          closeBtn.addEventListener('click', function(ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            acceptAndClose([]);
-          });
-
-          actions.appendChild(customizeBtn);
-          actions.appendChild(acceptBtn);
-          inner.appendChild(description);
-          inner.appendChild(actions);
-          inner.appendChild(closeBtn);
-          banner.appendChild(inner);
-          document.body.appendChild(banner);
-          document.documentElement.classList.add('zappy-cookie-banner-visible');
-        } catch (_) {
-          // Defensive — never let the custom banner break the page.
-        }
-      }
-
-      function handleConsentResolved() {
-        removeCustomBanner();
-        updateGoogleConsentMode();
-      }
-
-      __ccConfig.onFirstConsent = handleConsentResolved;
-      __ccConfig.onConsent = handleConsentResolved;
-      __ccConfig.onChange = handleConsentResolved;
-
-      var runResult = cc.run(__ccConfig);
-      var afterRun = function() {
-        updateGoogleConsentMode();
-        if (!cc.validConsent || !cc.validConsent()) {
-          renderCustomBanner();
-        }
-      };
-      if (runResult && typeof runResult.then === 'function') {
-        runResult.then(afterRun).catch(afterRun);
-      } else {
-        setTimeout(afterRun, 0);
-      }
-
-      // Keep cookie consent in sync when the user switches language without
-      // a full navigation (preview / embedded-resources path).
-      if (typeof zappyI18n !== 'undefined' && typeof zappyI18n.onLanguageChange === 'function') {
-        zappyI18n.onLanguageChange(function(newLang) {
-          try {
-            if (__ccConfig.language.translations[newLang]) {
-              __ccConfig.language.default = newLang;
-              cc.setLanguage(newLang, true);
-              updateCustomBannerText();
-            }
-          } catch (_) {}
-        });
-      }
-    } catch (error) {
-      window.__zappyCookieConsentInitialized = false;
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCookieConsent);
-    setTimeout(initCookieConsent, 1000);
-  } else if (document.readyState === 'interactive' || document.readyState === 'complete') {
-    initCookieConsent();
-  } else {
-    setTimeout(initCookieConsent, 500);
-  }
-  
-  if (typeof window !== 'undefined') {
-    if (window.addEventListener) {
-      window.addEventListener('load', initCookieConsent, { once: true });
-    }
-  }
-})();
-
 /* Accessibility Features */
 
 /* Mickidum Accessibility Toolbar Initialization - Zappy Style */
@@ -1631,11 +739,12 @@ window.onload = function() {
 /* END ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
 
 
-/* ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME_V3 */
+/* ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME_V4 */
 (function(){
   try {
-    if (window.__zappyPublishedZoomInitV3) return;
-    window.__zappyPublishedZoomInitV3 = true;
+    if (window.__zappyPublishedZoomInitV4) return;
+    window.__zappyPublishedZoomInitV4 = true;
+    window.__zappyPublishedZoomInitV3 = true; // legacy guard — keep stale V3 copies inert
 
     function isHeroBgWrapper(wrapper) {
       var img = wrapper.querySelector('img');
@@ -1649,14 +758,25 @@ window.onload = function() {
 
     // SYNC: These helpers must match sharedZoomCropMath.js
     function parseObjPos(op) {
-      var x = 50, y = 50;
+      var x = null, y = null;
       try {
-        if (typeof op === 'string') {
-          var m = op.match(/(-?\d+(?:\.\d+)?)%\s+(-?\d+(?:\.\d+)?)%/);
-          if (m) { x = parseFloat(m[1]); y = parseFloat(m[2]); }
+        if (typeof op === 'string' && op.trim()) {
+          var tokens = op.trim().toLowerCase().split(/\s+/).slice(0, 2);
+          for (var i = 0; i < tokens.length; i++) {
+            var tok = tokens[i];
+            var val;
+            if (tok === 'left') { x = 0; continue; }
+            if (tok === 'right') { x = 100; continue; }
+            if (tok === 'top') { y = 0; continue; }
+            if (tok === 'bottom') { y = 100; continue; }
+            if (tok === 'center') val = 50;
+            else if (/^-?\d*\.?\d+%$/.test(tok)) val = parseFloat(tok);
+            else val = 50;
+            if (x === null) x = val; else if (y === null) y = val;
+          }
         }
       } catch (e) {}
-      if (!isFinite(x)) x = 50; if (!isFinite(y)) y = 50;
+      if (x === null || !isFinite(x)) x = 50; if (y === null || !isFinite(y)) y = 50;
       return { x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) };
     }
 
@@ -1665,6 +785,12 @@ window.onload = function() {
         return { w: 100, h: 100 };
       if (imgA >= contA) return { w: (imgA / contA) * 100, h: 100 };
       return { w: 100, h: (contA / imgA) * 100 };
+    }
+    function containPercents(imgA, contA) {
+      if (!isFinite(imgA) || imgA <= 0 || !isFinite(contA) || contA <= 0)
+        return { w: 100, h: 100 };
+      if (imgA >= contA) return { w: 100, h: (contA / imgA) * 100 };
+      return { w: (imgA / contA) * 100, h: 100 };
     }
 
     var IMAGE_SLOT_CLASS_TOKENS = ['image-wrap', 'image-tile', 'image-slot', 'card-image', 'card-media', 'media-wrap', 'portrait-wrap'];
@@ -1940,9 +1066,17 @@ window.onload = function() {
         var shStr = wrapper.getAttribute('data-zappy-zoom-wrapper-height');
         var swNum = parseFloat(swStr) || 0;
         var shNum = parseFloat(shStr) || 0;
+        // If the slot's height is only as tall as the wrapper, that height is
+        // content-driven by THIS wrapper (common for .home-feature-image-wrap
+        // with no CSS height). Switching to height:100% then collapses on the
+        // next layout pass because the absolute <img> no longer contributes
+        // intrinsic height — the Artistic Epoxy / nwooda middle-card bug.
+        var slotSizedByWrapper = Math.abs(slotRect.height - wrapRect.height) <= 2;
+        var canFillSlotHeight = slotRect.height > 0 && !slotSizedByWrapper &&
+          (forceCardSlotFill || (slotHeightGap > 4 && slotCS.overflow !== 'visible'));
         wrapper.style.setProperty('width', '100%', 'important');
         wrapper.style.setProperty('max-width', '100%', 'important');
-        if (slotRect.height > 0 && (forceCardSlotFill || (slotHeightGap > 4 && slotCS.overflow !== 'visible'))) {
+        if (canFillSlotHeight) {
           wrapper.style.setProperty('height', '100%', 'important');
           wrapper.style.setProperty('aspect-ratio', 'auto', 'important');
           wrapper.style.setProperty('padding-bottom', '0', 'important');
@@ -1984,8 +1118,12 @@ window.onload = function() {
             }
           }
         } else if (swNum > 0 && shNum > 0) {
+          // Heightless / content-sized slots (and already-collapsed wrappers):
+          // keep width:100% and size via the saved aspect ratio so absolute
+          // images remain visible after refresh.
           wrapper.style.setProperty('aspect-ratio', swNum + '/' + shNum, 'important');
           wrapper.style.setProperty('height', 'auto', 'important');
+          wrapper.style.setProperty('padding-bottom', '0', 'important');
         }
         wrapper.setAttribute('data-zappy-card-slot-fill', '1');
         // Also stretch any intermediate .zappy-inserted-element ancestors up
@@ -2167,11 +1305,15 @@ window.onload = function() {
       var imgA = nW / nH;
       var contA = rect.width / rect.height;
       var cover = coverPercents(imgA, contA);
+      var contain = containPercents(imgA, contA);
 
       var wPct = 100, hPct = 100;
       if (zoom >= 1) {
         wPct = cover.w * zoom;
         hPct = cover.h * zoom;
+      } else if (zoom <= 0.5) {
+        wPct = contain.w;
+        hPct = contain.h;
       } else {
         var t = (zoom - 0.5) / 0.5;
         if (!isFinite(t)) t = 0;
@@ -2205,6 +1347,9 @@ window.onload = function() {
       for (var j = 0; j < zoomImgs.length; j++) {
         var img = zoomImgs[j];
         if (img.closest && img.closest('[data-zappy-zoom-wrapper="true"]')) continue;
+        // Carousel slide imgs are absolute cover-fill inside their slide —
+        // forcing position:relative + max-height here would collapse the slide.
+        if (img.closest && img.closest('.zappy-carousel-slide')) continue;
         img.style.setProperty('position', 'relative', 'important');
         img.style.setProperty('width', '100%', 'important');
         img.style.setProperty('height', 'auto', 'important');
@@ -2285,8 +1430,32 @@ window.onload = function() {
           if (mSrc) img.src = mSrc;
           if (mPos) img.style.setProperty('object-position', mPos, 'important');
           if (mZoom > 1) {
-            img.style.setProperty('transform', 'scale(' + mZoom + ')', 'important');
-            img.style.setProperty('transform-origin', mPos || '50% 50%', 'important');
+            // Match the editor's wrapper-crop geometry (percentage pan window)
+            // instead of transform:scale — the scale path zooms around the
+            // focal point of the already-cropped view, which visibly diverges
+            // from what the user framed in the editor's Mobile Only tab.
+            var applyHeroMobileCrop = function() {
+              var rect = wrapper.getBoundingClientRect();
+              var nW = img.naturalWidth || 0, nH = img.naturalHeight || 0;
+              if (!rect || !rect.width || !rect.height || !(nW > 0 && nH > 0)) {
+                img.style.setProperty('transform', 'scale(' + mZoom + ')', 'important');
+                img.style.setProperty('transform-origin', mPos || '50% 50%', 'important');
+                return;
+              }
+              var cover = coverPercents(nW / nH, rect.width / rect.height);
+              var wP = cover.w * mZoom, hP = cover.h * mZoom;
+              var p = parseObjPos(mPos || img.getAttribute('data-zappy-object-position') || '50% 50%');
+              img.style.setProperty('position', 'absolute', 'important');
+              img.style.setProperty('left', ((100 - wP) * (p.x / 100)) + '%', 'important');
+              img.style.setProperty('top', ((100 - hP) * (p.y / 100)) + '%', 'important');
+              img.style.setProperty('width', wP + '%', 'important');
+              img.style.setProperty('height', hP + '%', 'important');
+              img.style.setProperty('object-fit', 'cover', 'important');
+              img.style.removeProperty('transform');
+              img.style.removeProperty('transform-origin');
+            };
+            if (img.complete && img.naturalWidth > 0) applyHeroMobileCrop();
+            else img.addEventListener('load', applyHeroMobileCrop, { once: true });
           }
         }
       }
@@ -2324,14 +1493,85 @@ window.onload = function() {
 /* END ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME */
 
 
-/* ZAPPY_PUBLISHED_MOBILE_IMAGE_SWAP_V2 */
+/* ZAPPY_PUBLISHED_MOBILE_IMAGE_SWAP_V3 */
 (function(){
   try {
-    if (window.__zappyMobileImageSwapInitV2) return;
-    window.__zappyMobileImageSwapInitV2 = true;
+    if (window.__zappyMobileImageSwapInitV3) return;
+    window.__zappyMobileImageSwapInitV3 = true;
+    window.__zappyMobileImageSwapInitV2 = true; // keep stale V2 copies inert
     var SEL = 'img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]';
     var applied = false;
     function standalone(img){ return img && !img.closest('[data-zappy-zoom-wrapper="true"]'); }
+    // SYNC: must match sharedZoomCropMath.js
+    function parseOp(op){
+      var x=null,y=null;
+      try{
+        if(typeof op==='string'&&op.trim()){
+          var toks=op.trim().toLowerCase().split(/\s+/).slice(0,2);
+          for(var i=0;i<toks.length;i++){
+            var tk=toks[i],v;
+            if(tk==='left'){x=0;continue;} if(tk==='right'){x=100;continue;}
+            if(tk==='top'){y=0;continue;} if(tk==='bottom'){y=100;continue;}
+            if(tk==='center')v=50; else if(/^-?\d*\.?\d+%$/.test(tk))v=parseFloat(tk); else v=50;
+            if(x===null)x=v; else if(y===null)y=v;
+          }
+        }
+      }catch(e){}
+      if(x===null||!isFinite(x))x=50; if(y===null||!isFinite(y))y=50;
+      return {x:Math.max(0,Math.min(100,x)),y:Math.max(0,Math.min(100,y))};
+    }
+    // Editor-parity mobile zoom: reproduce the zoom-wrapper crop geometry
+    // using the img's PARENT as the crop box (the editor builds a transient
+    // wrapper in preview, but cleanSectionHtmlForSave removes it when desktop
+    // needs no zoom — so a mobile-only zoom ships as a standalone img).
+    // Falls back to the legacy transform:scale approximation whenever the
+    // geometry can't be measured, so something always applies.
+    function applyStandaloneMobileZoom(img, mZoom, mPos){
+      try {
+        var p = img.parentElement;
+        if (!p) return;
+        if (!p._zappyDesktop) p._zappyDesktop = { style: p.getAttribute('style') };
+        p.style.setProperty('overflow', 'hidden', 'important');
+        function legacyScale(){
+          img.style.setProperty('transform', 'scale(' + mZoom + ')', 'important');
+          img.style.setProperty('transform-origin', mPos || '50% 50%', 'important');
+        }
+        function run(){
+          try {
+            var rect = p.getBoundingClientRect ? p.getBoundingClientRect() : null;
+            var nW = img.naturalWidth || 0, nH = img.naturalHeight || 0;
+            if (!rect || !(rect.width > 0) || !(rect.height > 0) || !(nW > 0 && nH > 0)) { legacyScale(); return; }
+            // Lock the parent's current box BEFORE pulling the img out of flow,
+            // otherwise the parent collapses when the img was its height source.
+            try {
+              var pcs = window.getComputedStyle(p);
+              if (pcs && pcs.position === 'static') p.style.setProperty('position', 'relative', 'important');
+              p.style.setProperty('aspect-ratio', String(Math.round((rect.width / rect.height) * 10000) / 10000), 'important');
+            } catch(e0) {}
+            var imgA = nW / nH, contA = rect.width / rect.height;
+            var cw = 100, ch = 100;
+            if (imgA >= contA) { cw = (imgA / contA) * 100; } else { ch = (contA / imgA) * 100; }
+            var wP = cw * mZoom, hP = ch * mZoom;
+            var pos = parseOp(mPos || img.getAttribute('data-zappy-object-position') || '50% 50%');
+            img.style.setProperty('position', 'absolute', 'important');
+            img.style.setProperty('left', ((100 - wP) * (pos.x / 100)) + '%', 'important');
+            img.style.setProperty('top', ((100 - hP) * (pos.y / 100)) + '%', 'important');
+            img.style.setProperty('width', wP + '%', 'important');
+            img.style.setProperty('height', hP + '%', 'important');
+            img.style.setProperty('max-width', 'none', 'important');
+            img.style.setProperty('max-height', 'none', 'important');
+            img.style.setProperty('object-fit', 'cover', 'important');
+            img.style.setProperty('margin', '0', 'important');
+            if (img.style.removeProperty) { img.style.removeProperty('transform'); img.style.removeProperty('transform-origin'); }
+          } catch(e1) { try { legacyScale(); } catch(e2) {} }
+        }
+        if (img.complete && img.naturalWidth > 0) run();
+        else if (typeof img.addEventListener === 'function') {
+          legacyScale(); // immediate approximation, refined once dimensions load
+          img.addEventListener('load', run, { once: true });
+        } else legacyScale();
+      } catch(eZ) {}
+    }
     function applyMobile(){
       if (applied) return; applied = true;
       document.querySelectorAll(SEL).forEach(function(img){
@@ -2343,13 +1583,7 @@ window.onload = function() {
         if (mSrc) img.src = mSrc;
         if (mPos) img.style.setProperty('object-position', mPos, 'important');
         if (isFinite(mZoom) && mZoom > 1) {
-          img.style.setProperty('transform', 'scale(' + mZoom + ')', 'important');
-          img.style.setProperty('transform-origin', mPos || '50% 50%', 'important');
-          var p = img.parentElement;
-          if (p) {
-            if (!p._zappyDesktop) p._zappyDesktop = { style: p.getAttribute('style') };
-            p.style.setProperty('overflow', 'hidden', 'important');
-          }
+          applyStandaloneMobileZoom(img, mZoom, mPos);
         }
       });
     }
@@ -2382,7 +1616,7 @@ window.onload = function() {
     else init();
   } catch (eOuter) {}
 })();
-/* END ZAPPY_PUBLISHED_MOBILE_IMAGE_SWAP_V2 */
+/* END ZAPPY_PUBLISHED_MOBILE_IMAGE_SWAP_V3 */
 
 
 /* ZAPPY_MOBILE_MENU_TOGGLE_V3 */
@@ -3286,7 +2520,7 @@ function fixContrast(){
 /* END ZAPPY_CONTACT_FORM_PREVENT_DEFAULT */
 
 
-/* ZAPPY_PUBLISHED_GRID_CENTERING */
+/* ZAPPY_PUBLISHED_GRID_CENTERING_V2 */
 (function(){
   try {
     if (window.__zappyGridCenteringInit) return;
@@ -3350,6 +2584,21 @@ function fixContrast(){
           var colWidth = parseFloat(colWidths[0]) || 0;
           var gap = parseFloat(cs.columnGap);
           if (isNaN(gap)) gap = parseFloat(cs.gap) || 0;
+
+          // Skip non-uniform column widths (mirrors preview autoCenterAllGrids).
+          // Centering assumes equal columns; mixed tracks produce wrong offsets.
+          var parsedWidths = colWidths.map(function(w) { return parseFloat(w) || 0; });
+          if (Math.max.apply(null, parsedWidths) > Math.min.apply(null, parsedWidths) * 1.5) continue;
+
+          // Skip multi-span items (e.g. grid-column: 1 / -1 full-bleed cards, or
+          // bento tiles with span 2+). totalItems % colCount cannot account for
+          // spanned tracks, so a lone full-span card in a 4-col auto-fit grid was
+          // mis-classified as a 1-of-4 orphan and shifted by translateX(~459px).
+          var singleColThreshold = colWidth * 1.5 + gap;
+          var anyMultiSpan = items.some(function(it) {
+            return it.getBoundingClientRect().width > singleColThreshold;
+          });
+          if (anyMultiSpan) continue;
 
           var missingCols = colCount - itemsInLastRow;
           var offset = missingCols * (colWidth + gap) / 2;
@@ -3713,7 +2962,7 @@ function fixContrast(){
       var s = document.createElement('style');
       s.id = 'zappy-variant-visual-css';
       s.textContent =
-        /* Text variant options: gray + text strikethrough */
+        /* False variant options: gray + text strikethrough */
         '.variant-option.disabled { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }' +
         '.variant-option.disabled::after, .variant-option.disabled::before { content: none !important; }' +
         /* Color swatches: only opacity, no strikethrough */
@@ -3721,22 +2970,39 @@ function fixContrast(){
         /* Out-of-stock: same treatment */
         '.variant-option.out-of-stock { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }' +
         '.variant-option.out-of-stock::after, .variant-option.out-of-stock::before { content: none !important; }' +
-        '.variant-option.color-swatch.out-of-stock { text-decoration: none !important; }';
+        '.variant-option.color-swatch.out-of-stock { text-decoration: none !important; }' +
+        /* Incomplete selection prompt (must not look like hard OOS) */
+        '.product-info .product-stock.select-required { color: #d97706 !important; }';
       document.head.appendChild(s);
     }
 
     // 2) Override initVariantSelection early to prevent the page's default selection behavior.
     // The page's initVariantSelection calls .click() on first options, auto-selecting defaults.
     // We replace it with a version that only does setup (CSS, sorting, handlers) but skips auto-select.
+    // Ticket-style multi-qty products keep the baked initMultiQuantitySelection path.
     var _initOverridden = false;
+    var _origInitVariantSelection = null;
+    function _isMultiQtyProduct(p) {
+      return !!(p && p.card_variants && p.card_variants.multiQuantity)
+        || !!(typeof window.isProductMultiQuantity === 'function' && window.isProductMultiQuantity(p))
+        || !!document.querySelector('[data-multi-quantity="true"]');
+    }
     function _overrideInitVariantSelection() {
       if (_initOverridden) return;
-      if (typeof window.initVariantSelection === 'function') {
-        _initOverridden = true;
-      }
+      // Wait until the page defines initVariantSelection so we can keep a real
+      // original for multi-qty products (ticket-style per-value steppers).
+      if (typeof window.initVariantSelection !== 'function') return;
+      _initOverridden = true;
+      _origInitVariantSelection = window.initVariantSelection;
       window.initVariantSelection = function(product, t) {
-        // Store product data for our fix
-        if (product && product.variants && product.variants.length > 0) {
+        if (_isMultiQtyProduct(product)) {
+          if (typeof _origInitVariantSelection === 'function') {
+            return _origInitVariantSelection.call(this, product, t);
+          }
+          return;
+        }
+        // Store product data for our fix (variants[] OR card_variants.matrix)
+        if (product && ((product.variants && product.variants.length > 0) || _hasMatrix(product))) {
           _variantProduct = _augmentProductFromCardVariants(product);
           var trans = t || {};
           // Ensure pleaseSelect is available (for sites generated before this key was added)
@@ -3769,7 +3035,33 @@ function fixContrast(){
     
     function _getVariants() {
       if (!_variantProduct) return [];
-      return (_variantProduct.variants || []).filter(function(v) { return v.is_active !== false; });
+      var rows = (_variantProduct.variants || []).filter(function(v) { return v && v.is_active !== false; });
+      if (rows.length) return rows;
+      // Matrix-only / incomplete variants[] — same fallback as updateVariantUI / V12 overlay.
+      var m = _variantProduct.card_variants && Array.isArray(_variantProduct.card_variants.matrix)
+        ? _variantProduct.card_variants.matrix : [];
+      return m.filter(function(r) { return r && r.is_active !== false; });
+    }
+
+    function _hasMatrix(p) {
+      return !!(p && p.card_variants && Array.isArray(p.card_variants.matrix) && p.card_variants.matrix.length > 0);
+    }
+
+    /** True when any purchasable variant/matrix row remains (incomplete-selection gate). */
+    function _anyVariantAvailable() {
+      var rows = _getVariants();
+      if (rows.some(function(v) { return !_isOOS(v); })) return true;
+      var p = _variantProduct || window.currentProduct;
+      var m = p && p.card_variants && Array.isArray(p.card_variants.matrix) ? p.card_variants.matrix : [];
+      if (m.length) return m.some(function(r) { return r && r.available !== false && r.is_active !== false; });
+      return false;
+    }
+
+    function _selectVariantMessage() {
+      var t = _variantTranslations || {};
+      if (typeof getEcomText === 'function') return getEcomText('selectVariant', t.selectVariant || 'Select option');
+      var rtl = document.documentElement.getAttribute('dir') === 'rtl' || document.body.getAttribute('dir') === 'rtl';
+      return t.selectVariant || (rtl ? 'בחר אפשרות' : 'Select option');
     }
 
     function _augmentProductFromCardVariants(product) {
@@ -3931,6 +3223,9 @@ function fixContrast(){
     function _isOOS(v) {
       if (window.zappyVariantMatrix) return window.zappyVariantMatrix.isUnavailable(v);
       if (!v) return true;
+      // Matrix rows often only set `available` (no stock_status / inventory).
+      if (typeof v.available === 'boolean') return !v.available;
+      if (v.is_active === false) return true;
       if (v.stock_status === 'out_of_stock') return true;
       var i = v.inventory_quantity != null ? v.inventory_quantity : v.inventoryQuantity;
       if (i != null && i !== '') {
@@ -4026,7 +3321,9 @@ function fixContrast(){
       var product = _variantProduct;
       if (!product) return;
       var keys = _getAttributeKeys();
-      var allSelected = keys.every(function(k) { return selectedAttributes.hasOwnProperty(k); });
+      // keys.length===0 must NOT vacuous-true allSelected — that used to resolve
+      // the first (often OOS) variant and flash "Out of Stock" before a pick.
+      var allSelected = keys.length > 0 && keys.every(function(k) { return selectedAttributes.hasOwnProperty(k); });
       var stockDisplay = document.getElementById('product-stock-display');
       var priceDisplay = document.getElementById('product-price-display');
       var addBtn = document.getElementById('add-to-cart-btn');
@@ -4152,11 +3449,23 @@ function fixContrast(){
           var skuLabel2 = (typeof getEcomText === 'function') ? getEcomText('sku', t.sku || 'SKU') : (t.sku || 'SKU');
           skuDisplay2.textContent = skuLabel2 + ': ' + product.sku;
         }
+        // Incomplete selection: prompt to pick an option when any variant is still
+        // purchasable. Never echo parent stock_status / blanket "In Stock" here —
+        // that flashed OOS or In Stock before the shopper chose (preview path).
+        var avail = _anyVariantAvailable();
         if (stockDisplay) {
-          stockDisplay.className = 'product-stock in-stock';
-          stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>' + (t.inStock || 'In Stock');
+          if (avail) {
+            stockDisplay.className = 'product-stock select-required';
+            stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>' + _selectVariantMessage();
+          } else {
+            stockDisplay.className = 'product-stock out-of-stock';
+            stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' + (t.outOfStock || 'Out of Stock');
+          }
         }
-        if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = ''; addBtn.style.cursor = ''; }
+        if (addBtn) {
+          if (avail) { addBtn.disabled = false; addBtn.style.opacity = ''; addBtn.style.cursor = ''; }
+          else { addBtn.disabled = true; addBtn.style.opacity = '0.5'; addBtn.style.cursor = 'not-allowed'; }
+        }
         // Reset price to initial state (Starting at / base price). Same
         // customer-discount path as the variant-matched branch above; without
         // this, partially-selecting a variant and then deselecting another
@@ -4226,6 +3535,7 @@ function fixContrast(){
     
     // Document-level capture handler - fires BEFORE any element-level handlers
     document.addEventListener('click', function(e) {
+      if (_isMultiQtyProduct(_variantProduct || window.currentProduct)) return;
       var btn = e.target.closest ? e.target.closest('.variant-option') : null;
       if (!btn) return;
       if (!_variantProduct || _getVariants().length === 0) return;
@@ -4256,6 +3566,7 @@ function fixContrast(){
     // This fires before any element-level onclick or inline onclick handlers,
     // preventing the page's original alert()-based validation.
     document.addEventListener('click', function(e) {
+      if (_isMultiQtyProduct(_variantProduct || window.currentProduct)) return;
       var addBtn = e.target.closest ? e.target.closest('.add-to-cart-btn, .add-to-cart, #add-to-cart-btn, [onclick*="addProductToCart"]') : null;
       if (!addBtn) return;
       if (!_variantProduct || _getVariants().length === 0) return;
@@ -4273,8 +3584,10 @@ function fixContrast(){
           var name = lbl ? lbl.textContent.replace(/[:\s]+$/, '').trim() : keys[i];
           var sd = document.getElementById('product-stock-display');
           if (sd) {
-            sd.className = 'product-stock out-of-stock';
-            sd.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
+            // select-required (not out-of-stock): i18n patch must not rewrite
+            // "Please select Material" → "Out of Stock".
+            sd.className = 'product-stock select-required';
+            sd.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>' +
               (t.pleaseSelect || 'Please select') + ' ' + name;
           }
           if (grp) {
@@ -4304,7 +3617,9 @@ function fixContrast(){
       
       var product = _variantProduct || window.currentProduct;
       var t = _variantTranslations || window.productTranslations || {};
-      if (!product || !product.variants || product.variants.length === 0) return;
+      if (!product) return;
+      if (_isMultiQtyProduct(product)) return;
+      if ((!product.variants || product.variants.length === 0) && !_hasMatrix(product)) return;
       if (document.querySelectorAll('.variant-option').length === 0) return;
       if (window._zappyVariantFixed) return;
       window._zappyVariantFixed = true;
@@ -4402,6 +3717,10 @@ function fixContrast(){
       // Also override addProductToCart as a safety net
       var origAddToCart = window.addProductToCart;
       window.addProductToCart = function() {
+        if (_isMultiQtyProduct(window.currentProduct)) {
+          if (origAddToCart) return origAddToCart.apply(this, arguments);
+          return;
+        }
         var keys = _getAttributeKeys();
         for (var i = 0; i < keys.length; i++) {
           if (!selectedAttributes.hasOwnProperty(keys[i])) {
@@ -4410,8 +3729,8 @@ function fixContrast(){
             var name = lbl ? lbl.textContent.replace(/[:\s]+$/, '').trim() : keys[i];
             var sd = document.getElementById('product-stock-display');
             if (sd) {
-              sd.className = 'product-stock out-of-stock';
-              sd.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
+              sd.className = 'product-stock select-required';
+              sd.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>' +
                 (t.pleaseSelect || 'Please select') + ' ' + name;
             }
             if (grp) {
@@ -4780,6 +4099,8 @@ function fixContrast(){
       en: {
         inStock: 'In Stock',
         outOfStock: 'Out of Stock',
+        selectVariant: 'Select option',
+        pleaseSelect: 'Please select',
         color: 'Color',
         size: 'Size',
         material: 'Material',
@@ -4791,6 +4112,8 @@ function fixContrast(){
       he: {
         inStock: 'במלאי',
         outOfStock: 'אזל מהמלאי',
+        selectVariant: 'בחר אפשרות',
+        pleaseSelect: 'נא לבחור',
         color: 'צבע',
         size: 'מידה',
         material: 'חומר',
@@ -4904,10 +4227,31 @@ function fixContrast(){
 
       var stock = document.getElementById('product-stock-display');
       if (stock) {
-        var inStock = stock.classList.contains('in-stock') && !stock.classList.contains('out-of-stock');
+        // Three-state: in-stock / out-of-stock / select-required.
+        // Also preserve "Please select <Attr>" prompts (ATC validation) — those
+        // used to ship with class out-of-stock, and this rewriter then replaced
+        // them with "Out of Stock" ~100ms later via MutationObserver.
         var svg = stock.querySelector('svg');
-        var nextText = inStock ? getText('inStock') : getText('outOfStock');
-        if ((stock.textContent || '').trim() !== nextText) {
+        var current = (stock.textContent || '').trim();
+        var please = getText('pleaseSelect');
+        var isPleasePrompt = !!(current && (
+          current.indexOf(please) === 0
+          || /^please select\b/i.test(current)
+          || current.indexOf('נא לבחור') === 0
+        ));
+        var nextText;
+        if (isPleasePrompt) {
+          nextText = current;
+        } else if (stock.classList.contains('select-required')) {
+          nextText = (typeof getEcomText === 'function')
+            ? getEcomText('selectVariant', getText('selectVariant'))
+            : getText('selectVariant');
+        } else if (stock.classList.contains('in-stock') && !stock.classList.contains('out-of-stock')) {
+          nextText = getText('inStock');
+        } else {
+          nextText = getText('outOfStock');
+        }
+        if (current !== nextText) {
           stock.textContent = '';
           if (svg) stock.appendChild(svg);
           stock.appendChild(document.createTextNode(nextText));
@@ -4943,6 +4287,7 @@ function fixContrast(){
         subtotal: 'Subtotal',
         vatIncluded: 'Including VAT',
         shipping: 'Shipping',
+        pickup: 'Pickup',
         discount: 'Discount',
         totalToPay: 'Total to Pay',
         days: 'days',
@@ -4954,6 +4299,7 @@ function fixContrast(){
         subtotal: 'סכום ביניים',
         vatIncluded: 'כולל מע"מ',
         shipping: 'משלוח',
+        pickup: 'איסוף',
         discount: 'הנחה',
         totalToPay: 'סה"כ לתשלום',
         days: 'ימים',
@@ -5076,6 +4422,30 @@ function fixContrast(){
       return [street, city].filter(Boolean).join(', ');
     }
 
+    function isPickupShippingSelected() {
+      // Prefer the live checkout flag set by updateOrderTotals / zappySelectShipping.
+      if (typeof window.__zappySelectedShippingIsPickup === 'boolean') {
+        return window.__zappySelectedShippingIsPickup;
+      }
+      var checked = document.querySelector('input[name="shipping"]:checked');
+      var option = checked
+        ? checked.closest('.shipping-option')
+        : document.querySelector('.shipping-option.selected');
+      if (!option) return false;
+      var attr = option.getAttribute('data-is-pickup');
+      if (attr === 'true') return true;
+      if (attr === 'false') return false;
+      if (option.querySelector('.shipping-address')) return true;
+      var methodId = (checked && checked.value) || option.getAttribute('data-method-id');
+      var cached = window.__zappyShippingMethodsCache;
+      if (methodId && Array.isArray(cached)) {
+        for (var i = 0; i < cached.length; i++) {
+          if (String(cached[i].id) === String(methodId)) return !!cached[i].is_pickup;
+        }
+      }
+      return false;
+    }
+
     function patchCheckoutStaticText() {
       ensureCheckoutTotalsStructure();
       var agree = document.querySelector('[data-i18n="ecom_agreeToTerms"]') || document.querySelector('.terms-checkbox-label > span > span:first-child');
@@ -5084,7 +4454,9 @@ function fixContrast(){
       if (terms && terms.textContent !== getText('termsAndConditions')) terms.textContent = getText('termsAndConditions');
       setLabelForValue('#subtotal', 'subtotal');
       setLabelForValue('#vat-amount', 'vatIncluded');
-      setLabelForValue('#shipping-cost', 'shipping');
+      // Must NOT force "Shipping:" over a selected pickup method — the MutationObserver
+      // re-runs this after updateOrderTotals sets "Pickup:" and was flipping it back.
+      setLabelForValue('#shipping-cost', isPickupShippingSelected() ? 'pickup' : 'shipping');
       setLabelForValue('#checkout-discount-amount', 'discount');
       setLabelForValue('#discount', 'discount');
       setLabelForValue('#order-total', 'totalToPay');
@@ -5107,6 +4479,7 @@ function fixContrast(){
         var res = await fetch(apiBase + '/api/ecommerce/storefront/shipping?websiteId=' + encodeURIComponent(websiteId) + '&lang=' + encodeURIComponent(lang));
         var data = await res.json();
         var methods = data && data.data ? data.data : [];
+        window.__zappyShippingMethodsCache = methods;
         methods.forEach(function(method) {
           var block = container.querySelector('.shipping-method-block[data-method-id="' + method.id + '"]');
           if (!block) return;
@@ -5239,10 +4612,10 @@ function fixContrast(){
 })();
 
 
-/* ZAPPY_ECOM_LANGUAGE_ROUTING_RUNTIME_V24 */
+/* ZAPPY_ECOM_LANGUAGE_ROUTING_RUNTIME_V26 */
 (function() {
-  if (window.__zappyEcomLanguageRoutingRuntime >= 24) return;
-  window.__zappyEcomLanguageRoutingRuntime = 24;
+  if (window.__zappyEcomLanguageRoutingRuntime >= 26) return;
+  window.__zappyEcomLanguageRoutingRuntime = 26;
 
   // Routing strategy: use path-based language URLs for ALL storefront pages
   // (including dynamic /product/:slug and /category/:slug). The publish
@@ -5516,7 +4889,11 @@ function fixContrast(){
       setImportant(li, 'overflow', 'visible');
       setImportant(li, 'box-sizing', 'border-box');
 
-      setImportant(trigger, 'display', 'block');
+      // Match ensureMobileNavMenuItemPadding (12px 16px / 44px tap target).
+      // Legacy padding-inline:8px + CSS padding:0 on .menu-group-title
+      // squashed group labels (סיום והעברות / בלוג) vs sibling <a> rows.
+      setImportant(trigger, 'display', 'flex');
+      setImportant(trigger, 'align-items', 'center');
       setImportant(trigger, 'direction', isRtl ? 'rtl' : 'ltr');
       setImportant(trigger, 'flex', '1 1 0');
       setImportant(trigger, 'min-width', '0');
@@ -5525,9 +4902,30 @@ function fixContrast(){
       setImportant(trigger, 'box-sizing', 'border-box');
       setImportant(trigger, 'white-space', 'normal');
       setImportant(trigger, 'overflow-wrap', 'anywhere');
-      setImportant(trigger, 'padding-inline', '8px');
+      setImportant(trigger, 'padding', '12px 16px');
+      setImportant(trigger, 'min-height', '44px');
+      setImportant(trigger, 'line-height', '1.4');
+      setImportant(trigger, 'font-weight', '600');
       setImportant(trigger, 'text-align', isRtl ? 'right' : 'left');
       setImportant(trigger, 'order', isRtl ? '2' : '1');
+
+      // Open mobile drawer: paint .menu-group-title like sibling links.
+      // Scrolled-nav CSS often sets titles to --frosted-text (near-black),
+      // which is invisible on the dark full-bleed panel (Dubai Plus 2026-07).
+      var menuRoot = li.closest('.nav-menu, #navMenu');
+      if (menuRoot && (menuRoot.classList.contains('active') || menuRoot.classList.contains('open'))) {
+        var sampleLink = menuRoot.querySelector(':scope > li > a');
+        var linkColor = '';
+        try { linkColor = sampleLink ? (window.getComputedStyle(sampleLink).color || '') : ''; } catch (e) {}
+        if (!linkColor || linkColor === 'rgba(0, 0, 0, 0)') {
+          try {
+            linkColor = (window.getComputedStyle(menuRoot).getPropertyValue('--nav-text') || '').trim()
+              || (window.getComputedStyle(document.documentElement).getPropertyValue('--nav-text') || '').trim()
+              || '#fff7ed';
+          } catch (e2) { linkColor = '#fff7ed'; }
+        }
+        setImportant(trigger, 'color', linkColor);
+      }
 
       setImportant(btn, 'display', 'flex');
       setImportant(btn, 'position', 'static');
@@ -5655,18 +5053,19 @@ function fixContrast(){
   // declaration merging that was eating the standalone CSS injection.
   function ensureRuntimeCssInjected() {
     var existing = document.getElementById('zappy-ecom-routing-runtime-css');
-    if (existing && existing.getAttribute('data-v') === '29') return;
+    if (existing && existing.getAttribute('data-v') === '31') return;
     if (existing) existing.remove();
     var style = document.createElement('style');
     style.id = 'zappy-ecom-routing-runtime-css';
     style.setAttribute('data-zappy-runtime', 'ecom-routing');
-    style.setAttribute('data-v', '29');
+    style.setAttribute('data-v', '31');
     style.textContent =
       '@media (min-width: 769px){' +
         'html[dir="ltr"] .nav-container > .nav-brand,body[dir="ltr"] .nav-container > .nav-brand,html[dir="ltr"] .nav-right-group > .nav-brand,body[dir="ltr"] .nav-right-group > .nav-brand{order:-1!important}' +
         'html[dir="ltr"] .nav-container > .nav-menu,body[dir="ltr"] .nav-container > .nav-menu,html[dir="ltr"] .nav-right-group > .nav-menu,body[dir="ltr"] .nav-right-group > .nav-menu{order:1!important;margin-inline-start:0!important;flex:1 1 0!important;min-width:0!important;overflow:visible!important;align-items:center!important}' +
         'html[dir="ltr"] .nav-container > .nav-menu > li,body[dir="ltr"] .nav-container > .nav-menu > li,html[dir="ltr"] .nav-right-group > .nav-menu > li,body[dir="ltr"] .nav-right-group > .nav-menu > li{flex:0 0 auto!important}' +
         'html[dir="ltr"] .nav-container > .lang-switcher,body[dir="ltr"] .nav-container > .lang-switcher,html[dir="ltr"] .nav-container > .nav-ecommerce-icons,body[dir="ltr"] .nav-container > .nav-ecommerce-icons,html[dir="ltr"] .nav-container > .nav-cta-container,body[dir="ltr"] .nav-container > .nav-cta-container,html[dir="ltr"] .nav-right-group > .lang-switcher,body[dir="ltr"] .nav-right-group > .lang-switcher,html[dir="ltr"] .nav-right-group > .nav-ecommerce-icons,body[dir="ltr"] .nav-right-group > .nav-ecommerce-icons,html[dir="ltr"] .nav-right-group > .nav-cta-container,body[dir="ltr"] .nav-right-group > .nav-cta-container{order:2!important;flex:0 0 auto!important;min-width:max-content!important}' +
+        '.nav-ecommerce-icons .nav-search-box{order:1!important}.nav-ecommerce-icons .lang-switcher{order:2!important}.nav-ecommerce-icons .login-link.nav-login{order:3!important}.nav-ecommerce-icons .cart-link.nav-cart{order:4!important}' +
         'html[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left,body[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left,html[dir="ltr"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left,body[dir="ltr"] .nav-right-group > .nav-ecommerce-icons.nav-icons-left{margin-inline-start:auto!important;flex:0 0 auto!important;min-width:max-content!important}' +
         'html[dir="rtl"] .nav-container > .nav-menu,body[dir="rtl"] .nav-container > .nav-menu,html[dir="rtl"] .nav-right-group > .nav-menu,body[dir="rtl"] .nav-right-group > .nav-menu{flex:1 1 0!important;min-width:0!important;overflow:visible!important;align-items:center!important}' +
         'html[dir="rtl"] .nav-container > .nav-menu > li,body[dir="rtl"] .nav-container > .nav-menu > li,html[dir="rtl"] .nav-right-group > .nav-menu > li,body[dir="rtl"] .nav-right-group > .nav-menu > li{flex:0 0 auto!important}' +
@@ -5696,7 +5095,10 @@ function fixContrast(){
         // Beat any ".nav-menu.active > li { display:block }" (preview/generated)
         // so non-products dropdowns keep the chevron beside the label.
         '.navbar .nav-menu.active>li:has(>.sub-menu),nav.navbar .nav-menu.active>li:has(>.sub-menu),#navMenu.active>li:has(>.sub-menu),.nav-menu.open>li:has(>.sub-menu),.navbar .nav-menu.active>li.menu-item-has-children,nav.navbar .nav-menu.active>li.menu-item-has-children,#navMenu.active>li.menu-item-has-children,.nav-menu.open>li.menu-item-has-children{display:flex!important;flex-wrap:wrap!important;align-items:center!important;position:relative!important}' +
-        '.nav-menu li:has(.sub-menu)>a,.navbar li:has(.sub-menu)>a,nav li:has(.sub-menu)>a,li:has(.sub-menu)>.menu-group-title{display:block!important;flex:1 1 0!important;order:1!important;width:auto!important;min-width:0!important;max-width:calc(100% - 48px)!important;padding-inline:8px!important;box-sizing:border-box!important;white-space:normal!important;overflow-wrap:anywhere!important;line-height:1.35!important;text-align:left!important;direction:ltr!important}' +
+        '.nav-menu li:has(.sub-menu)>a,.navbar li:has(.sub-menu)>a,nav li:has(.sub-menu)>a,li:has(.sub-menu)>.menu-group-title{display:flex!important;align-items:center!important;flex:1 1 0!important;order:1!important;width:auto!important;min-width:0!important;max-width:calc(100% - 48px)!important;padding:12px 16px!important;min-height:44px!important;box-sizing:border-box!important;white-space:normal!important;overflow-wrap:anywhere!important;line-height:1.4!important;font-weight:600!important;text-align:left!important;direction:ltr!important}' +
+        /* Open drawer: beat .navbar.scrolled frosted-text on .menu-group-title
+           (dark-on-dark missing labels on non-home pages). */
+        '.navbar .nav-menu.active>li>.menu-group-title,.navbar #navMenu.active>li>.menu-group-title,.nav-menu.open>li>.menu-group-title,html body .navbar.scrolled .nav-menu.active>li>.menu-group-title,html body .navbar.scrolled #navMenu.active>li>.menu-group-title{color:var(--nav-text,var(--text-light,#fff7ed))!important}' +
         'html[dir="rtl"] .nav-menu li:has(.sub-menu)>a,body[dir="rtl"] .nav-menu li:has(.sub-menu)>a,html[dir="rtl"] .navbar li:has(.sub-menu)>a,body[dir="rtl"] .navbar li:has(.sub-menu)>a,html[dir="rtl"] nav li:has(.sub-menu)>a,body[dir="rtl"] nav li:has(.sub-menu)>a,html[dir="rtl"] li:has(.sub-menu)>.menu-group-title,body[dir="rtl"] li:has(.sub-menu)>.menu-group-title{direction:rtl!important;text-align:right!important;order:2!important}' +
         '.nav-menu li:has(.sub-menu)>.mobile-submenu-toggle,.navbar li:has(.sub-menu)>.mobile-submenu-toggle,nav li:has(.sub-menu)>.mobile-submenu-toggle{display:flex!important;position:static!important;flex:0 0 48px!important;order:2!important;width:48px!important;height:44px!important;min-height:44px!important;align-items:center!important;justify-content:center!important;z-index:5!important;pointer-events:auto!important;margin:0!important;padding:0!important;background:transparent!important;border:none!important}' +
         'html[dir="rtl"] .nav-menu li:has(.sub-menu)>.mobile-submenu-toggle,body[dir="rtl"] .nav-menu li:has(.sub-menu)>.mobile-submenu-toggle,html[dir="rtl"] .navbar li:has(.sub-menu)>.mobile-submenu-toggle,body[dir="rtl"] .navbar li:has(.sub-menu)>.mobile-submenu-toggle,html[dir="rtl"] nav li:has(.sub-menu)>.mobile-submenu-toggle,body[dir="rtl"] nav li:has(.sub-menu)>.mobile-submenu-toggle{order:1!important}' +
@@ -5914,6 +5316,1124 @@ function fixContrast(){
 })();
 
 
+/* ZAPPY_ACCESSIBILITY_RUNTIME_V2 — self-loads Mickidum after publish strips stored third-party tags */
+
+/* Mickidum Accessibility Toolbar Initialization - Zappy Style */
+
+var zappyAccessibilityInitAttempts = 0;
+var zappyAccessibilityMaxAttempts = 50;
+var zappyAccessibilityScriptSrc = 'https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js';
+var zappyAccessibilityLoadPromise = null;
+
+function loadZappyAccessibilityToolbar() {
+    if (typeof window.MicAccessTool === 'function') {
+        return Promise.resolve();
+    }
+    if (zappyAccessibilityLoadPromise) {
+        return zappyAccessibilityLoadPromise;
+    }
+    zappyAccessibilityLoadPromise = new Promise(function(resolve, reject) {
+        var existing = document.querySelector('script[data-zappy-accessibility-toolbar="true"]');
+        if (existing) {
+            // A previously failed/already-complete tag never fires load again.
+            if (existing.getAttribute('data-zappy-load-error') === 'true') {
+                existing.parentNode && existing.parentNode.removeChild(existing);
+            } else if (existing.getAttribute('data-zappy-loaded') === 'true' || existing.readyState === 'complete') {
+                resolve();
+                return;
+            } else {
+                existing.addEventListener('load', function() {
+                    existing.setAttribute('data-zappy-loaded', 'true');
+                    resolve();
+                }, { once: true });
+                existing.addEventListener('error', function(error) {
+                    existing.setAttribute('data-zappy-load-error', 'true');
+                    reject(error);
+                }, { once: true });
+                return;
+            }
+        }
+        var script = document.createElement('script');
+        script.src = zappyAccessibilityScriptSrc;
+        script.async = true;
+        script.defer = true;
+        script.setAttribute('data-zappy-accessibility-toolbar', 'true');
+        script.onload = function() {
+            script.setAttribute('data-zappy-loaded', 'true');
+            resolve();
+        };
+        script.onerror = function(error) {
+            script.setAttribute('data-zappy-load-error', 'true');
+            reject(error);
+        };
+        document.head.appendChild(script);
+    }).then(function() {
+        initZappyAccessibilityToolbar();
+    }).catch(function() {
+        zappyAccessibilityLoadPromise = null;
+    });
+    return zappyAccessibilityLoadPromise;
+}
+
+function initZappyAccessibilityToolbar() {
+
+    try {
+        if (window.__zappyAccessibilityInitialized) {
+            return;
+        }
+        if (typeof window.MicAccessTool !== 'function') {
+            zappyAccessibilityInitAttempts++;
+            if (zappyAccessibilityInitAttempts < zappyAccessibilityMaxAttempts) {
+                // Script load may already be settled; schedule another init pass
+                // so we keep polling until MicAccessTool attaches.
+                setTimeout(function() {
+                    loadZappyAccessibilityToolbar().then(initZappyAccessibilityToolbar);
+                }, 100);
+            }
+            return;
+        }
+        window.__zappyAccessibilityInitialized = true;
+        // Detect current page language and direction from <html> element
+        // so the toolbar matches the active language on multi-language sites.
+        var htmlEl = document.documentElement;
+        var pageLang = (htmlEl.getAttribute('lang') || 'en').toLowerCase().split('-')[0];
+        var pageDir = (htmlEl.getAttribute('dir') || '').toLowerCase();
+        var rtlLangs = ['he', 'ar', 'fa', 'ur', 'yi', 'iw'];
+        var isPageRTL = pageDir === 'rtl' || rtlLangs.indexOf(pageLang) !== -1;
+        var buttonSide = isPageRTL ? 'left' : 'right';
+
+        var langMap = { en: 'en-US', es: 'es-ES', fr: 'fr-FR', de: 'de-DE', it: 'it-IT', pt: 'pt-PT', nl: 'nl-NL', he: 'he-IL', ar: 'ar-SA' };
+        var forceLang = langMap[pageLang] || 'en-US';
+
+        var iconPos = { bottom: { size: 50, units: 'px' }, type: 'fixed' };
+        iconPos[buttonSide] = { size: 20, units: 'px' };
+
+        window.micAccessTool = new MicAccessTool({
+            buttonPosition: buttonSide,
+            forceLang: forceLang,
+            icon: {
+                position: iconPos,
+                backgroundColor: 'transparent',
+                color: 'transparent',
+                img: 'accessible',
+                circular: false
+            },
+            menu: {
+                dimensions: {
+                    width: { size: 300, units: 'px' },
+                    height: { size: 'auto', units: 'px' }
+                }
+            }
+        });
+        
+    } catch (error) {
+    }
+    
+    // Keyboard shortcut handler: ALT+A (Option+A on Mac) to toggle accessibility menu
+    if (!window.__zappyAccessibilityShortcutBound) {
+      window.__zappyAccessibilityShortcutBound = true;
+      document.addEventListener('keydown', function(event) {
+        var isAltOrOption = event.altKey;
+        var isAKey = event.code === 'KeyA' || event.keyCode === 65 || event.which === 65 || 
+                      (event.key && (event.key.toLowerCase() === 'a' || event.key === 'å' || event.key === 'Å'));
+        
+        if (isAltOrOption && isAKey) {
+            event.preventDefault();
+            event.stopPropagation();
+            loadZappyAccessibilityToolbar().then(function() {
+                var accessButton = document.getElementById('mic-access-tool-general-button');
+                if (accessButton) {
+                    accessButton.click();
+                }
+            });
+        }
+      }, true);
+    }
+}
+
+function scheduleZappyAccessibilityLazyLoad() {
+    var start = function() { loadZappyAccessibilityToolbar(); };
+    if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(start, { timeout: 8000 });
+    } else {
+        setTimeout(start, 8000);
+    }
+}
+
+if (!window.__zappyAccessibilityShortcutBound) {
+    window.__zappyAccessibilityShortcutBound = true;
+    document.addEventListener('keydown', function(event) {
+        var isAltOrOption = event.altKey;
+        var isAKey = event.code === 'KeyA' || event.keyCode === 65 || event.which === 65 ||
+                      (event.key && (event.key.toLowerCase() === 'a' || event.key === 'å' || event.key === 'Å'));
+        if (isAltOrOption && isAKey) {
+            event.preventDefault();
+            event.stopPropagation();
+            loadZappyAccessibilityToolbar().then(function() {
+                var accessButton = document.getElementById('mic-access-tool-general-button');
+                if (accessButton) accessButton.click();
+            });
+        }
+    }, true);
+}
+
+if (document.readyState === 'complete') {
+    scheduleZappyAccessibilityLazyLoad();
+} else {
+    window.addEventListener('load', scheduleZappyAccessibilityLazyLoad, { once: true });
+}
+
+/* Cookie Consent */
+
+// Helper function to check cookie consent
+function hasConsentFor(category) {
+  if (typeof window.CookieConsent === 'undefined') {
+    return false; // Default to no consent if cookie consent not loaded
+  }
+  
+  return window.CookieConsent.validConsent(category);
+}
+
+// Helper function to execute code only with consent
+function withConsent(category, callback) {
+  if (hasConsentFor(category)) {
+    callback();
+  } else {
+    console.log(`[WARNING] Skipping ${category} code - no user consent`);
+  }
+}
+
+// Cookie Consent Initialization (multi-language) /* __ccConfigCustomBannerV1 */
+
+(function() {
+  'use strict';
+  
+  var initAttempts = 0;
+  var maxAttempts = 50;
+  var cookieConsentScriptSrc = 'https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js';
+  var cookieConsentLoadPromise = null;
+
+  function loadCookieConsentLibrary() {
+    if (typeof window.CookieConsent !== 'undefined') {
+      return Promise.resolve(window.CookieConsent);
+    }
+    if (cookieConsentLoadPromise) {
+      return cookieConsentLoadPromise;
+    }
+    cookieConsentLoadPromise = new Promise(function(resolve, reject) {
+      var existing = document.querySelector('script[data-zappy-cookie-consent="true"]');
+      if (existing) {
+        // A previously failed/already-complete tag never fires load again.
+        if (existing.getAttribute('data-zappy-load-error') === 'true') {
+          existing.parentNode && existing.parentNode.removeChild(existing);
+        } else if (existing.getAttribute('data-zappy-loaded') === 'true' || existing.readyState === 'complete') {
+          resolve(window.CookieConsent);
+          return;
+        } else {
+          existing.addEventListener('load', function() {
+            existing.setAttribute('data-zappy-loaded', 'true');
+            resolve(window.CookieConsent);
+          }, { once: true });
+          existing.addEventListener('error', function(error) {
+            existing.setAttribute('data-zappy-load-error', 'true');
+            reject(error);
+          }, { once: true });
+          return;
+        }
+      }
+      var script = document.createElement('script');
+      script.src = cookieConsentScriptSrc;
+      script.async = true;
+      script.defer = true;
+      script.setAttribute('data-zappy-cookie-consent', 'true');
+      script.onload = function() {
+        script.setAttribute('data-zappy-loaded', 'true');
+        resolve(window.CookieConsent);
+      };
+      script.onerror = function(error) {
+        script.setAttribute('data-zappy-load-error', 'true');
+        reject(error);
+      };
+      document.head.appendChild(script);
+    }).catch(function() {
+      cookieConsentLoadPromise = null;
+    });
+    return cookieConsentLoadPromise;
+  }
+
+  function initCookieConsent() {
+    initAttempts++;
+
+    if (typeof window.CookieConsent === 'undefined') {
+      if (initAttempts < maxAttempts) {
+        // Keep the previous backoff so we wait for the UMD global to attach
+        // after the script load event, instead of exhausting attempts immediately.
+        setTimeout(function() {
+          loadCookieConsentLibrary().then(initCookieConsent);
+        }, 100);
+      }
+      return;
+    }
+
+    if (window.__zappyCookieConsentInitialized) {
+      return;
+    }
+    window.__zappyCookieConsentInitialized = true;
+
+    var cc = window.CookieConsent;
+    
+    try {
+      var __ccConfig = {
+  "autoShow": false,
+  "mode": "opt-in",
+  "revision": 0,
+  "categories": {
+    "necessary": {
+      "enabled": true,
+      "readOnly": true
+    },
+    "analytics": {
+      "enabled": false,
+      "readOnly": false,
+      "autoClear": {
+        "cookies": [
+          {
+            "name": "_ga"
+          },
+          {
+            "name": "_ga_*"
+          },
+          {
+            "name": "_gid"
+          },
+          {
+            "name": "_gat"
+          }
+        ]
+      }
+    },
+    "marketing": {
+      "enabled": false,
+      "readOnly": false,
+      "autoClear": {
+        "cookies": [
+          {
+            "name": "_fbp"
+          },
+          {
+            "name": "_fbc"
+          },
+          {
+            "name": "fr"
+          }
+        ]
+      }
+    }
+  },
+  "language": {
+    "default": "he",
+    "translations": {
+      "en": {
+        "consentModal": {
+          "description": "We use cookies to improve your experience and analyze site usage.",
+          "acceptAllBtn": "Accept",
+          "showPreferencesBtn": "Customize"
+        },
+        "preferencesModal": {
+          "title": "Cookie Preferences",
+          "acceptAllBtn": "Accept",
+          "acceptNecessaryBtn": "Accept Necessary",
+          "savePreferencesBtn": "Save Preferences",
+          "closeIconLabel": "Close",
+          "sections": [
+            {
+              "title": "Essential Cookies",
+              "description": "These cookies are necessary for the website to function and cannot be disabled.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analytics Cookies",
+              "description": "These cookies help us understand how visitors interact with our website.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Marketing Cookies",
+              "description": "These cookies are used to deliver personalized advertisements.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "es": {
+        "consentModal": {
+          "description": "Usamos cookies para mejorar tu experiencia y analizar el uso del sitio.",
+          "acceptAllBtn": "Aceptar",
+          "showPreferencesBtn": "Personalizar"
+        },
+        "preferencesModal": {
+          "title": "Preferencias de Cookies",
+          "acceptAllBtn": "Aceptar",
+          "acceptNecessaryBtn": "Solo Necesarias",
+          "savePreferencesBtn": "Guardar Preferencias",
+          "closeIconLabel": "Cerrar",
+          "sections": [
+            {
+              "title": "Cookies Esenciales",
+              "description": "Estas cookies son necesarias para que el sitio web funcione y no se pueden desactivar.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookies de Análisis",
+              "description": "Estas cookies nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookies de Marketing",
+              "description": "Estas cookies se utilizan para entregar anuncios personalizados.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "fr": {
+        "consentModal": {
+          "description": "Nous utilisons des cookies pour améliorer votre expérience et analyser l'utilisation du site.",
+          "acceptAllBtn": "Accepter",
+          "showPreferencesBtn": "Personnaliser"
+        },
+        "preferencesModal": {
+          "title": "Préférences des Cookies",
+          "acceptAllBtn": "Accepter",
+          "acceptNecessaryBtn": "Accepter les Nécessaires",
+          "savePreferencesBtn": "Enregistrer les Préférences",
+          "closeIconLabel": "Fermer",
+          "sections": [
+            {
+              "title": "Cookies Essentiels",
+              "description": "Ces cookies sont nécessaires au fonctionnement du site web et ne peuvent pas être désactivés.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookies Analytiques",
+              "description": "Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site web.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookies Marketing",
+              "description": "Ces cookies sont utilisés pour diffuser des publicités personnalisées.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "de": {
+        "consentModal": {
+          "description": "Wir verwenden Cookies, um Ihr Erlebnis zu verbessern und die Nutzung der Website zu analysieren.",
+          "acceptAllBtn": "Akzeptieren",
+          "showPreferencesBtn": "Anpassen"
+        },
+        "preferencesModal": {
+          "title": "Cookie-Einstellungen",
+          "acceptAllBtn": "Akzeptieren",
+          "acceptNecessaryBtn": "Nur Notwendige",
+          "savePreferencesBtn": "Einstellungen speichern",
+          "closeIconLabel": "Schließen",
+          "sections": [
+            {
+              "title": "Notwendige Cookies",
+              "description": "Diese Cookies sind für die Funktion der Website erforderlich und können nicht deaktiviert werden.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analyse-Cookies",
+              "description": "Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Marketing-Cookies",
+              "description": "Diese Cookies werden verwendet, um personalisierte Werbung zu liefern.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "it": {
+        "consentModal": {
+          "description": "Utilizziamo i cookie per migliorare la tua esperienza e analizzare l'utilizzo del sito.",
+          "acceptAllBtn": "Accetta",
+          "showPreferencesBtn": "Personalizza"
+        },
+        "preferencesModal": {
+          "title": "Preferenze Cookie",
+          "acceptAllBtn": "Accetta",
+          "acceptNecessaryBtn": "Solo Necessari",
+          "savePreferencesBtn": "Salva Preferenze",
+          "closeIconLabel": "Chiudi",
+          "sections": [
+            {
+              "title": "Cookie Essenziali",
+              "description": "Questi cookie sono necessari per il funzionamento del sito web e non possono essere disattivati.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookie Analitici",
+              "description": "Questi cookie ci aiutano a capire come i visitatori interagiscono con il nostro sito web.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookie di Marketing",
+              "description": "Questi cookie vengono utilizzati per fornire pubblicità personalizzate.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "pt": {
+        "consentModal": {
+          "description": "Usamos cookies para melhorar sua experiência e analisar o uso do site.",
+          "acceptAllBtn": "Aceitar",
+          "showPreferencesBtn": "Personalizar"
+        },
+        "preferencesModal": {
+          "title": "Preferências de Cookies",
+          "acceptAllBtn": "Aceitar",
+          "acceptNecessaryBtn": "Apenas Necessários",
+          "savePreferencesBtn": "Salvar Preferências",
+          "closeIconLabel": "Fechar",
+          "sections": [
+            {
+              "title": "Cookies Essenciais",
+              "description": "Estes cookies são necessários para o funcionamento do site e não podem ser desativados.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookies Analíticos",
+              "description": "Estes cookies nos ajudam a entender como os visitantes interagem com nosso site.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookies de Marketing",
+              "description": "Estes cookies são usados para exibir anúncios personalizados.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "nl": {
+        "consentModal": {
+          "description": "Wij gebruiken cookies om uw ervaring te verbeteren en het sitegebruik te analyseren.",
+          "acceptAllBtn": "Accepteren",
+          "showPreferencesBtn": "Aanpassen"
+        },
+        "preferencesModal": {
+          "title": "Cookie-voorkeuren",
+          "acceptAllBtn": "Accepteren",
+          "acceptNecessaryBtn": "Alleen noodzakelijke",
+          "savePreferencesBtn": "Voorkeuren opslaan",
+          "closeIconLabel": "Sluiten",
+          "sections": [
+            {
+              "title": "Noodzakelijke Cookies",
+              "description": "Deze cookies zijn nodig voor het functioneren van de website en kunnen niet worden uitgeschakeld.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analytische Cookies",
+              "description": "Deze cookies helpen ons te begrijpen hoe bezoekers onze website gebruiken.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Marketing Cookies",
+              "description": "Deze cookies worden gebruikt om gepersonaliseerde advertenties te tonen.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "he": {
+        "consentModal": {
+          "description": "אנחנו משתמשים בעוגיות כדי לשפר את החוויה שלך ולנתח שימוש באתר.",
+          "acceptAllBtn": "אישור",
+          "showPreferencesBtn": "התאמה אישית"
+        },
+        "preferencesModal": {
+          "title": "העדפות עוגיות",
+          "acceptAllBtn": "אישור",
+          "acceptNecessaryBtn": "רק הכרחי",
+          "savePreferencesBtn": "שמור העדפות",
+          "closeIconLabel": "סגור",
+          "sections": [
+            {
+              "title": "עוגיות חיוניות",
+              "description": "עוגיות אלה הכרחיות לתפקוד האתר ולא ניתן להשבית אותן.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "עוגיות ניתוח",
+              "description": "עוגיות אלה עוזרות לנו להבין איך המבקרים מתקשרים עם האתר שלנו.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "עוגיות שיווקיות",
+              "description": "עוגיות אלה משמשות להצגת פרסומות מותאמות אישית.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ar": {
+        "consentModal": {
+          "description": "نستخدم ملفات تعريف الارتباط لتحسين تجربتك وتحليل استخدام الموقع.",
+          "acceptAllBtn": "قبول",
+          "showPreferencesBtn": "تخصيص"
+        },
+        "preferencesModal": {
+          "title": "تفضيلات ملفات تعريف الارتباط",
+          "acceptAllBtn": "قبول",
+          "acceptNecessaryBtn": "الضرورية فقط",
+          "savePreferencesBtn": "حفظ التفضيلات",
+          "closeIconLabel": "إغلاق",
+          "sections": [
+            {
+              "title": "ملفات تعريف الارتباط الأساسية",
+              "description": "هذه الملفات ضرورية لعمل الموقع ولا يمكن تعطيلها.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "ملفات تعريف الارتباط التحليلية",
+              "description": "تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع موقعنا.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "ملفات تعريف الارتباط التسويقية",
+              "description": "تُستخدم هذه الملفات لعرض إعلانات مخصصة.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "tr": {
+        "consentModal": {
+          "description": "Deneyiminizi geliştirmek ve site kullanımını analiz etmek için çerezler kullanırız.",
+          "acceptAllBtn": "Kabul Et",
+          "showPreferencesBtn": "Özelleştir"
+        },
+        "preferencesModal": {
+          "title": "Çerez Tercihleri",
+          "acceptAllBtn": "Kabul Et",
+          "acceptNecessaryBtn": "Sadece Gerekli",
+          "savePreferencesBtn": "Tercihleri Kaydet",
+          "closeIconLabel": "Kapat",
+          "sections": [
+            {
+              "title": "Zorunlu Çerezler",
+              "description": "Bu çerezler web sitesinin çalışması için gereklidir ve devre dışı bırakılamaz.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analiz Çerezleri",
+              "description": "Bu çerezler, ziyaretçilerin web sitemizle nasıl etkileşime girdiğini anlamamıza yardımcı olur.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Pazarlama Çerezleri",
+              "description": "Bu çerezler kişiselleştirilmiş reklamlar sunmak için kullanılır.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ru": {
+        "consentModal": {
+          "description": "Мы используем файлы cookie для улучшения вашего опыта и анализа использования сайта.",
+          "acceptAllBtn": "Принять",
+          "showPreferencesBtn": "Настроить"
+        },
+        "preferencesModal": {
+          "title": "Настройки cookie",
+          "acceptAllBtn": "Принять",
+          "acceptNecessaryBtn": "Только необходимые",
+          "savePreferencesBtn": "Сохранить настройки",
+          "closeIconLabel": "Закрыть",
+          "sections": [
+            {
+              "title": "Необходимые cookie",
+              "description": "Эти файлы cookie необходимы для работы сайта и не могут быть отключены.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Аналитические cookie",
+              "description": "Эти файлы cookie помогают нам понять, как посетители взаимодействуют с нашим сайтом.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Маркетинговые cookie",
+              "description": "Эти файлы cookie используются для показа персонализированной рекламы.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "zh": {
+        "consentModal": {
+          "description": "我们使用 Cookie 来改善您的体验并分析网站使用情况。",
+          "acceptAllBtn": "接受",
+          "showPreferencesBtn": "自定义"
+        },
+        "preferencesModal": {
+          "title": "Cookie 偏好设置",
+          "acceptAllBtn": "接受",
+          "acceptNecessaryBtn": "仅接受必要",
+          "savePreferencesBtn": "保存偏好",
+          "closeIconLabel": "关闭",
+          "sections": [
+            {
+              "title": "必要 Cookie",
+              "description": "这些 Cookie 是网站正常运行所必需的，无法禁用。",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "分析 Cookie",
+              "description": "这些 Cookie 帮助我们了解访问者如何与我们的网站互动。",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "营销 Cookie",
+              "description": "这些 Cookie 用于投放个性化广告。",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ja": {
+        "consentModal": {
+          "description": "お客様の体験向上とサイト利用状況の分析のためにCookieを使用しています。",
+          "acceptAllBtn": "許可する",
+          "showPreferencesBtn": "カスタマイズ"
+        },
+        "preferencesModal": {
+          "title": "Cookie設定",
+          "acceptAllBtn": "許可する",
+          "acceptNecessaryBtn": "必要なもののみ",
+          "savePreferencesBtn": "設定を保存",
+          "closeIconLabel": "閉じる",
+          "sections": [
+            {
+              "title": "必要なCookie",
+              "description": "これらのCookieはウェブサイトの機能に必要であり、無効にすることはできません。",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "分析Cookie",
+              "description": "これらのCookieは、訪問者がウェブサイトとどのように対話するかを理解するのに役立ちます。",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "マーケティングCookie",
+              "description": "これらのCookieはパーソナライズされた広告を配信するために使用されます。",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ko": {
+        "consentModal": {
+          "description": "경험 향상과 사이트 사용 분석을 위해 쿠키를 사용합니다.",
+          "acceptAllBtn": "수락",
+          "showPreferencesBtn": "사용자 지정"
+        },
+        "preferencesModal": {
+          "title": "쿠키 설정",
+          "acceptAllBtn": "수락",
+          "acceptNecessaryBtn": "필수만 수락",
+          "savePreferencesBtn": "설정 저장",
+          "closeIconLabel": "닫기",
+          "sections": [
+            {
+              "title": "필수 쿠키",
+              "description": "이 쿠키는 웹사이트 작동에 필요하며 비활성화할 수 없습니다.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "분석 쿠키",
+              "description": "이 쿠키는 방문자가 웹사이트와 어떻게 상호작용하는지 이해하는 데 도움이 됩니다.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "마케팅 쿠키",
+              "description": "이 쿠키는 맞춤형 광고를 제공하는 데 사용됩니다.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "pl": {
+        "consentModal": {
+          "description": "Używamy plików cookie, aby poprawić Twoje wrażenia i analizować korzystanie z witryny.",
+          "acceptAllBtn": "Akceptuję",
+          "showPreferencesBtn": "Dostosuj"
+        },
+        "preferencesModal": {
+          "title": "Preferencje cookie",
+          "acceptAllBtn": "Akceptuję",
+          "acceptNecessaryBtn": "Tylko niezbędne",
+          "savePreferencesBtn": "Zapisz preferencje",
+          "closeIconLabel": "Zamknij",
+          "sections": [
+            {
+              "title": "Niezbędne pliki cookie",
+              "description": "Te pliki cookie są niezbędne do działania strony i nie można ich wyłączyć.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Analityczne pliki cookie",
+              "description": "Te pliki cookie pomagają nam zrozumieć, w jaki sposób odwiedzający korzystają z naszej strony.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Marketingowe pliki cookie",
+              "description": "Te pliki cookie służą do wyświetlania spersonalizowanych reklam.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "uk": {
+        "consentModal": {
+          "description": "Ми використовуємо файли cookie для покращення вашого досвіду та аналізу використання сайту.",
+          "acceptAllBtn": "Прийняти",
+          "showPreferencesBtn": "Налаштувати"
+        },
+        "preferencesModal": {
+          "title": "Налаштування cookie",
+          "acceptAllBtn": "Прийняти",
+          "acceptNecessaryBtn": "Лише необхідні",
+          "savePreferencesBtn": "Зберегти налаштування",
+          "closeIconLabel": "Закрити",
+          "sections": [
+            {
+              "title": "Необхідні cookie",
+              "description": "Ці файли cookie необхідні для роботи сайту і не можуть бути вимкнені.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Аналітичні cookie",
+              "description": "Ці файли cookie допомагають нам зрозуміти, як відвідувачі взаємодіють з нашим сайтом.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Маркетингові cookie",
+              "description": "Ці файли cookie використовуються для показу персоналізованої реклами.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "ro": {
+        "consentModal": {
+          "description": "Folosim cookie-uri pentru a vă îmbunătăți experiența și a analiza utilizarea site-ului.",
+          "acceptAllBtn": "Acceptă",
+          "showPreferencesBtn": "Personalizează"
+        },
+        "preferencesModal": {
+          "title": "Preferințe cookie",
+          "acceptAllBtn": "Acceptă",
+          "acceptNecessaryBtn": "Doar necesare",
+          "savePreferencesBtn": "Salvează preferințele",
+          "closeIconLabel": "Închide",
+          "sections": [
+            {
+              "title": "Cookie-uri esențiale",
+              "description": "Aceste cookie-uri sunt necesare pentru funcționarea site-ului și nu pot fi dezactivate.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Cookie-uri analitice",
+              "description": "Aceste cookie-uri ne ajută să înțelegem cum interacționează vizitatorii cu site-ul nostru.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Cookie-uri de marketing",
+              "description": "Aceste cookie-uri sunt folosite pentru a afișa reclame personalizate.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      },
+      "bg": {
+        "consentModal": {
+          "description": "Използваме бисквитки, за да подобрим изживяването ви и да анализираме използването на сайта.",
+          "acceptAllBtn": "Приемам",
+          "showPreferencesBtn": "Персонализиране"
+        },
+        "preferencesModal": {
+          "title": "Настройки за бисквитки",
+          "acceptAllBtn": "Приемам",
+          "acceptNecessaryBtn": "Само необходимите",
+          "savePreferencesBtn": "Запазване на предпочитанията",
+          "closeIconLabel": "Затвори",
+          "sections": [
+            {
+              "title": "Необходими бисквитки",
+              "description": "Тези бисквитки са необходими за функционирането на уебсайта и не могат да бъдат деактивирани.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "Аналитични бисквитки",
+              "description": "Тези бисквитки ни помагат да разберем как посетителите взаимодействат с нашия уебсайт.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "Маркетингови бисквитки",
+              "description": "Тези бисквитки се използват за показване на персонализирани реклами.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "guiOptions": {
+    "consentModal": {
+      "layout": "bar inline",
+      "position": "bottom",
+      "equalWeightButtons": false,
+      "flipButtons": false
+    },
+    "preferencesModal": {
+      "layout": "box",
+      "equalWeightButtons": false,
+      "flipButtons": false
+    }
+  }
+};
+      var __ccCloseLabels = {"en":"Close","es":"Cerrar","fr":"Fermer","de":"Schließen","it":"Chiudi","pt":"Fechar","nl":"Sluiten","he":"סגור","ar":"إغلاق","tr":"Kapat","ru":"Закрыть","zh":"关闭","ja":"閉じる","ko":"닫기","pl":"Zamknij","uk":"Закрити","ro":"Închide","bg":"Затвори"};
+
+      // Detect the current page language and override the build-time default.
+      // Published multi-language sites set <html lang="…"> per URL prefix;
+      // preview pages may store the active language on zappyI18n.
+      var pageLang = (document.documentElement.getAttribute('lang') || '').split('-')[0].toLowerCase();
+      if (!pageLang && typeof zappyI18n !== 'undefined' && zappyI18n.language) {
+        pageLang = String(zappyI18n.language).split('-')[0].toLowerCase();
+      }
+      if (pageLang && __ccConfig.language.translations[pageLang]) {
+        __ccConfig.language.default = pageLang;
+      }
+
+      function getActiveLanguage() {
+        var lang = (document.documentElement.getAttribute('lang') || '').split('-')[0].toLowerCase();
+        if (!lang && typeof zappyI18n !== 'undefined' && zappyI18n.language) {
+          lang = String(zappyI18n.language).split('-')[0].toLowerCase();
+        }
+        if (!lang || !__ccConfig.language.translations[lang]) {
+          lang = __ccConfig.language.default || 'en';
+        }
+        return __ccConfig.language.translations[lang] ? lang : 'en';
+      }
+
+      function getConsentText() {
+        var lang = getActiveLanguage();
+        var translations = __ccConfig.language.translations || {};
+        var current = translations[lang] || translations.en || {};
+        var consent = current.consentModal || {};
+        var labels = __ccCloseLabels || {};
+        return {
+          description: consent.description || '',
+          accept: consent.acceptAllBtn || 'Accept',
+          customize: consent.showPreferencesBtn || 'Customize',
+          close: labels[lang] || labels.en || 'Close'
+        };
+      }
+
+      function removeCustomBanner() {
+        var banner = document.getElementById('zappy-cookie-banner');
+        if (banner && banner.parentNode) {
+          banner.parentNode.removeChild(banner);
+        }
+        document.documentElement.classList.remove('zappy-cookie-banner-visible');
+      }
+
+      function updateCustomBannerText() {
+        var banner = document.getElementById('zappy-cookie-banner');
+        if (!banner) return;
+        var text = getConsentText();
+        var desc = banner.querySelector('[data-zappy-cookie-description]');
+        var accept = banner.querySelector('[data-zappy-cookie-accept]');
+        var customize = banner.querySelector('[data-zappy-cookie-customize]');
+        var close = banner.querySelector('[data-zappy-cookie-close]');
+        banner.setAttribute('aria-label', text.description || text.close);
+        if (desc) desc.textContent = text.description;
+        if (accept) accept.textContent = text.accept;
+        if (customize) customize.textContent = text.customize;
+        if (close) close.setAttribute('aria-label', text.close);
+      }
+
+      // Google Consent Mode v2 integration
+      function updateGoogleConsentMode() {
+        if (typeof gtag !== 'function') {
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){dataLayer.push(arguments);};
+        }
+        
+        var analyticsAccepted = cc.acceptedCategory('analytics');
+        var marketingAccepted = cc.acceptedCategory('marketing');
+        
+        gtag('consent', 'update', {
+          'analytics_storage': analyticsAccepted ? 'granted' : 'denied',
+          'ad_storage': marketingAccepted ? 'granted' : 'denied',
+          'ad_user_data': marketingAccepted ? 'granted' : 'denied',
+          'ad_personalization': marketingAccepted ? 'granted' : 'denied'
+        });
+      }
+
+      function acceptAndClose(categories) {
+        try { cc.acceptCategory(categories); } catch (_) {}
+        removeCustomBanner();
+        updateGoogleConsentMode();
+      }
+
+      function renderCustomBanner() {
+        try {
+          if (typeof cc.validConsent === 'function' && cc.validConsent()) {
+            removeCustomBanner();
+            return;
+          }
+          if (!document.body) {
+            setTimeout(renderCustomBanner, 50);
+            return;
+          }
+          var existing = document.getElementById('zappy-cookie-banner');
+          if (existing) {
+            updateCustomBannerText();
+            return;
+          }
+
+          var text = getConsentText();
+          var banner = document.createElement('div');
+          banner.id = 'zappy-cookie-banner';
+          banner.className = 'zappy-cookie-banner';
+          banner.setAttribute('role', 'region');
+          banner.setAttribute('aria-label', text.description || text.close);
+
+          var inner = document.createElement('div');
+          inner.className = 'zappy-cookie-banner__inner';
+
+          var description = document.createElement('p');
+          description.className = 'zappy-cookie-banner__text';
+          description.setAttribute('data-zappy-cookie-description', 'true');
+          description.textContent = text.description;
+
+          var actions = document.createElement('div');
+          actions.className = 'zappy-cookie-banner__actions';
+
+          var customizeBtn = document.createElement('button');
+          customizeBtn.type = 'button';
+          customizeBtn.className = 'zappy-cookie-banner__button zappy-cookie-banner__button--customize';
+          customizeBtn.setAttribute('data-zappy-cookie-customize', 'true');
+          customizeBtn.textContent = text.customize;
+          customizeBtn.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            try { cc.showPreferences(); } catch (_) {}
+          });
+
+          var acceptBtn = document.createElement('button');
+          acceptBtn.type = 'button';
+          acceptBtn.className = 'zappy-cookie-banner__button zappy-cookie-banner__button--accept';
+          acceptBtn.setAttribute('data-zappy-cookie-accept', 'true');
+          acceptBtn.textContent = text.accept;
+          acceptBtn.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            acceptAndClose('all');
+          });
+
+          var closeBtn = document.createElement('button');
+          closeBtn.type = 'button';
+          closeBtn.className = 'zappy-cookie-banner__close';
+          closeBtn.setAttribute('data-zappy-cookie-close', 'true');
+          closeBtn.setAttribute('aria-label', text.close);
+          closeBtn.textContent = '\u00D7';
+          closeBtn.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            acceptAndClose([]);
+          });
+
+          actions.appendChild(customizeBtn);
+          actions.appendChild(acceptBtn);
+          inner.appendChild(description);
+          inner.appendChild(actions);
+          inner.appendChild(closeBtn);
+          banner.appendChild(inner);
+          document.body.appendChild(banner);
+          document.documentElement.classList.add('zappy-cookie-banner-visible');
+        } catch (_) {
+          // Defensive — never let the custom banner break the page.
+        }
+      }
+
+      function handleConsentResolved() {
+        removeCustomBanner();
+        updateGoogleConsentMode();
+      }
+
+      __ccConfig.onFirstConsent = handleConsentResolved;
+      __ccConfig.onConsent = handleConsentResolved;
+      __ccConfig.onChange = handleConsentResolved;
+
+      var runResult = cc.run(__ccConfig);
+      var afterRun = function() {
+        updateGoogleConsentMode();
+        if (!cc.validConsent || !cc.validConsent()) {
+          renderCustomBanner();
+        }
+      };
+      if (runResult && typeof runResult.then === 'function') {
+        runResult.then(afterRun).catch(afterRun);
+      } else {
+        setTimeout(afterRun, 0);
+      }
+
+      // Keep cookie consent in sync when the user switches language without
+      // a full navigation (preview / embedded-resources path).
+      if (typeof zappyI18n !== 'undefined' && typeof zappyI18n.onLanguageChange === 'function') {
+        zappyI18n.onLanguageChange(function(newLang) {
+          try {
+            if (__ccConfig.language.translations[newLang]) {
+              __ccConfig.language.default = newLang;
+              cc.setLanguage(newLang, true);
+              updateCustomBannerText();
+            }
+          } catch (_) {}
+        });
+      }
+    } catch (error) {
+      window.__zappyCookieConsentInitialized = false;
+    }
+  }
+
+  function scheduleCookieConsentLoad() {
+    var start = function() {
+      loadCookieConsentLibrary().then(initCookieConsent);
+    };
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(start, { timeout: 7000 });
+    } else {
+      setTimeout(start, 7000);
+    }
+  }
+
+  if (document.readyState === 'complete') {
+    scheduleCookieConsentLoad();
+  } else if (typeof window !== 'undefined' && window.addEventListener) {
+    window.addEventListener('load', scheduleCookieConsentLoad, { once: true });
+  } else {
+    setTimeout(scheduleCookieConsentLoad, 1000);
+  }
+})();
+
+
 /* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_RUNTIME */
 /* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_RUNTIME_V2 */
 (function(){
@@ -5922,7 +6442,7 @@ function fixContrast(){
       if (document.getElementById('zappy-mobile-nav-icon-alignment-fix')) return;
       var style = document.createElement('style');
       style.id = 'zappy-mobile-nav-icon-alignment-fix';
-      style.textContent = "\n\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V3 */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V4 */\n/* The mobile hamburger / phone buttons are absolutely positioned. Keep the\n   navbar itself as a non-collapsing containing block so auto-margin centering\n   stays aligned even when generated mobile CSS moves every nav child out of flow. */\n@media (max-width: 768px) {\n  .navbar,\n  nav.navbar {\n    min-height: 70px !important;\n  }\n\n  /* E-commerce mobile navbar icon-group alignment.\n     The icon couples (search after the hamburger; login+cart at the end edge)\n     are absolutely positioned with inset-inline offsets — inset-inline-start:52px\n     to clear the 36px hamburger that sits at left:12px on the .navbar, and\n     inset-inline-end:12px to hug the end edge. Those offsets are authored in the\n     NAVBAR's full-width coordinate space (the hamburger uses the same one). But\n     the offsets are resolved against the nearest positioned ancestor, and the\n     generated CSS makes .nav-container position:relative. When .nav-container is\n     ALSO inset by the navbar's horizontal padding (max-width / padding from the\n     LLM-authored navbar), the groups resolve to that inset box instead of the\n     full-width navbar: the search drifts ~20px away from the hamburger and the\n     cart leaves a fat asymmetric gap before the screen edge. Dropping\n     .nav-container out of the containing-block chain on mobile makes both couples\n     resolve to .navbar (always full-bleed) so they line up tightly with the\n     hamburger and sit symmetrically against both edges regardless of any\n     navbar/container padding. Scoped via :has() to navbars that actually carry\n     the e-commerce icon couples so non-ecommerce navs are untouched. */\n  .navbar:has(.nav-ecommerce-icons) .nav-container,\n  nav.navbar:has(.nav-ecommerce-icons) .nav-container,\n  header:has(.nav-ecommerce-icons) .nav-container {\n    position: static !important;\n  }\n\n  /* Some generated RTL nav CSS sets both left:50% and right:50% on the\n     absolute .nav-brand. That collapses it to 0px wide, so the logo flows\n     left from the center instead of being centered on it. */\n  .navbar .nav-brand,\n  nav.navbar .nav-brand,\n  html[dir=\"rtl\"] .navbar .nav-brand,\n  html[dir=\"rtl\"] nav.navbar .nav-brand,\n  html[lang=\"he\"] .navbar .nav-brand,\n  html[lang=\"he\"] nav.navbar .nav-brand,\n  html[lang=\"ar\"] .navbar .nav-brand,\n  html[lang=\"ar\"] nav.navbar .nav-brand {\n    position: absolute !important;\n    left: 50% !important;\n    right: auto !important;\n    top: 50% !important;\n    width: auto !important;\n    min-width: max-content !important;\n    max-width: calc(100% - 168px) !important;\n    transform: translate(-50%, -50%) !important;\n    margin: 0 !important;\n    text-align: center !important;\n    justify-content: center !important;\n  }\n\n  .navbar .nav-brand .logo-link,\n  nav.navbar .nav-brand .logo-link,\n  .navbar .nav-brand a,\n  nav.navbar .nav-brand a {\n    display: inline-flex !important;\n    justify-content: center !important;\n    align-items: center !important;\n    margin-left: auto !important;\n    margin-right: auto !important;\n  }\n\n  .navbar > .mobile-toggle,\n  nav.navbar > .mobile-toggle,\n  .navbar .mobile-toggle,\n  nav.navbar .mobile-toggle,\n  #mobileToggle,\n  .navbar > .phone-header-btn,\n  nav.navbar > .phone-header-btn,\n  .navbar .phone-header-btn,\n  nav.navbar .phone-header-btn {\n    position: absolute !important;\n    top: 0 !important;\n    bottom: 0 !important;\n    transform: none !important;\n    margin-top: auto !important;\n    margin-bottom: auto !important;\n    align-self: center !important;\n    align-items: center !important;\n    justify-content: center !important;\n    line-height: 0 !important;\n  }\n\n  .navbar > .mobile-toggle,\n  nav.navbar > .mobile-toggle,\n  .navbar .mobile-toggle,\n  nav.navbar .mobile-toggle,\n  #mobileToggle {\n    display: flex !important;\n  }\n\n  html:not([data-zappy-site-type=\"ecommerce\"]) .navbar > .phone-header-btn,\n  html:not([data-zappy-site-type=\"ecommerce\"]) nav.navbar > .phone-header-btn,\n  html:not([data-zappy-site-type=\"ecommerce\"]) .navbar .phone-header-btn,\n  html:not([data-zappy-site-type=\"ecommerce\"]) nav.navbar .phone-header-btn {\n    display: flex !important;\n  }\n\n  html[data-zappy-site-type=\"ecommerce\"] .phone-header-btn,\n  body[data-zappy-site-type=\"ecommerce\"] .phone-header-btn,\n  html[data-zappy-site-type=\"ecommerce\"] header .phone-header-btn,\n  html[data-zappy-site-type=\"ecommerce\"] nav .phone-header-btn {\n    display: none !important;\n    visibility: hidden !important;\n    width: 0 !important;\n    height: 0 !important;\n    min-width: 0 !important;\n    overflow: hidden !important;\n  }\n}\n";
+      style.textContent = "\n\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V3 */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V4 */\n/* ZAPPY_MOBILE_NAV_ICON_ALIGNMENT_FIX_V5 */\n/* The mobile hamburger / phone buttons are absolutely positioned. Keep the\n   navbar itself as a non-collapsing containing block so auto-margin centering\n   stays aligned even when generated mobile CSS moves every nav child out of flow. */\n@media (max-width: 768px) {\n  .navbar,\n  nav.navbar {\n    min-height: 70px !important;\n  }\n\n  /* V5: Desktop .nav-search-box must stay hidden on mobile. AI/customization CSS\n     often force-shows it with higher specificity than the generator's plain\n     .nav-search-box { display:none } (e.g. .navbar .nav-ecommerce-icons.nav-icons-left\n     .nav-search-box { display:flex; background: cream }), which paints an empty\n     cream/white square left of the cart on RTL ecommerce navs. Beat that chain. */\n  html body .navbar .nav-search-box,\n  html body nav.navbar .nav-search-box,\n  html body .navbar .nav-ecommerce-icons .nav-search-box,\n  html body .navbar .nav-ecommerce-icons.nav-icons-left .nav-search-box,\n  html body .navbar .nav-container .nav-ecommerce-icons.nav-icons-left .nav-search-box {\n    display: none !important;\n    visibility: hidden !important;\n    width: 0 !important;\n    height: 0 !important;\n    min-width: 0 !important;\n    max-width: 0 !important;\n    overflow: hidden !important;\n    padding: 0 !important;\n    margin: 0 !important;\n    border: none !important;\n    background: transparent !important;\n    pointer-events: none !important;\n  }\n\n  /* V5: Search-toggle SVG is frequently recolored to --nav-text (cream/white) by\n     AI customization at .navbar .nav-container .nav-ecommerce-icons.nav-icons-right\n     .nav-search-toggle svg, while the pill button itself keeps the correct\n     contrasting color from the luminance-aware pill rules. Inherit that color\n     with a selector that out-ranks the nav-text stroke paint so the icon stays\n     legible on light AND dark pills (no hardcoded text-dark). */\n  html body .navbar .nav-container .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg,\n  html body .navbar .nav-container .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg *,\n  html body .navbar .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg,\n  html body .navbar .nav-ecommerce-icons.nav-icons-right .nav-search-toggle svg * {\n    color: inherit !important;\n    stroke: currentColor !important;\n    fill: none !important;\n  }\n\n  /* V5: Keep the three mobile icon couples on one baseline — absolute groups +\n     hamburger all center against the same navbar box. */\n  html body .navbar .nav-ecommerce-icons.nav-icons-left,\n  html body .navbar .nav-ecommerce-icons.nav-icons-right,\n  html body .navbar .nav-icons-left,\n  html body .navbar .nav-icons-right {\n    top: 50% !important;\n    bottom: auto !important;\n    transform: translateY(-50%) !important;\n    align-items: center !important;\n  }\n  html body .navbar .nav-ecommerce-icons.nav-icons-right .nav-search-toggle,\n  html body .navbar .nav-search-toggle {\n    width: 36px !important;\n    height: 36px !important;\n    min-width: 36px !important;\n    padding: 0 !important;\n    margin: 0 !important;\n    border-radius: 9999px !important;\n    align-self: center !important;\n  }\n\n  /* E-commerce mobile navbar icon-group alignment.\n     The icon couples (search after the hamburger; login+cart at the end edge)\n     are absolutely positioned with inset-inline offsets — inset-inline-start:52px\n     to clear the 36px hamburger that sits at left:12px on the .navbar, and\n     inset-inline-end:12px to hug the end edge. Those offsets are authored in the\n     NAVBAR's full-width coordinate space (the hamburger uses the same one). But\n     the offsets are resolved against the nearest positioned ancestor, and the\n     generated CSS makes .nav-container position:relative. When .nav-container is\n     ALSO inset by the navbar's horizontal padding (max-width / padding from the\n     LLM-authored navbar), the groups resolve to that inset box instead of the\n     full-width navbar: the search drifts ~20px away from the hamburger and the\n     cart leaves a fat asymmetric gap before the screen edge. Dropping\n     .nav-container out of the containing-block chain on mobile makes both couples\n     resolve to .navbar (always full-bleed) so they line up tightly with the\n     hamburger and sit symmetrically against both edges regardless of any\n     navbar/container padding. Scoped via :has() to navbars that actually carry\n     the e-commerce icon couples so non-ecommerce navs are untouched. */\n  .navbar:has(.nav-ecommerce-icons) .nav-container,\n  nav.navbar:has(.nav-ecommerce-icons) .nav-container,\n  header:has(.nav-ecommerce-icons) .nav-container {\n    position: static !important;\n  }\n\n  /* Some generated RTL nav CSS sets both left:50% and right:50% on the\n     absolute .nav-brand. That collapses it to 0px wide, so the logo flows\n     left from the center instead of being centered on it. */\n  .navbar .nav-brand,\n  nav.navbar .nav-brand,\n  html[dir=\"rtl\"] .navbar .nav-brand,\n  html[dir=\"rtl\"] nav.navbar .nav-brand,\n  html[lang=\"he\"] .navbar .nav-brand,\n  html[lang=\"he\"] nav.navbar .nav-brand,\n  html[lang=\"ar\"] .navbar .nav-brand,\n  html[lang=\"ar\"] nav.navbar .nav-brand {\n    position: absolute !important;\n    left: 50% !important;\n    right: auto !important;\n    top: 50% !important;\n    width: auto !important;\n    min-width: max-content !important;\n    max-width: calc(100% - 168px) !important;\n    transform: translate(-50%, -50%) !important;\n    margin: 0 !important;\n    text-align: center !important;\n    justify-content: center !important;\n  }\n\n  .navbar .nav-brand .logo-link,\n  nav.navbar .nav-brand .logo-link,\n  .navbar .nav-brand a,\n  nav.navbar .nav-brand a {\n    display: inline-flex !important;\n    justify-content: center !important;\n    align-items: center !important;\n    margin-left: auto !important;\n    margin-right: auto !important;\n  }\n\n  .navbar > .mobile-toggle,\n  nav.navbar > .mobile-toggle,\n  .navbar .mobile-toggle,\n  nav.navbar .mobile-toggle,\n  #mobileToggle,\n  .navbar > .phone-header-btn,\n  nav.navbar > .phone-header-btn,\n  .navbar .phone-header-btn,\n  nav.navbar .phone-header-btn {\n    position: absolute !important;\n    top: 0 !important;\n    bottom: 0 !important;\n    transform: none !important;\n    margin-top: auto !important;\n    margin-bottom: auto !important;\n    align-self: center !important;\n    align-items: center !important;\n    justify-content: center !important;\n    line-height: 0 !important;\n  }\n\n  .navbar > .mobile-toggle,\n  nav.navbar > .mobile-toggle,\n  .navbar .mobile-toggle,\n  nav.navbar .mobile-toggle,\n  #mobileToggle {\n    display: flex !important;\n  }\n\n  html:not([data-zappy-site-type=\"ecommerce\"]) .navbar > .phone-header-btn,\n  html:not([data-zappy-site-type=\"ecommerce\"]) nav.navbar > .phone-header-btn,\n  html:not([data-zappy-site-type=\"ecommerce\"]) .navbar .phone-header-btn,\n  html:not([data-zappy-site-type=\"ecommerce\"]) nav.navbar .phone-header-btn {\n    display: flex !important;\n  }\n\n  html[data-zappy-site-type=\"ecommerce\"] .phone-header-btn,\n  body[data-zappy-site-type=\"ecommerce\"] .phone-header-btn,\n  html[data-zappy-site-type=\"ecommerce\"] header .phone-header-btn,\n  html[data-zappy-site-type=\"ecommerce\"] nav .phone-header-btn {\n    display: none !important;\n    visibility: hidden !important;\n    width: 0 !important;\n    height: 0 !important;\n    min-width: 0 !important;\n    overflow: hidden !important;\n  }\n}\n";
       document.head.appendChild(style);
     }
 
@@ -6674,9 +7194,10 @@ function fixContrast(){
   } catch (e) {}
 })();
 
-/* ZAPPY_ANNOUNCEMENT_HEADER_SYNC_V3 */
+/* ZAPPY_ANNOUNCEMENT_HEADER_SYNC_V4 */
 (function(){
-  if (window.__zappyAnnouncementHeaderSyncV3) return;
+  if (window.__zappyAnnouncementHeaderSyncV4) return;
+  window.__zappyAnnouncementHeaderSyncV4 = true;
   window.__zappyAnnouncementHeaderSyncV3 = true;
   window.__zappyAnnouncementHeaderSyncV2 = true;
   window.__zappyAnnouncementHeaderSyncV1 = true; // legacy guards
@@ -6749,17 +7270,35 @@ function fixContrast(){
     document.documentElement.style.setProperty('--zappy-header-stack-height', totalHeight + 'px');
     document.body.style.setProperty('padding-top', totalHeight + 'px', 'important');
 
-    // Transparent nav: pull hero behind the fixed stack immediately (do NOT
-    // wait for lazy storefront-runtime.js — that delay was the ~10s gray bar).
-    // Keep selectors aligned with ZAPPY_ANNOUNCEMENT_HEADER_OFFSET_CSS_V2 —
+    // Transparent nav: pull hero behind the fixed stack immediately.
+    // Measure the navbar itself rather than trusting --nav-bg, which can be
+    // absent on older published pages or during stylesheet failure. Critical
+    // CSS also paints known opaque navbar colors before this runtime executes.
+    // Keep selectors aligned with ZAPPY_ANNOUNCEMENT_HEADER_OFFSET_CSS_V3 —
     // never underlap bare main>section:first-child (catalog /products pages).
-    var navBgValue = '';
-    try { navBgValue = getComputedStyle(document.documentElement).getPropertyValue('--nav-bg').trim(); } catch (e) {}
-    if (!navBgValue || navBgValue === 'transparent') {
-      var heroEl = document.querySelector('section[data-hero-type^="fullscreen"], .index-hero-section, main > section[class*="hero"]:first-of-type');
-      if (heroEl && totalHeight > 0) {
+    var heroEl = document.querySelector('section[data-hero-type^="fullscreen"], .index-hero-section, main > section[class*="hero"]:first-of-type');
+    if (heroEl && totalHeight > 0) {
+      var headerIsTransparent = false;
+      try {
+        var headerStyle = getComputedStyle(header);
+        var backgroundColor = headerStyle.backgroundColor || '';
+        var backgroundImage = headerStyle.backgroundImage || 'none';
+        var alphaMatch = backgroundColor.match(/rgba?\([^)]*[,\s]([0-9.]+)\s*\)$/i);
+        headerIsTransparent =
+          backgroundImage === 'none' &&
+          (backgroundColor === 'transparent' || (alphaMatch && parseFloat(alphaMatch[1]) < 0.3));
+      } catch (e) {}
+      if (headerIsTransparent) {
         heroEl.style.setProperty('margin-top', '-' + totalHeight + 'px', 'important');
         heroEl.style.setProperty('padding-top', totalHeight + 'px', 'important');
+        heroEl.setAttribute('data-zappy-nav-underlap', 'true');
+      } else if (
+        heroEl.getAttribute('data-zappy-nav-underlap') === 'true' ||
+        (heroEl.style.marginTop === '-' + totalHeight + 'px' && heroEl.style.paddingTop === totalHeight + 'px')
+      ) {
+        heroEl.style.removeProperty('margin-top');
+        heroEl.style.removeProperty('padding-top');
+        heroEl.removeAttribute('data-zappy-nav-underlap');
       }
     }
   }
@@ -6819,6 +7358,98 @@ function fixContrast(){
       attributeFilter: ['class', 'style']
     });
   } catch (e) {}
+})();
+
+/* ZAPPY_ANNOUNCEMENT_BAR_ROTATION_V4 */
+(function(){
+  if (window.__zappyAnnouncementBarRotationV4) return;
+  window.__zappyAnnouncementBarRotationV4 = true;
+  window.__zappyAnnouncementBarRotationV3 = true; // legacy guards
+  window.__zappyAnnouncementBarRotationV2 = true;
+
+  function readInterval(bar) {
+    var raw = bar && bar.getAttribute && bar.getAttribute('data-interval');
+    var ms = parseInt(raw, 10);
+    if (!isFinite(ms) || ms < 1000) ms = 4000;
+    return ms;
+  }
+
+  function remountMessages(bar) {
+    // Neutralize orphaned anonymous setIntervals from pre-V2 inline fallbacks
+    // that never stored their timer id — their NodeList closures keep ticking
+    // on the OLD nodes after we replace them with clones.
+    if (!bar) return;
+    var stale = bar.querySelectorAll('.zappy-announcement-message');
+    for (var s = 0; s < stale.length; s++) {
+      var node = stale[s];
+      if (!node || !node.parentNode) continue;
+      node.parentNode.replaceChild(node.cloneNode(true), node);
+    }
+  }
+
+  function startRotation(bar, intervalMs, force) {
+    if (!bar) return;
+    var ms = isFinite(intervalMs) && intervalMs >= 1000 ? intervalMs : readInterval(bar);
+    var messages = bar.querySelectorAll('.zappy-announcement-message');
+    if (messages.length <= 1) {
+      if (window.__zappyAnnouncementRotateTimer) {
+        clearInterval(window.__zappyAnnouncementRotateTimer);
+        window.__zappyAnnouncementRotateTimer = null;
+      }
+      window.__zappyAnnouncementRotateBar = null;
+      window.__zappyAnnouncementRotateMs = null;
+      return;
+    }
+    // Already driving this bar at this interval — leave the active slide alone.
+    if (
+      !force &&
+      window.__zappyAnnouncementRotateTimer &&
+      window.__zappyAnnouncementRotateBar === bar &&
+      window.__zappyAnnouncementRotateMs === ms
+    ) {
+      return;
+    }
+    if (window.__zappyAnnouncementRotateTimer) {
+      clearInterval(window.__zappyAnnouncementRotateTimer);
+      window.__zappyAnnouncementRotateTimer = null;
+    }
+    remountMessages(bar);
+    messages = bar.querySelectorAll('.zappy-announcement-message');
+    if (messages.length <= 1) return;
+    var current = 0;
+    for (var i = 0; i < messages.length; i++) {
+      if (i === 0) messages[i].classList.add('active');
+      else messages[i].classList.remove('active');
+    }
+    window.__zappyAnnouncementRotateBar = bar;
+    window.__zappyAnnouncementRotateMs = ms;
+    window.__zappyAnnouncementRotateTimer = setInterval(function() {
+      var all = bar.querySelectorAll('.zappy-announcement-message');
+      if (!all || all.length <= 1) return;
+      if (current >= all.length) current = 0;
+      all[current].classList.remove('active');
+      current = (current + 1) % all.length;
+      all[current].classList.add('active');
+    }, ms);
+  }
+
+  // Shared entry point — pass force:true after rebuilding message nodes.
+  window.zappyStartAnnouncementRotation = startRotation;
+
+  function boot() {
+    if (document.body && document.body.classList.contains('zappy-focused-page')) return;
+    var bar = document.querySelector('.zappy-announcement-bar');
+    if (!bar) return;
+    startRotation(bar, readInterval(bar), false);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  // Settings fetch / dynamic bar create may land after first paint.
+  [300, 1000, 2500].forEach(function(ms){ setTimeout(boot, ms); });
 })();
 
 /* ZAPPY_MOBILE_MENU_CLOSED_ICONS_V1 */
